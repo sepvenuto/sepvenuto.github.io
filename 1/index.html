@@ -73,46 +73,10 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             <div class="project-content">
                 <h2>Additional Images from the Prokudin-Gorskii Collection</h2>
                 <div class="project-content-body">
-                    <p>I selected a few additional images from the Prokudin-Gorskii collection to test my algorithm on different types of scenes and content.</p>
-
-                    <h3>Image 1: [Your chosen image name]</h3>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./my_images/[your_image1].jpg" alt="My chosen image 1">
-                            <div class="image-caption">
-                                [Description of what this image shows]<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
+                    <p>I selected additional images from the Prokudin-Gorskii collection to test my algorithm on different types of scenes and content.</p>
+                    <div id="my-images-container">
+                        <!-- Additional images will be loaded automatically -->
                     </div>
-                    <p><strong>Why I chose this image:</strong> [Explain what was interesting about this particular image - was it challenging? Did it have unique features? How did your algorithm perform?]</p>
-
-                    <h3>Image 2: [Your chosen image name]</h3>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./my_images/[your_image2].jpg" alt="My chosen image 2">
-                            <div class="image-caption">
-                                [Description of what this image shows]<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-                    <p><strong>Why I chose this image:</strong> [Explain the rationale for selecting this image]</p>
-
-                    <h3>Image 3: [Your chosen image name]</h3>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./my_images/[your_image3].jpg" alt="My chosen image 3">
-                            <div class="image-caption">
-                                [Description of what this image shows]<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-                    <p><strong>Why I chose this image:</strong> [Explain what made this image interesting to process]</p>
                 </div>
             </div>
         </main>
@@ -150,6 +114,32 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             }
         }
 
+        // Function to load and parse CSV data for additional images
+        async function loadMyImagesResults() {
+            try {
+                const response = await fetch('./my_images_alignment_results.csv');
+                const csvText = await response.text();
+                
+                const lines = csvText.trim().split('\n');
+                const headers = lines[0].split(',');
+                const results = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split(',');
+                    const result = {};
+                    headers.forEach((header, index) => {
+                        result[header.trim()] = values[index] ? values[index].trim() : '';
+                    });
+                    results.push(result);
+                }
+                
+                return results;
+            } catch (error) {
+                console.error('Error loading my images CSV:', error);
+                return [];
+            }
+        }
+
         // Function to create image display section
         function createImageSection(imageName, greenOffset, redOffset) {
             const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
@@ -157,7 +147,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             return `
                 <h4>${imageName}</h4>
                 <div class="image-gallery">
-                    <div class="image-container">
+                    <div class="image-container" style="max-width: 400px; margin: 0 auto;">
                         <img src="./aligned_images/aligned_${baseImageName}.jpg" alt="Aligned ${baseImageName} image">
                         <div class="image-caption">
                             Aligned Result<br>
@@ -169,67 +159,19 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             `;
         }
 
-        // Function to load images from my_images_aligned folder
-        async function loadMyImages() {
-            // Based on your actual file names in my_images_aligned folder
-            const actualImages = [
-                'aligned_church.jpg',
-                'aligned_flowers.jpg', 
-                'aligned_lake.jpg',
-                'aligned_path.jpg'
-            ];
-            
-            const foundImages = [];
-            
-            // Try to load each actual image
-            for (const imageName of actualImages) {
-                try {
-                    const img = new Image();
-                    const imageUrl = `./my_images_aligned/${imageName}`;
-                    
-                    await new Promise((resolve, reject) => {
-                        img.onload = () => resolve(img);
-                        img.onerror = () => reject();
-                        img.src = imageUrl;
-                    });
-                    
-                    foundImages.push(imageName);
-                } catch (error) {
-                    // Image doesn't exist, skip it
-                }
-            }
-            
-            return foundImages;
-        }
-
-        // Function to create additional image section
-        function createMyImageSection(imageName) {
+        // Function to create additional image section (same format as main images)
+        function createMyImageSection(imageName, greenOffset, redOffset) {
             const baseImageName = imageName.replace('aligned_', '').replace('.jpg', '');
             
             return `
-                <h3>${baseImageName}</h3>
+                <h4>${baseImageName}.jpg</h4>
                 <div class="image-gallery">
-                    <div class="image-container">
+                    <div class="image-container" style="max-width: 400px; margin: 0 auto;">
                         <img src="./my_images_aligned/${imageName}" alt="Additional image: ${baseImageName}">
                         <div class="image-caption">
-                            Aligned Result
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Function to create additional image section
-        function createMyImageSection(imageName) {
-            const baseImageName = imageName.replace('.jpg', '');
-            
-            return `
-                <h3>${baseImageName}</h3>
-                <div class="image-gallery">
-                    <div class="image-container">
-                        <img src="./my_images/${imageName}" alt="Additional image: ${baseImageName}">
-                        <div class="image-caption">
-                            Aligned Result
+                            Aligned Result<br>
+                            Green offset: (${greenOffset})<br>
+                            Red offset: (${redOffset})
                         </div>
                     </div>
                 </div>
@@ -283,18 +225,26 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             tiffContainer.innerHTML = tiffHtml;
             tableBody.innerHTML = tableHtml;
             
-            // Load and populate additional images
-            const myImages = await loadMyImages();
+            // Load and populate additional images with their results
+            const myImagesResults = await loadMyImagesResults();
             const myImagesContainer = document.getElementById('my-images-container');
             
-            if (myImages.length > 0) {
+            if (myImagesResults.length > 0) {
                 let myImagesHtml = '';
-                myImages.forEach(imageName => {
-                    myImagesHtml += createMyImageSection(imageName);
+                myImagesResults.forEach(result => {
+                    const imageName = result.image_name;
+                    const greenOffset = `${result.best_w_g}, ${result.best_h_g}`;
+                    const redOffset = `${result.best_w_r}, ${result.best_h_r}`;
+                    
+                    // Convert image name to aligned filename
+                    const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
+                    const alignedFileName = `aligned_${baseImageName}.jpg`;
+                    
+                    myImagesHtml += createMyImageSection(alignedFileName, greenOffset, redOffset);
                 });
                 myImagesContainer.innerHTML = myImagesHtml;
             } else {
-                myImagesContainer.innerHTML = '<p>No additional images found in my_images folder.</p>';
+                myImagesContainer.innerHTML = '<p>No additional images found.</p>';
             }
         }
 
