@@ -26,17 +26,18 @@
                     <p>This project involved taking digitized Prokudin-Gorskii glass plate images and automatically producing color images by extracting three color channels (Blue, Green, Red) and aligning them to form a single RGB color image. The main challenge was developing an efficient alignment algorithm that could handle both small JPEG files and large TIFF files.</p>
 
                     <h3>Approach</h3>
-                    <p><strong>Single-Scale Implementation:</strong> For the simple alignment, my approach is to follow a moving window. First, I remove 50 pixels from all sides of the image to remove the border. I treat the base slide as being anchored in place, and create a window that is centered at (0,0), or the top right corner of the base slide. From there, I have the moving slide align itself with each coordinate within the window, then crop both slides to just include the part that overlaps between the offset moving slide and the stationary base slide. For each set of cropped slides, I compute the NCC, and return the offset (referring to the difference in coordinates between the top right corner of the base slide and the top right corner of the moving slide) that corresponds to the highest NCC. 
+                    <p>[Describe your overall approach to the problem. What was your strategy for splitting the images into three channels? How did you decide which channel to use as the reference?]</p>
 
-Originally, I was trying to both roll and crop my images, which was causing issues where I was moving the images too many times and actually harming the final result. It really helped to create a dummy problem which was just an np array with a singular white square in the middle, and getting to see how my approach responded. 
-</p>
+                    <h3>Implementation Details</h3>
+                    <p><strong>Single-Scale Implementation:</strong> [Describe your basic implementation. What search window did you use for small images? What similarity metric did you choose and why? How did you handle the image splitting?]</p>
                     
-                    <p><strong>Multi-Scale Pyramid:</strong> For the pyramid alignment, I called the simple alignment multiple times, with different resolutions of the image. For each level (starting from the lowest resolution/highest level), I shrunk the resolution of the image by a factor of 0.5**level. I then removed 50 pixels from each side of the image to remove the border. Then, I created the window, but instead of centering the window at (0,0), I instead centered the window at the previous best offset that I had found, scaled to match the level. Then, I ran an exhaustive search with this window to get the best offset for this level. I then scale that offset in a reverse manner back to the size of the original image, and then continue on to the next level.
-</p>
+                    <p><strong>Multi-Scale Pyramid:</strong> [Explain how you implemented the image pyramid for large TIFF files. How many pyramid levels did you use? How did you handle the coarse-to-fine refinement? What downsampling technique did you use?]</p>
+
+                    <p><strong>Similarity Metrics:</strong> [Discuss which metrics you tried. Did you use L2 norm, Normalized Cross-Correlation, or something else? Why did you choose your final metric?]</p>
                 </div>
             </div>
 
-                        <!-- Results Section -->
+            <!-- Results Section -->
             <div class="project-content">
                 <h2>Results on Example Images</h2>
                 <div class="project-content-body">
@@ -68,6 +69,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
                     </div>
                 </div>
             </div>
+
             <!-- Additional Images Section -->
             <div class="project-content">
                 <h2>Additional Images from the Prokudin-Gorskii Collection</h2>
@@ -114,6 +116,56 @@ Originally, I was trying to both roll and crop my images, which was causing issu
                     <p><strong>Why I chose this image:</strong> [Explain what made this image interesting to process]</p>
                 </div>
             </div>
+
+            <!-- Analysis and Challenges Section -->
+            <div class="project-content">
+                <h2>Analysis and Challenges</h2>
+                <div class="project-content-body">
+                    <h3>What Worked Well</h3>
+                    <p>[Discuss which images aligned successfully and why. What patterns did you notice in the successful alignments?]</p>
+
+                    <h3>Challenging Images</h3>
+                    <p>[If any images failed to align properly, explain why. For example, the Emir image is known to be challenging due to different brightness values across channels. How did you handle such cases?]</p>
+
+                    <h3>Algorithm Performance</h3>
+                    <p>[Discuss the runtime of your algorithm. How long did it take to process the large TIFF files? How did the pyramid approach help with efficiency?]</p>
+
+                    <h3>Parameter Tuning</h3>
+                    <p>[Describe what parameters you had to tune. Search window sizes, pyramid levels, similarity thresholds, etc. Did you use the same parameters for all images?]</p>
+                </div>
+            </div>
+
+            <!-- Technical Implementation Section -->
+            <div class="project-content">
+                <h2>Technical Implementation</h2>
+                <div class="project-content-body">
+                    <h3>Code Structure</h3>
+                    <p>[Describe your code organization. What were the main functions? How did you structure the pyramid implementation?]</p>
+
+                    <h3>Key Algorithms</h3>
+                    <p><strong>Image Splitting:</strong> [How did you divide the glass plate into three equal parts?]</p>
+                    <p><strong>Alignment Search:</strong> [Describe your search strategy and optimization techniques]</p>
+                    <p><strong>Pyramid Construction:</strong> [How did you build and navigate the image pyramid?]</p>
+
+                    <h3>Optimizations</h3>
+                    <p>[What techniques did you use to speed up your code? Vectorization, avoiding loops, efficient data structures, etc.]</p>
+                </div>
+            </div>
+
+            <!-- Reflection Section -->
+            <div class="project-content">
+                <h2>Reflection</h2>
+                <div class="project-content-body">
+                    <h3>What I Learned</h3>
+                    <p>[Discuss what you learned about image alignment, computer vision, and the historical significance of the Prokudin-Gorskii collection]</p>
+
+                    <h3>Future Improvements</h3>
+                    <p>[What would you do differently if you were to implement this again? What bells and whistles would you add?]</p>
+
+                    <h3>Historical Perspective</h3>
+                    <p>[Reflect on the historical significance of bringing these century-old photographs to life with modern computational techniques]</p>
+                </div>
+            </div>
         </main>
 
         <footer>
@@ -121,7 +173,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
         </footer>
     </div>
 
-   <script>
+    <script>
         // Function to load and parse CSV data
         async function loadAlignmentResults() {
             try {
@@ -150,15 +202,14 @@ Originally, I was trying to both roll and crop my images, which was causing issu
         }
 
         // Function to create image display section
-        function createImageSection(imageName, greenOffset, redOffset, isJpeg = true) {
+        function createImageSection(imageName, greenOffset, redOffset) {
             const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
-            const displayExtension = isJpeg ? '.jpg' : '.jpg'; // Display as jpg even for tif files
             
             return `
                 <h4>${imageName}</h4>
                 <div class="image-gallery">
                     <div class="image-container">
-                        <img src="./aligned_images/${baseImageName}${displayExtension}" alt="Aligned ${baseImageName} image">
+                        <img src="./aligned_images/${baseImageName}.jpg" alt="Aligned ${baseImageName} image">
                         <div class="image-caption">
                             Aligned Result<br>
                             Green offset: (${greenOffset})<br>
@@ -169,15 +220,22 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             `;
         }
 
-        // Function to load images from my_images folder
+        // Function to load images from my_images_aligned folder
         async function loadMyImages() {
-            // Common image names that might be in the folder
-            const possibleImages = [
-                'amir.jpg', 'artist.jpg', 'boy.jpg', 'bridge.jpg', 'canal.jpg', 
-                'church.jpg', 'city.jpg', 'execution.jpg', 'group.jpg', 'monastery.jpg',
-                'peasant.jpg', 'river.jpg', 'spinning.jpg', 'turkmen.jpg', 'village.jpg',
-                'workshop.jpg', 'cathedral.jpg', 'palace.jpg', 'market.jpg', 'landscape.jpg'
+            // Try to load any .jpg files in the my_images_aligned folder
+            const possibleNames = [
+                'church', 'cathedral', 'monastery', 'chapel', 'temple',
+                'lilacs', 'flowers', 'blossoms', 'garden', 'bloom',
+                'river', 'water', 'stream', 'lake', 'pond',
+                'forest', 'woods', 'trees', 'path', 'trail',
+                'village', 'house', 'building', 'landscape'
             ];
+            
+            const possibleImages = [];
+            // Try each name with .jpg extension
+            for (const name of possibleNames) {
+                possibleImages.push(`${name}.jpg`);
+            }
             
             const foundImages = [];
             
@@ -185,7 +243,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             for (const imageName of possibleImages) {
                 try {
                     const img = new Image();
-                    const imageUrl = `./my_images/${imageName}`;
+                    const imageUrl = `./my_images_aligned/${imageName}`;
                     
                     await new Promise((resolve, reject) => {
                         img.onload = () => resolve(img);
@@ -200,6 +258,23 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             }
             
             return foundImages;
+        }
+
+        // Function to create additional image section
+        function createMyImageSection(imageName) {
+            const baseImageName = imageName.replace('.jpg', '');
+            
+            return `
+                <h3>${baseImageName}</h3>
+                <div class="image-gallery">
+                    <div class="image-container">
+                        <img src="./my_images_aligned/${imageName}" alt="Additional image: ${baseImageName}">
+                        <div class="image-caption">
+                            Aligned Result
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         // Function to create additional image section
@@ -284,6 +359,5 @@ Originally, I was trying to both roll and crop my images, which was causing issu
         // Load results when page loads
         document.addEventListener('DOMContentLoaded', populateResults);
     </script>
-    
 </body>
 </html>
