@@ -26,14 +26,13 @@
                     <p>This project involved taking digitized Prokudin-Gorskii glass plate images and automatically producing color images by extracting three color channels (Blue, Green, Red) and aligning them to form a single RGB color image. The main challenge was developing an efficient alignment algorithm that could handle both small JPEG files and large TIFF files.</p>
 
                     <h3>Approach</h3>
-                    <p>[Describe your overall approach to the problem. What was your strategy for splitting the images into three channels? How did you decide which channel to use as the reference?]</p>
+                    <p><strong>Single-Scale Implementation:</strong> For the simple alignment, my approach is to follow a moving window. First, I remove 50 pixels from all sides of the image to remove the border. I treat the base slide as being anchored in place, and create a window that is centered at (0,0), or the top right corner of the base slide. From there, I have the moving slide align itself with each coordinate within the window, then crop both slides to just include the part that overlaps between the offset moving slide and the stationary base slide. For each set of cropped slides, I compute the NCC, and return the offset (referring to the difference in coordinates between the top right corner of the base slide and the top right corner of the moving slide) that corresponds to the highest NCC. 
 
-                    <h3>Implementation Details</h3>
-                    <p><strong>Single-Scale Implementation:</strong> [Describe your basic implementation. What search window did you use for small images? What similarity metric did you choose and why? How did you handle the image splitting?]</p>
+Originally, I was trying to both roll and crop my images, which was causing issues where I was moving the images too many times and actually harming the final result. It really helped to create a dummy problem which was just an np array with a singular white square in the middle, and getting to see how my approach responded. 
+</p>
                     
-                    <p><strong>Multi-Scale Pyramid:</strong> [Explain how you implemented the image pyramid for large TIFF files. How many pyramid levels did you use? How did you handle the coarse-to-fine refinement? What downsampling technique did you use?]</p>
-
-                    <p><strong>Similarity Metrics:</strong> [Discuss which metrics you tried. Did you use L2 norm, Normalized Cross-Correlation, or something else? Why did you choose your final metric?]</p>
+                    <p><strong>Multi-Scale Pyramid:</strong> For the pyramid alignment, I called the simple alignment multiple times, with different resolutions of the image. For each level (starting from the lowest resolution/highest level), I shrunk the resolution of the image by a factor of 0.5**level. I then removed 50 pixels from each side of the image to remove the border. Then, I created the window, but instead of centering the window at (0,0), I instead centered the window at the previous best offset that I had found, scaled to match the level. Then, I ran an exhaustive search with this window to get the best offset for this level. I then scale that offset in a reverse manner back to the size of the original image, and then continue on to the next level.
+</p>
                 </div>
             </div>
 
