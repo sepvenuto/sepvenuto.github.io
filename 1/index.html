@@ -36,7 +36,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
                 </div>
             </div>
 
-            <!-- Results Section -->
+                        <!-- Results Section -->
             <div class="project-content">
                 <h2>Results on Example Images</h2>
                 <div class="project-content-body">
@@ -44,187 +44,30 @@ Originally, I was trying to both roll and crop my images, which was causing issu
 
                     <!-- Low-res JPEG Images -->
                     <h3>Low-Resolution Images (.jpg)</h3>
-                    
-                    <h4>monastery.jpg</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/monastery.jpg" alt="Aligned monastery image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: (2, -3)<br>
-                                Red offset: (2, 3)
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>tobolsk.jpg</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/tobolsk.jpg" alt="Aligned tobolsk image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: (3, 3)<br>
-                                Red offset: (3, 6)
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>cathedral.jpg</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/cathedral.jpg" alt="Aligned cathedral image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: (2, 5)<br>
-                                Red offset: (3, 12)
-                            </div>
-                        </div>
-                    </div>
+                    <div id="jpeg-results"></div>
 
                     <!-- High-res TIFF Images -->
                     <h3>High-Resolution Images (.tif)</h3>
-                    
-                    <h4>emir.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/emir.jpg" alt="Aligned emir image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: (8, 46)<br>
-                                Red offset: (17, 102)
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>harvesters.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/harvesters.jpg" alt="Aligned harvesters image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>icon.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/icon.jpg" alt="Aligned icon image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>lady.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/lady.jpg" alt="Aligned lady image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>melons.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/melons.jpg" alt="Aligned melons image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>onion_church.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/onion_church.jpg" alt="Aligned onion church image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>sculpture.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/sculpture.jpg" alt="Aligned sculpture image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>self_portrait.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/self_portrait.jpg" alt="Aligned self portrait image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>three_generations.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/three_generations.jpg" alt="Aligned three generations image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>train.tif</h4>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./aligned_images/train.jpg" alt="Aligned train image">
-                            <div class="image-caption">
-                                Aligned Result<br>
-                                Green offset: [your values]<br>
-                                Red offset: [your values]
-                            </div>
-                        </div>
-                    </div>
+                    <div id="tiff-results"></div>
 
                     <!-- Complete Alignment Results Table -->
                     <h3>Complete Alignment Results</h3>
-                    <table style="margin: 20px auto; border-collapse: collapse; border: 1px solid #ddd;">
-                        <thead style="background-color: #f2f2f2;">
-                            <tr>
-                                <th style="border: 1px solid #ddd; padding: 8px;">Image</th>
-                                <th style="border: 1px solid #ddd; padding: 8px;">Green Offset (x, y)</th>
-                                <th style="border: 1px solid #ddd; padding: 8px;">Red Offset (x, y)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td style="border: 1px solid #ddd; padding: 8px;">monastery.jpg</td><td style="border: 1px solid #ddd; padding: 8px;">(2, -3)</td><td style="border: 1px solid #ddd; padding: 8px;">(2, 3)</td></tr>
-                            <tr><td style="border: 1px solid #ddd; padding: 8px;">tobolsk.jpg</td><td style="border: 1px solid #ddd; padding: 8px;">(3, 3)</td><td style="border: 1px solid #ddd; padding: 8px;">(3, 6)</td></tr>
-                            <tr><td style="border: 1px solid #ddd; padding: 8px;">cathedral.jpg</td><td style="border: 1px solid #ddd; padding: 8px;">(2, 5)</td><td style="border: 1px solid #ddd; padding: 8px;">(3, 12)</td></tr>
-                            <tr><td style="border: 1px solid #ddd; padding: 8px;">emir.tif</td><td style="border: 1px solid #ddd; padding: 8px;">(8, 46)</td><td style="border: 1px solid #ddd; padding: 8px;">(17, 102)</td></tr>
-                            <tr><td style="border: 1px solid #ddd; padding: 8px;">[Add remaining results from your CSV]</td><td style="border: 1px solid #ddd; padding: 8px;">[Fill in]</td><td style="border: 1px solid #ddd; padding: 8px;">[Fill in]</td></tr>
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto;">
+                        <table id="results-table" style="margin: 20px auto; border-collapse: collapse; border: 1px solid #ddd; min-width: 600px;">
+                            <thead style="background-color: #f2f2f2;">
+                                <tr>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Image</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">Green Offset (x, y)</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">Red Offset (x, y)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Results will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
             <!-- Additional Images Section -->
             <div class="project-content">
                 <h2>Additional Images from the Prokudin-Gorskii Collection</h2>
@@ -277,5 +120,106 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             <p>&copy; 2025 CS180 Portfolio • Sylvie Venuto • UC Berkeley</p>
         </footer>
     </div>
+
+    <script>
+        // Function to load and parse CSV data
+        async function loadAlignmentResults() {
+            try {
+                const response = await fetch('./alignment_results.csv');
+                const csvText = await response.text();
+                
+                // Simple CSV parser
+                const lines = csvText.trim().split('\n');
+                const headers = lines[0].split(',');
+                const results = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split(',');
+                    const result = {};
+                    headers.forEach((header, index) => {
+                        result[header.trim()] = values[index] ? values[index].trim() : '';
+                    });
+                    results.push(result);
+                }
+                
+                return results;
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                return [];
+            }
+        }
+
+        // Function to create image display section
+        function createImageSection(imageName, greenOffset, redOffset, isJpeg = true) {
+            const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
+            const displayExtension = isJpeg ? '.jpg' : '.jpg'; // Display as jpg even for tif files
+            
+            return `
+                <h4>${imageName}</h4>
+                <div class="image-gallery">
+                    <div class="image-container">
+                        <img src="./aligned_images/${baseImageName}${displayExtension}" alt="Aligned ${baseImageName} image">
+                        <div class="image-caption">
+                            Aligned Result<br>
+                            Green offset: (${greenOffset})<br>
+                            Red offset: (${redOffset})
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to populate results
+        async function populateResults() {
+            const results = await loadAlignmentResults();
+            
+            if (results.length === 0) {
+                console.error('No results loaded');
+                return;
+            }
+
+            const jpegContainer = document.getElementById('jpeg-results');
+            const tiffContainer = document.getElementById('tiff-results');
+            const tableBody = document.getElementById('table-body');
+            
+            let jpegHtml = '';
+            let tiffHtml = '';
+            let tableHtml = '';
+
+            results.forEach(result => {
+                const imageName = result.image_name;
+                const greenOffset = `${result.best_w_g}, ${result.best_h_g}`;
+                const redOffset = `${result.best_w_r}, ${result.best_h_r}`;
+                
+                // Create image section
+                const imageSection = createImageSection(imageName, greenOffset, redOffset);
+                
+                // Separate by file type
+                if (imageName.endsWith('.jpg')) {
+                    jpegHtml += imageSection;
+                } else if (imageName.endsWith('.tif')) {
+                    tiffHtml += imageSection;
+                }
+                
+                // Add to table
+                tableHtml += `
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 12px;">${imageName}</td>
+                        <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">(${greenOffset})</td>
+                        <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">(${redOffset})</td>
+                    </tr>
+                `;
+            });
+
+            // Populate the sections
+            jpegContainer.innerHTML = jpegHtml;
+            tiffContainer.innerHTML = tiffHtml;
+            tableBody.innerHTML = tableHtml;
+        }
+
+        // Load results when page loads
+        document.addEventListener('DOMContentLoaded', populateResults);
+    </script>
+    
 </body>
 </html>
