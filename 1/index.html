@@ -121,7 +121,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
         </footer>
     </div>
 
-<script>
+   <script>
         // Function to load and parse CSV data
         async function loadAlignmentResults() {
             try {
@@ -150,23 +150,74 @@ Originally, I was trying to both roll and crop my images, which was causing issu
         }
 
         // Function to create image display section
-function createImageSection(imageName, greenOffset, redOffset) {
-    const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
-    
-    return `
-        <h4>${imageName}</h4>
-        <div class="image-gallery">
-            <div class="image-container">
-                <img src="aligned_images/${baseImageName}.jpg" alt="Aligned ${baseImageName} image">
-                <div class="image-caption">
-                    Aligned Result<br>
-                    Green offset: (${greenOffset})<br>
-                    Red offset: (${redOffset})
+        function createImageSection(imageName, greenOffset, redOffset, isJpeg = true) {
+            const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
+            const displayExtension = isJpeg ? '.jpg' : '.jpg'; // Display as jpg even for tif files
+            
+            return `
+                <h4>${imageName}</h4>
+                <div class="image-gallery">
+                    <div class="image-container">
+                        <img src="./aligned_images/${baseImageName}${displayExtension}" alt="Aligned ${baseImageName} image">
+                        <div class="image-caption">
+                            Aligned Result<br>
+                            Green offset: (${greenOffset})<br>
+                            Red offset: (${redOffset})
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    `;
-}
+            `;
+        }
+
+        // Function to load images from my_images folder
+        async function loadMyImages() {
+            // Common image names that might be in the folder
+            const possibleImages = [
+                'amir.jpg', 'artist.jpg', 'boy.jpg', 'bridge.jpg', 'canal.jpg', 
+                'church.jpg', 'city.jpg', 'execution.jpg', 'group.jpg', 'monastery.jpg',
+                'peasant.jpg', 'river.jpg', 'spinning.jpg', 'turkmen.jpg', 'village.jpg',
+                'workshop.jpg', 'cathedral.jpg', 'palace.jpg', 'market.jpg', 'landscape.jpg'
+            ];
+            
+            const foundImages = [];
+            
+            // Try to load each possible image
+            for (const imageName of possibleImages) {
+                try {
+                    const img = new Image();
+                    const imageUrl = `./my_images/${imageName}`;
+                    
+                    await new Promise((resolve, reject) => {
+                        img.onload = () => resolve(img);
+                        img.onerror = () => reject();
+                        img.src = imageUrl;
+                    });
+                    
+                    foundImages.push(imageName);
+                } catch (error) {
+                    // Image doesn't exist, skip it
+                }
+            }
+            
+            return foundImages;
+        }
+
+        // Function to create additional image section
+        function createMyImageSection(imageName) {
+            const baseImageName = imageName.replace('.jpg', '');
+            
+            return `
+                <h3>${baseImageName}</h3>
+                <div class="image-gallery">
+                    <div class="image-container">
+                        <img src="./my_images/${imageName}" alt="Additional image: ${baseImageName}">
+                        <div class="image-caption">
+                            Aligned Result
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
         // Function to populate results
         async function populateResults() {
@@ -214,6 +265,20 @@ function createImageSection(imageName, greenOffset, redOffset) {
             jpegContainer.innerHTML = jpegHtml;
             tiffContainer.innerHTML = tiffHtml;
             tableBody.innerHTML = tableHtml;
+            
+            // Load and populate additional images
+            const myImages = await loadMyImages();
+            const myImagesContainer = document.getElementById('my-images-container');
+            
+            if (myImages.length > 0) {
+                let myImagesHtml = '';
+                myImages.forEach(imageName => {
+                    myImagesHtml += createMyImageSection(imageName);
+                });
+                myImagesContainer.innerHTML = myImagesHtml;
+            } else {
+                myImagesContainer.innerHTML = '<p>No additional images found in my_images folder.</p>';
+            }
         }
 
         // Load results when page loads
