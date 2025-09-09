@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1: Images of the Russian Empire</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Project 1: Images of the Russian Empire</h1>
+            <p class="subtitle">Colorizing the Prokudin-Gorskii photo collection</p>
+            <p class="subtitle">Due: September 12, 2025 • CS180</p>
+        </header>
+        
+        <div style="padding: 20px;">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+
+        <main>
+            <!-- Overview Section -->
+            <div class="project-content">
+                <h2>Overview</h2>
+                <div class="project-content-body">
+                    <p>This project involved taking digitized Prokudin-Gorskii glass plate images and automatically producing color images by extracting three color channels (Blue, Green, Red) and aligning them to form a single RGB color image. The main challenge was developing an efficient alignment algorithm that could handle both small JPEG files and large TIFF files.</p>
+
+                    <h3>Approach</h3>
+                    <p>[Describe your overall approach to the problem. What was your strategy for splitting the images into three channels? How did you decide which channel to use as the reference?]</p>
+
+                    <h3>Implementation Details</h3>
+                    <p><strong>Single-Scale Implementation:</strong> [Describe your basic implementation. What search window did you use for small images? What similarity metric did you choose and why? How did you handle the image splitting?]</p>
+                    
+                    <p><strong>Multi-Scale Pyramid:</strong> [Explain how you implemented the image pyramid for large TIFF files. How many pyramid levels did you use? How did you handle the coarse-to-fine refinement? What downsampling technique did you use?]</p>
+
+                    <p><strong>Similarity Metrics:</strong> [Discuss which metrics you tried. Did you use L2 norm, Normalized Cross-Correlation, or something else? Why did you choose your final metric?]</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="project-content">
+                <h2>Results on Example Images</h2>
+                <div class="project-content-body">
+                    <p>Below are the results of my alignment algorithm on the provided example images. The displacement vectors show the (x,y) offsets used to align the Green and Red channels to the Blue channel.</p>
+
+                    <!-- Low-res JPEG Images -->
+                    <h3>Low-Resolution Images (.jpg)</h3>
+                    
+                    <h4>monastery.jpg</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/monastery.jpg" alt="Aligned monastery image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: (2, -3)<br>
+                                Red offset: (2, 3)
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>tobolsk.jpg</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/tobolsk.jpg" alt="Aligned tobolsk image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: (3, 3)<br>
+                                Red offset: (3, 6)
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>cathedral.jpg</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/cathedral.jpg" alt="Aligned cathedral image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: (2, 5)<br>
+                                Red offset: (3, 12)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- High-res TIFF Images -->
+                    <h3>High-Resolution Images (.tif)</h3>
+                    
+                    <h4>emir.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/emir.jpg" alt="Aligned emir image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: (8, 46)<br>
+                                Red offset: (17, 102)
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>harvesters.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/harvesters.jpg" alt="Aligned harvesters image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>icon.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/icon.jpg" alt="Aligned icon image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>lady.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/lady.jpg" alt="Aligned lady image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>melons.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/melons.jpg" alt="Aligned melons image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>onion_church.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/onion_church.jpg" alt="Aligned onion church image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>sculpture.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/sculpture.jpg" alt="Aligned sculpture image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>self_portrait.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/self_portrait.jpg" alt="Aligned self portrait image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>three_generations.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/three_generations.jpg" alt="Aligned three generations image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>train.tif</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./aligned_images/train.jpg" alt="Aligned train image">
+                            <div class="image-caption">
+                                Aligned Result<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Complete Alignment Results Table -->
+                    <h3>Complete Alignment Results</h3>
+                    <table style="margin: 20px auto; border-collapse: collapse; border: 1px solid #ddd;">
+                        <thead style="background-color: #f2f2f2;">
+                            <tr>
+                                <th style="border: 1px solid #ddd; padding: 8px;">Image</th>
+                                <th style="border: 1px solid #ddd; padding: 8px;">Green Offset (x, y)</th>
+                                <th style="border: 1px solid #ddd; padding: 8px;">Red Offset (x, y)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="border: 1px solid #ddd; padding: 8px;">monastery.jpg</td><td style="border: 1px solid #ddd; padding: 8px;">(2, -3)</td><td style="border: 1px solid #ddd; padding: 8px;">(2, 3)</td></tr>
+                            <tr><td style="border: 1px solid #ddd; padding: 8px;">tobolsk.jpg</td><td style="border: 1px solid #ddd; padding: 8px;">(3, 3)</td><td style="border: 1px solid #ddd; padding: 8px;">(3, 6)</td></tr>
+                            <tr><td style="border: 1px solid #ddd; padding: 8px;">cathedral.jpg</td><td style="border: 1px solid #ddd; padding: 8px;">(2, 5)</td><td style="border: 1px solid #ddd; padding: 8px;">(3, 12)</td></tr>
+                            <tr><td style="border: 1px solid #ddd; padding: 8px;">emir.tif</td><td style="border: 1px solid #ddd; padding: 8px;">(8, 46)</td><td style="border: 1px solid #ddd; padding: 8px;">(17, 102)</td></tr>
+                            <tr><td style="border: 1px solid #ddd; padding: 8px;">[Add remaining results from your CSV]</td><td style="border: 1px solid #ddd; padding: 8px;">[Fill in]</td><td style="border: 1px solid #ddd; padding: 8px;">[Fill in]</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Additional Images Section -->
+            <div class="project-content">
+                <h2>Additional Images from the Prokudin-Gorskii Collection</h2>
+                <div class="project-content-body">
+                    <p>I selected a few additional images from the Prokudin-Gorskii collection to test my algorithm on different types of scenes and content.</p>
+
+                    <h3>Image 1: [Your chosen image name]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./my_images/[your_image1].jpg" alt="My chosen image 1">
+                            <div class="image-caption">
+                                [Description of what this image shows]<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Why I chose this image:</strong> [Explain what was interesting about this particular image - was it challenging? Did it have unique features? How did your algorithm perform?]</p>
+
+                    <h3>Image 2: [Your chosen image name]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./my_images/[your_image2].jpg" alt="My chosen image 2">
+                            <div class="image-caption">
+                                [Description of what this image shows]<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Why I chose this image:</strong> [Explain the rationale for selecting this image]</p>
+
+                    <h3>Image 3: [Your chosen image name]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./my_images/[your_image3].jpg" alt="My chosen image 3">
+                            <div class="image-caption">
+                                [Description of what this image shows]<br>
+                                Green offset: [your values]<br>
+                                Red offset: [your values]
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Why I chose this image:</strong> [Explain what made this image interesting to process]</p>
+                </div>
+            </div>
+
+            <!-- Analysis and Challenges Section -->
+            <div class="project-content">
+                <h2>Analysis and Challenges</h2>
+                <div class="project-content-body">
+                    <h3>What Worked Well</h3>
+                    <p>[Discuss which images aligned successfully and why. What patterns did you notice in the successful alignments?]</p>
+
+                    <h3>Challenging Images</h3>
+                    <p>[If any images failed to align properly, explain why. For example, the Emir image is known to be challenging due to different brightness values across channels. How did you handle such cases?]</p>
+
+                    <h3>Algorithm Performance</h3>
+                    <p>[Discuss the runtime of your algorithm. How long did it take to process the large TIFF files? How did the pyramid approach help with efficiency?]</p>
+
+                    <h3>Parameter Tuning</h3>
+                    <p>[Describe what parameters you had to tune. Search window sizes, pyramid levels, similarity thresholds, etc. Did you use the same parameters for all images?]</p>
+                </div>
+            </div>
+
+            <!-- Technical Implementation Section -->
+            <div class="project-content">
+                <h2>Technical Implementation</h2>
+                <div class="project-content-body">
+                    <h3>Code Structure</h3>
+                    <p>[Describe your code organization. What were the main functions? How did you structure the pyramid implementation?]</p>
+
+                    <h3>Key Algorithms</h3>
+                    <p><strong>Image Splitting:</strong> [How did you divide the glass plate into three equal parts?]</p>
+                    <p><strong>Alignment Search:</strong> [Describe your search strategy and optimization techniques]</p>
+                    <p><strong>Pyramid Construction:</strong> [How did you build and navigate the image pyramid?]</p>
+
+                    <h3>Optimizations</h3>
+                    <p>[What techniques did you use to speed up your code? Vectorization, avoiding loops, efficient data structures, etc.]</p>
+                </div>
+            </div>
+
+            <!-- Reflection Section -->
+            <div class="project-content">
+                <h2>Reflection</h2>
+                <div class="project-content-body">
+                    <h3>What I Learned</h3>
+                    <p>[Discuss what you learned about image alignment, computer vision, and the historical significance of the Prokudin-Gorskii collection]</p>
+
+                    <h3>Future Improvements</h3>
+                    <p>[What would you do differently if you were to implement this again? What bells and whistles would you add?]</p>
+
+                    <h3>Historical Perspective</h3>
+                    <p>[Reflect on the historical significance of bringing these century-old photographs to life with modern computational techniques]</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 CS180 Portfolio • Sylvie Venuto • UC Berkeley</p>
+        </footer>
+    </div>
+</body>
+</html>
