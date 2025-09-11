@@ -2,7 +2,7 @@ image_name,best_w_g,best_h_g,best_w_r,best_h_r
 monastery.jpg,2,-3,2,3
 tobolsk.jpg,3,3,3,6
 cathedral.jpg,2,5,3,12
-emir.tif,8,46,17,102
+emir.tif,8,46,16,102
 italil.tif,18,38,34,77
 church.tif,-7,24,-13,55
 three_generations.tif,5,52,7,112
@@ -13,3 +13,4 @@ icon.tif,16,41,23,90
 siren.tif,-6,49,-20,99
 self_portrait.tif,-1,77,-2,175
 harvesters.tif,9,60,8,125
+
