@@ -32,7 +32,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
 </p>
                     
                     <p><strong>Multi-Scale Pyramid:</strong> For the pyramid alignment, I called the simple alignment multiple times, with different resolutions of the image. For each level (starting from the lowest resolution/highest level), I shrunk the resolution of the image by a factor of 0.5**level. I then removed 50 pixels from each side of the image to remove the border. Then, I created the window, but instead of centering the window at (0,0), I instead centered the window at the previous best offset that I had found, scaled to match the level. Then, I ran an exhaustive search with this window to get the best offset for this level. I then scale that offset in a reverse manner back to the size of the original image, and then continue on to the next level.
-</p>
+ I originally had the ratio of levels to window size wrong: I had a larger window size and less levels. While this did result in the images successfully being aligned, this caused the runtime to be extremeley long. I reduced the window size by a factor of 5 for each dimension and added two extra levels, and I received the same results of the quality of my alignment but had a signficiantly lower (over two times) runtime. This makes sense, because instead of testing 225 possible alignments across 4 levels, I am now testing 9 possible alignments across 6 levels. </p>
                 </div>
             </div>
 
