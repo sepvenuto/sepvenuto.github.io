@@ -244,18 +244,6 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             tiffContainer.innerHTML = tiffHtml;
             tableBody.innerHTML = tableHtml;
             
-            // Load and populate implementation images
-            const implementationImages = await loadImplementationImages();
-            const implementationContainer = document.getElementById('implementation-images-container');
-            
-            if (implementationImages.length > 0) {
-                let implementationHtml = '';
-                implementationImages.forEach(imageName => {
-                    implementationHtml += createImplementationImageSection(imageName);
-                });
-                implementationContainer.innerHTML = implementationHtml;
-            }
-            
             // Load and populate additional images with their results
             const myImagesResults = await loadMyImagesResults();
             const myImagesContainer = document.getElementById('my-images-container');
