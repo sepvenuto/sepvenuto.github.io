@@ -3,49 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sylvie Venuto CS180 Introduction to Computer Vision and Computational Photography Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Project 1: Images of the Russian Empire</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Introduction to Computer Vision and Computational Photography Portfolio</h1>
-            <p class="subtitle">CS180 • Fall 2025 • UC Berkeley</p>
+            <h1>Project 1: Images of the Russian Empire</h1>
+            <p class="subtitle">Colorizing the Prokudin-Gorskii photo collection</p>
+            <p class="subtitle">Due: September 12, 2025 • CS180</p>
         </header>
+        
+        <div style="padding: 20px;">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
 
         <main>
-            <section class="intro">
-                <h2>Welcome!</h2>
-                <p>This portfolio contains my projects in computer vision and computational photography.</p>
-            </section>
+            <!-- Overview Section -->
+            <div class="project-content">
+                <h2>Overview</h2>
+                <div class="project-content-body">
+                    <p>The project entails aligning three color channel images to form a single RGB color image. </p>
+                    
+                    <h3>Implementation Details</h3>
+                    <p><strong>Single-Scale Implementation:</strong> For the simple alignment, my approach is to follow a moving window. First, I remove 50 pixels from all sides of the image to remove the border. I treat the base slide as being anchored in place, and create a window that is centered at (0,0), or the top right corner of the base slide. From there, I have the moving slide align itself with each coordinate within the window, then crop both slides to just include the part that overlaps between the offset moving slide and the stationary base slide. For each set of cropped slides, I compute the NCC, and return the offset (referring to the difference in coordinates between the top right corner of the base slide and the top right corner of the moving slide) that corresponds to the highest NCC. 
 
-            <section class="projects">
-                <h2>Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <h3>Project 0: Becoming Friends with Your Camera</h3>
-                        </div>
-                        <div class="project-card-content">
-                            <p>Perspective, focal length/zoom, and the center of projection.</p>
-                            <a href="./0/index.html" class="project-link">View Project →</a>
-                        </div>
+Originally, I was trying to both roll and crop my images, which was causing issues where I was moving the images too many times and actually harming the final result. It really helped to create a dummy problem which was just an np array with a singular white square in the middle, and getting to see how my approach responded. 
+</p>
+                    
+                    <p><strong>Multi-Scale Pyramid:</strong> For the pyramid alignment, I called the simple alignment multiple times, with different resolutions of the image. For each level (starting from the lowest resolution/highest level), I shrunk the resolution of the image by a factor of 0.5**level. I then removed 50 pixels from each side of the image to remove the border. Then, I created the window, but instead of centering the window at (0,0), I instead centered the window at the previous best offset that I had found, scaled to match the level. Then, I ran an exhaustive search with this window to get the best offset for this level. I then scale that offset in a reverse manner back to the size of the original image, and then continue on to the next level.
+</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="project-content">
+                <h2>Results on Example Images</h2>
+                <div class="project-content-body">
+                    <p>Below are the results of my alignment algorithm on the provided example images. The displacement vectors show the (x,y) offsets used to align the Green and Red channels to the Blue channel.</p>
+
+                    <!-- Low-res JPEG Images -->
+                    <h3>Low-Resolution Images (.jpg)</h3>
+                    <div id="jpeg-results"></div>
+
+                    <!-- High-res TIFF Images -->
+                    <h3>High-Resolution Images (.tif)</h3>
+                    <div id="tiff-results"></div>
+
+                    <!-- Complete Alignment Results Table -->
+                    <h3>Complete Alignment Results</h3>
+                    <div style="overflow-x: auto;">
+                        <table id="results-table" style="margin: 20px auto; border-collapse: collapse; border: 1px solid #ddd; min-width: 600px;">
+                            <thead style="background-color: #f2f2f2;">
+                                <tr>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Image</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">Green Offset (x, y)</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">Red Offset (x, y)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Results will be populated by JavaScript -->
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <h3>Project 1: Images of the Russian Empire</h3>
-                        </div>
-                        <div class="project-card-content">
-                            <p>Image alignment and image pyramids.</p>
-                            <a href="./1/index.html" class="project-link">View Project →</a>
-                        </div>
+                </div>
+            </div>
+
+            <!-- Additional Images Section -->
+            <div class="project-content">
+                <h2>Additional Images from the Prokudin-Gorskii Collection</h2>
+                <div class="project-content-body">
+                    <p>I selected additional images from the Prokudin-Gorskii collection to test my algorithm on different types of scenes and content.</p>
+                    <div id="my-images-container">
+                        <!-- Additional images will be loaded automatically -->
                     </div>
-            </section>
+                </div>
+            </div>
         </main>
 
         <footer>
-            <p>&copy; 2025 CS180 Portfolio • University of California, Berkeley</p>
+            <p>&copy; 2025 CS180 Portfolio • Sylvie Venuto • UC Berkeley</p>
         </footer>
     </div>
+
+    <script>
+        // Function to load and parse CSV data
+        async function loadAlignmentResults() {
+            try {
+                const response = await fetch('./alignment_results.csv');
+                const csvText = await response.text();
+                
+                // Simple CSV parser
+                const lines = csvText.trim().split('\n');
+                const headers = lines[0].split(',');
+                const results = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split(',');
+                    const result = {};
+                    headers.forEach((header, index) => {
+                        result[header.trim()] = values[index] ? values[index].trim() : '';
+                    });
+                    results.push(result);
+                }
+                
+                return results;
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                return [];
+            }
+        }
+
+        // Function to load and parse CSV data for additional images
+        async function loadMyImagesResults() {
+            try {
+                const response = await fetch('./my_images_alignment_results.csv');
+                const csvText = await response.text();
+                
+                const lines = csvText.trim().split('\n');
+                const headers = lines[0].split(',');
+                const results = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split(',');
+                    const result = {};
+                    headers.forEach((header, index) => {
+                        result[header.trim()] = values[index] ? values[index].trim() : '';
+                    });
+                    results.push(result);
+                }
+                
+                return results;
+            } catch (error) {
+                console.error('Error loading my images CSV:', error);
+                return [];
+            }
+        }
+
+        // Function to create image display section
+        function createImageSection(imageName, greenOffset, redOffset) {
+            const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
+            
+            return `
+                <h4>${imageName}</h4>
+                <div class="image-gallery">
+                    <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                        <img src="./aligned_images/aligned_${baseImageName}.jpg" alt="Aligned ${baseImageName} image">
+                        <div class="image-caption">
+                            Aligned Result<br>
+                            Green offset: (${greenOffset})<br>
+                            Red offset: (${redOffset})
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to create additional image section (same format as main images)
+        function createMyImageSection(imageName, greenOffset, redOffset) {
+            const baseImageName = imageName.replace('aligned_', '').replace('.jpg', '');
+            
+            return `
+                <h4>${baseImageName}.jpg</h4>
+                <div class="image-gallery">
+                    <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                        <img src="./my_images_aligned/${imageName}" alt="Additional image: ${baseImageName}">
+                        <div class="image-caption">
+                            Aligned Result<br>
+                            Green offset: (${greenOffset})<br>
+                            Red offset: (${redOffset})
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to create additional image section (same format as main images)
+        function createMyImageSection(imageName, greenOffset, redOffset) {
+            const baseImageName = imageName.replace('aligned_', '').replace('.jpg', '');
+            
+            return `
+                <h4>${baseImageName}.jpg</h4>
+                <div class="image-gallery">
+                    <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                        <img src="./my_images_aligned/${imageName}" alt="Additional image: ${baseImageName}">
+                        <div class="image-caption">
+                            Aligned Result<br>
+                            Green offset: (${greenOffset})<br>
+                            Red offset: (${redOffset})
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to populate results
+        async function populateResults() {
+            const results = await loadAlignmentResults();
+            
+            if (results.length === 0) {
+                console.error('No results loaded');
+                return;
+            }
+
+            const jpegContainer = document.getElementById('jpeg-results');
+            const tiffContainer = document.getElementById('tiff-results');
+            const tableBody = document.getElementById('table-body');
+            
+            let jpegHtml = '';
+            let tiffHtml = '';
+            let tableHtml = '';
+
+            results.forEach(result => {
+                const imageName = result.image_name;
+                const greenOffset = `${result.best_w_g}, ${result.best_h_g}`;
+                const redOffset = `${result.best_w_r}, ${result.best_h_r}`;
+                
+                // Create image section
+                const imageSection = createImageSection(imageName, greenOffset, redOffset);
+                
+                // Separate by file type
+                if (imageName.endsWith('.jpg')) {
+                    jpegHtml += imageSection;
+                } else if (imageName.endsWith('.tif')) {
+                    tiffHtml += imageSection;
+                }
+                
+                // Add to table
+                tableHtml += `
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 12px;">${imageName}</td>
+                        <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">(${greenOffset})</td>
+                        <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">(${redOffset})</td>
+                    </tr>
+                `;
+            });
+
+            // Populate the sections
+            jpegContainer.innerHTML = jpegHtml;
+            tiffContainer.innerHTML = tiffHtml;
+            tableBody.innerHTML = tableHtml;
+            
+            // Load and populate implementation images
+            const implementationImages = await loadImplementationImages();
+            const implementationContainer = document.getElementById('implementation-images-container');
+            
+            if (implementationImages.length > 0) {
+                let implementationHtml = '';
+                implementationImages.forEach(imageName => {
+                    implementationHtml += createImplementationImageSection(imageName);
+                });
+                implementationContainer.innerHTML = implementationHtml;
+            }
+            
+            // Load and populate additional images with their results
+            const myImagesResults = await loadMyImagesResults();
+            const myImagesContainer = document.getElementById('my-images-container');
+            
+            if (myImagesResults.length > 0) {
+                let myImagesHtml = '';
+                myImagesResults.forEach(result => {
+                    const imageName = result.image_name;
+                    const greenOffset = `${result.best_w_g}, ${result.best_h_g}`;
+                    const redOffset = `${result.best_w_r}, ${result.best_h_r}`;
+                    
+                    // Convert image name to aligned filename
+                    const baseImageName = imageName.replace('.tif', '').replace('.jpg', '');
+                    const alignedFileName = `aligned_${baseImageName}.jpg`;
+                    
+                    myImagesHtml += createMyImageSection(alignedFileName, greenOffset, redOffset);
+                });
+                myImagesContainer.innerHTML = myImagesHtml;
+            } else {
+                myImagesContainer.innerHTML = '<p>No additional images found.</p>';
+            }
+        }
+
+        // Load results when page loads
+        document.addEventListener('DOMContentLoaded', populateResults);
+    </script>
 </body>
 </html>
