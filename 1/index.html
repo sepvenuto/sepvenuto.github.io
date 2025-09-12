@@ -23,16 +23,101 @@
             <div class="project-content">
                 <h2>Overview</h2>
                 <div class="project-content-body">
-                    <p>The project entails aligning three color channel images to form a single RGB color image. </p>
+                    <p>The project entails aligning three color channel images to form a single RGB color image.</p>
                     
                     <h3>Implementation Details</h3>
-                    <p><strong>Single-Scale Implementation:</strong> For the simple alignment, my approach is to follow a moving window. First, I remove 50 pixels from all sides of the image to remove the border. I treat the base slide as being anchored in place, and create a window that is centered at (0,0), or the top right corner of the base slide. From there, I have the moving slide align itself with each coordinate within the window, then crop both slides to just include the part that overlaps between the offset moving slide and the stationary base slide. For each set of cropped slides, I compute the NCC, and return the offset (referring to the difference in coordinates between the top right corner of the base slide and the top right corner of the moving slide) that corresponds to the highest NCC. 
-
-Originally, I was trying to both roll and crop my images, which was causing issues where I was moving the images too many times and actually harming the final result. It really helped to create a dummy problem which was just an np array with a singular white square in the middle, and getting to see how my approach responded. 
-</p>
                     
-                    <p><strong>Multi-Scale Pyramid:</strong> For the pyramid alignment, I called the simple alignment multiple times, with different resolutions of the image. For each level (starting from the lowest resolution/highest level), I shrunk the resolution of the image by a factor of 0.5**level. I then removed 50 pixels from each side of the image to remove the border. Then, I created the window, but instead of centering the window at (0,0), I instead centered the window at the previous best offset that I had found, scaled to match the level. Then, I ran an exhaustive search with this window to get the best offset for this level. I then scale that offset in a reverse manner back to the size of the original image, and then continue on to the next level.
-</p>
+                    <h4>Single-Scale Implementation</h4>
+                    <p>For the simple alignment, my approach is to follow a moving window. First, I remove 50 pixels from all sides of the image to remove the border. This is because there are parts of the border that have imperfections that might interfere with how the border is aligned. 50 was a good balance between removing the interfering parts while still maintaining the important information.</p>
+
+                    <p>From there, I create a window with the center at (0,0). The top right corner is (window_min, window_min), and the bottom left corner is (window_max, window_max). These are all of the offset starting positions that I will be starting from. Window_min is negative, and window_max is positive.</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/window.jpeg" alt="Implementation diagram: window" onerror="this.style.display='none'">
+                            <div class="image-caption">window</div>
+                        </div>
+                    </div>
+
+                    <p>I treat the base slide (blue in my diagram) as being anchored in place, and align the top right corner of the base slide with the center of the window, at (0,0).</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/base_slide.jpeg" alt="Implementation diagram: base slide" onerror="this.style.display='none'">
+                            <div class="image-caption">base slide</div>
+                        </div>
+                    </div>
+
+                    <p>From there, I have the moving slide (red) align its top right corner with each coordinate within the window.</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/moving%20alignments.jpeg" alt="Implementation diagram: moving alignments" onerror="this.style.display='none'">
+                            <div class="image-caption">moving alignments</div>
+                        </div>
+                    </div>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/moving_path.jpeg" alt="Implementation diagram: moving path" onerror="this.style.display='none'">
+                            <div class="image-caption">moving path</div>
+                        </div>
+                    </div>
+
+                    <p>I crop both slides to just include the part that overlaps between the offset moving slide and the stationary base slide.</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/offsets.jpeg" alt="Implementation diagram: offsets" onerror="this.style.display='none'">
+                            <div class="image-caption">offsets</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Offset calculations:</strong></p>
+                    <p>When offset_x < 0: base_left = 0, base_right = img_width + offset_x, moving_left = -offset_x, moving_right = img_width</p>
+                    <p>When offset_x > 0: base_left = offset_x, base_right = img_width, moving_left = 0, moving_right = img_width - offset_x</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/negative%20offset.jpeg" alt="Implementation diagram: negative offset" onerror="this.style.display='none'">
+                            <div class="image-caption">negative offset</div>
+                        </div>
+                    </div>
+
+                    <p>When offset_y < 0: base_top = 0, base_bottom = img_height + offset_y, moving_top = -offset_y, moving_bottom = img_height</p>
+                    <p>When offset_y > 0: base_top = offset_y, base_bottom = img_height, moving_top = 0, moving_bottom = img_height - offset_y</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/positive_offset.jpeg" alt="Implementation diagram: positive offset" onerror="this.style.display='none'">
+                            <div class="image-caption">positive offset</div>
+                        </div>
+                    </div>
+
+                    <p>For each set of cropped slides, I compute the normalized cross correlation. I do this by flattening both slides, centering them at 0 by subtracting their mean, and normalize them by dividing by their norm. I then return the dot product between the two slides. This is the distance.</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/NCC.jpeg" alt="Implementation diagram: NCC" onerror="this.style.display='none'">
+                            <div class="image-caption">NCC</div>
+                        </div>
+                    </div>
+
+                    <p>My end result is to return the offset_x and offset_y pair (referring to the difference in coordinates between the top right corner of the base slide and the top right corner of the moving slide) that corresponds to the highest NCC.</p>
+
+                    <p>Originally, I was trying to both roll and crop my images, which was causing issues where I was moving the images too many times and actually harming the final result. It really helped to create a dummy problem which was just an np array with a singular white square in the middle, and getting to see how my approach responded.</p>
+
+                    <h4>Multi-Scale Pyramid</h4>
+                    <p>For the pyramid alignment, I called the simple alignment multiple times, with different resolutions of the image. For each level (starting from the lowest resolution/highest level), I shrunk the resolution of the image by a factor of 0.5**level. I then removed 50 pixels from each side of the image to remove the border. Then, I created the window, but instead of centering the window at (0,0), I instead centered the window at the previous best offset that I had found, scaled to match the level (I multiply the previous best offset by 0.5**level). Then, I ran an exhaustive search with this window to get the best offset for this level. I then scale that offset in a reverse manner back to the size of the original image, and then continue on to the next level.</p>
+
+                    <div class="image-gallery" style="margin: 20px 0;">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./implementation_imgs/pyramid_process.jpeg" alt="Implementation diagram: pyramid process" onerror="this.style.display='none'">
+                            <div class="image-caption">pyramid process</div>
+                        </div>
+                    </div>
+
+                    <p>I originally had the ratio of levels to window size wrong: I had a larger window size and less levels. While this did result in the images successfully being aligned, this caused the runtime to be extremely long. I reduced the window size by a factor of 5 for each dimension and added two extra levels, and I received the same results of the quality of my alignment but had a significantly lower (over two times) runtime. This makes sense, because instead of testing 225 possible alignments across 4 levels, I am now testing 9 possible alignments across 6 levels. For self_portrait.tif, I think that the images don't have the same brightness values, which makes it more difficult to align. I think that this may be able to be resolved using edge alignment.</p>
                 </div>
             </div>
 
@@ -149,25 +234,6 @@ Originally, I was trying to both roll and crop my images, which was causing issu
                 <div class="image-gallery">
                     <div class="image-container" style="max-width: 400px; margin: 0 auto;">
                         <img src="./aligned_images/aligned_${baseImageName}.jpg" alt="Aligned ${baseImageName} image">
-                        <div class="image-caption">
-                            Aligned Result<br>
-                            Green offset: (${greenOffset})<br>
-                            Red offset: (${redOffset})
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Function to create additional image section (same format as main images)
-        function createMyImageSection(imageName, greenOffset, redOffset) {
-            const baseImageName = imageName.replace('aligned_', '').replace('.jpg', '');
-            
-            return `
-                <h4>${baseImageName}.jpg</h4>
-                <div class="image-gallery">
-                    <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                        <img src="./my_images_aligned/${imageName}" alt="Additional image: ${baseImageName}">
                         <div class="image-caption">
                             Aligned Result<br>
                             Green offset: (${greenOffset})<br>
