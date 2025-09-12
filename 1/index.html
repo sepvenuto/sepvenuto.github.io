@@ -1,4 +1,4 @@
-r.<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,7 +32,7 @@ Originally, I was trying to both roll and crop my images, which was causing issu
 </p>
                     
                     <p><strong>Multi-Scale Pyramid:</strong> For the pyramid alignment, I called the simple alignment multiple times, with different resolutions of the image. For each level (starting from the lowest resolution/highest level), I shrunk the resolution of the image by a factor of 0.5**level. I then removed 50 pixels from each side of the image to remove the border. Then, I created the window, but instead of centering the window at (0,0), I instead centered the window at the previous best offset that I had found, scaled to match the level. Then, I ran an exhaustive search with this window to get the best offset for this level. I then scale that offset in a reverse manner back to the size of the original image, and then continue on to the next level.
- I originally had the ratio of levels to window size wrong: I had a larger window size and less levels. While this did result in the images successfully being aligned, this caused the runtime to be extremeley long. I reduced the window size by a factor of 5 for each dimension and added two extra levels, and I received the same results of the quality of my alignment but had a signficiantly lower (over two times) runtime. This makes sense, because instead of testing 225 possible alignments across 4 levels, I am now testing 9 possible alignments across 6 levels. For emir.tif and self_portrait.tif, I think that the images don't have the same brihtness values, which made it more difficult to align. I think that this may be able to be resolved using edge alignment. </p>
+</p>
                 </div>
             </div>
 
@@ -178,6 +178,25 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             `;
         }
 
+        // Function to create additional image section (same format as main images)
+        function createMyImageSection(imageName, greenOffset, redOffset) {
+            const baseImageName = imageName.replace('aligned_', '').replace('.jpg', '');
+            
+            return `
+                <h4>${baseImageName}.jpg</h4>
+                <div class="image-gallery">
+                    <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                        <img src="./my_images_aligned/${imageName}" alt="Additional image: ${baseImageName}">
+                        <div class="image-caption">
+                            Aligned Result<br>
+                            Green offset: (${greenOffset})<br>
+                            Red offset: (${redOffset})
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         // Function to populate results
         async function populateResults() {
             const results = await loadAlignmentResults();
@@ -224,6 +243,18 @@ Originally, I was trying to both roll and crop my images, which was causing issu
             jpegContainer.innerHTML = jpegHtml;
             tiffContainer.innerHTML = tiffHtml;
             tableBody.innerHTML = tableHtml;
+            
+            // Load and populate implementation images
+            const implementationImages = await loadImplementationImages();
+            const implementationContainer = document.getElementById('implementation-images-container');
+            
+            if (implementationImages.length > 0) {
+                let implementationHtml = '';
+                implementationImages.forEach(imageName => {
+                    implementationHtml += createImplementationImageSection(imageName);
+                });
+                implementationContainer.innerHTML = implementationHtml;
+            }
             
             // Load and populate additional images with their results
             const myImagesResults = await loadMyImagesResults();
