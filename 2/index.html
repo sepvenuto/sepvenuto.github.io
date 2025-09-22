@@ -94,57 +94,55 @@
                     <h4>Code Implementation</h4>
                     <h5>Padding</h5>
                     <pre><code>
-
-                    def pad_img(img, kernel_height, kernel_width):
-                        pad_height = kernel_height // 2
-                        pad_width = kernel_width // 2
-                        
-                        padded_img = np.pad(img, ((pad_height, pad_height), (pad_width, pad_width)))
-                        return padded_img
+def pad_img(img, kernel_height, kernel_width):
+    pad_height = kernel_height // 2
+    pad_width = kernel_width // 2
+    
+    padded_img = np.pad(img, ((pad_height, pad_height), (pad_width, pad_width)))
+    return padded_img
                     </code></pre>
                     </h5>Four Loop Convolve</h5>
                     <pre><code>
+def four_loop_convolve(image, kernel):
+    original_height = image.shape[0]
+    original_width = image.shape[1]
+    image = pad_img(image, kernel.shape[0], kernel.shape[1])
+    kernel_width = kernel.shape[1]
+    kernel_height = kernel.shape[0]
+    result = np.zeros((original_height, original_width))
 
-                    def four_loop_convolve(image, kernel):
-                        original_height = image.shape[0]
-                        original_width = image.shape[1]
-                        image = pad_img(image, kernel.shape[0], kernel.shape[1])
-                        kernel_width = kernel.shape[1]
-                        kernel_height = kernel.shape[0]
-                        result = np.zeros((original_height, original_width))
-                    
-                    
-                        for img_row in range(original_height):
-                            for img_col in range(original_width):
-                                res = 0
-                                for kernel_row in range(kernel_height):
-                                    for kernel_col in range(kernel_width):
-                                        flipped_kernel_row = kernel_height - 1 - kernel_row
-                                        flipped_kernel_col = kernel_width - 1 - kernel_col
-                                        res += image[img_row + kernel_row, img_col + kernel_col] * kernel[flipped_kernel_row, flipped_kernel_col]
-                                result[img_row][img_col] = res 
-                        return result
+
+    for img_row in range(original_height):
+        for img_col in range(original_width):
+            res = 0
+            for kernel_row in range(kernel_height):
+                for kernel_col in range(kernel_width):
+                    flipped_kernel_row = kernel_height - 1 - kernel_row
+                    flipped_kernel_col = kernel_width - 1 - kernel_col
+                    res += image[img_row + kernel_row, img_col + kernel_col] * kernel[flipped_kernel_row, flipped_kernel_col]
+            result[img_row][img_col] = res 
+    return result
                     </code></pre>
                     </h5>Two Loop Convolve</h5>
                     <pre><code>
-                    def two_loop_convolve(image, kernel):
-                        original_height = image.shape[0]
-                        original_width = image.shape[1]
-                        image = pad_img(image, kernel.shape[0], kernel.shape[1])
-                        kernel_width = kernel.shape[1]
-                        kernel_height = kernel.shape[0]
-                        result = np.zeros((original_height, original_width))
-                        
-                        flipped_kernel = np.flip(kernel)
-                        for res_row in range(original_height):
-                            for res_col in range(original_width):
-                                img_start_row = res_row
-                                img_end_row = img_start_row + kernel_height
-                                img_start_col = res_col
-                                img_end_col = img_start_col + kernel_width
-                                img_section = image[img_start_row:img_end_row, img_start_col:img_end_col]
-                                result[res_row][res_col] = np.sum(img_section * flipped_kernel)
-                        return result                        
+def two_loop_convolve(image, kernel):
+    original_height = image.shape[0]
+    original_width = image.shape[1]
+    image = pad_img(image, kernel.shape[0], kernel.shape[1])
+    kernel_width = kernel.shape[1]
+    kernel_height = kernel.shape[0]
+    result = np.zeros((original_height, original_width))
+    
+    flipped_kernel = np.flip(kernel)
+    for res_row in range(original_height):
+        for res_col in range(original_width):
+            img_start_row = res_row
+            img_end_row = img_start_row + kernel_height
+            img_start_col = res_col
+            img_end_col = img_start_col + kernel_width
+            img_section = image[img_start_row:img_end_row, img_start_col:img_end_col]
+            result[res_row][res_col] = np.sum(img_section * flipped_kernel)
+    return result
                     </code></pre>
 
                     <h3>Part 1.2: Finite Difference Operator</h3>
@@ -292,15 +290,15 @@
                             <div class="image-caption">Original Campanile</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./2.1/blurred_campanile.png" alt="Blurred campanile">
+                            <img src="./2.1/blurred_campanile.jpeg" alt="Blurred campanile">
                             <div class="image-caption">Blurred Campanile</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./2.1/sharpened_campanile_alpha_1.png" alt="Sharpened campanile alpha 1">
+                            <img src="./2.1/sharpened_campanile_alpha_1.jpeg" alt="Sharpened campanile alpha 1">
                             <div class="image-caption">Sharpened (α = 1)</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./2.1/sharpened_campanile_alpha_2.png" alt="Sharpened campanile alpha 2">
+                            <img src="./2.1/sharpened_campanile_alpha_2.jpeg" alt="Sharpened campanile alpha 2">
                             <div class="image-caption">Sharpened (α = 2)</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
@@ -315,7 +313,7 @@
                             <div class="image-caption">Original Night Scene</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./2.1/blurred_night.png" alt="Blurred night scene">
+                            <img src="./2.1/blurred_night.jpeg" alt="Blurred night scene">
                             <div class="image-caption">Blurred Night Scene</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
