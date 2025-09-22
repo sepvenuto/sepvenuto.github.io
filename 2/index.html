@@ -204,19 +204,26 @@ def two_loop_convolve(image, kernel):
 
                     <h3>Part 1.3: Derivative of Gaussian (DoG) Filter</h3>
                     
-                    <h4>Gaussian Smoothing Results</h4>
-                    <div class="image-gallery">
+                    <h4>Finite Difference Edge Detection Results</h4>
+                    <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.37.png" alt="Final threshold choice: 0.37">
+                            <div class="image-caption">Final Choice</div>
+                    </div>
+                    <h4>Gaussian Smoothing Edge Detection Results</h4>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./1.3/gaussian_smoothed_cameraman.png" alt="Gaussian blurred cameraman">
-                            <div class="image-caption">Gaussian Blurred Cameraman</div>
+                            <img src="./1.3/gaussian_edge_img.png" alt="Smoothed then edge detected">
+                            <div class="image-caption">Smoothed then Edge Detection</div>
                         </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./1.3/gaussian_edge_img.png" alt="Blurred then edge detected">
-                            <div class="image-caption">Blurred then Edge Detection</div>
+                    </div>
+                    <h4>Single Convolution (DoG) Results</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./1.3/DoG_edge_img.png" alt="DoG edge detection result">
+                            <div class="image-caption">DoG Edge Detection Result</div>
                         </div>
                     </div>
 
-                    <p><strong>Differences Observed:</strong> The Gaussian smoothing significantly reduces noise in the edge detection results. While the raw finite difference operators capture edges well, they also amplify noise throughout the image. After Gaussian blurring, the edges become cleaner and more continuous, with much less noise in uniform regions. However, some fine details may be lost due to the smoothing effect.</p>
+                    <p><strong>Differences Observed:</strong> The Gaussian smoothing makes finding the balance between edges and noise much clearer. It reduced the noice, enabling moreof the background to be picked up without causing more noise. In fact, the outline of the cameraman is much stronger and more solid once we blur first than if we didn't. The results are the same whether we use the DoG or simply blur before convolution. This is because convolution doesn't take order into account. </p>
 
                     <h4>Derivative of Gaussian Filters</h4>
                     <div class="image-gallery">
@@ -231,14 +238,6 @@ def two_loop_convolve(image, kernel):
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
                             <img src="./1.3/gaussian.png" alt="Gaussian filter visualization">
                             <div class="image-caption">Gaussian Filter</div>
-                        </div>
-                    </div>
-
-                    <h4>Single Convolution Results</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./1.3/DoG_edge_img.png" alt="DoG edge detection result">
-                            <div class="image-caption">DoG Edge Detection Result</div>
                         </div>
                     </div>
 
