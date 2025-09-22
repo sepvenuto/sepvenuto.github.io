@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 2: Fun with Filters and Frequencies</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Project 2: Fun with Filters and Frequencies</h1>
+            <p class="subtitle">Due: Friday, September 26, 2025 • CS180</p>
+        </header>
+        
+        <div style="padding: 20px;">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+
+        <main>
+            <!-- Overview Section -->
+            <div class="project-content">
+                <h2>Overview</h2>
+                <div class="project-content-body">
+                    <p>This project explores 2D convolutions, filtering, and frequency domain operations for image processing. The work is divided into two main parts: building intuitions about filters and edges, and exploring frequency-based image manipulations including sharpening, hybrid images, and multi-resolution blending.</p>
+                </div>
+            </div>
+
+            <!-- Part 1: Fun with Filters -->
+            <div class="project-content">
+                <h2>Part 1: Fun with Filters</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Part 1.1: Convolutions from Scratch</h3>
+                    <p>[Describe your convolution implementation approach - four loops vs two loops, padding strategy]</p>
+                    
+                    <h4>Implementation Comparison</h4>
+                    <p>[Compare your implementation with scipy.signal.convolve2d - runtime differences, boundary handling]</p>
+                    
+                    <h4>Box Filter Results</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/original_selfie.jpg" alt="Original selfie image">
+                            <div class="image-caption">Original Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/box_filtered_selfie.jpg" alt="Box filtered selfie">
+                            <div class="image-caption">9x9 Box Filter Result</div>
+                        </div>
+                    </div>
+
+                    <h4>Code Snippets</h4>
+                    <pre><code>
+# [Include your convolution implementation code here]
+def my_convolution(image, kernel):
+    # Your implementation
+    pass
+                    </code></pre>
+
+                    <h3>Part 1.2: Finite Difference Operator</h3>
+                    
+                    <h4>Partial Derivatives</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/cameraman_original.jpg" alt="Original cameraman">
+                            <div class="image-caption">Original Cameraman</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/cameraman_dx.jpg" alt="Partial derivative in x">
+                            <div class="image-caption">∂/∂x (D_x)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/cameraman_dy.jpg" alt="Partial derivative in y">
+                            <div class="image-caption">∂/∂y (D_y)</div>
+                        </div>
+                    </div>
+
+                    <h4>Gradient Magnitude and Edge Detection</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/gradient_magnitude.jpg" alt="Gradient magnitude">
+                            <div class="image-caption">Gradient Magnitude</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/binarized_edges.jpg" alt="Binarized edge image">
+                            <div class="image-caption">Binarized Edges (threshold = [your value])</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Threshold Selection:</strong> [Explain how you chose your threshold value and the tradeoffs between noise suppression and edge detection]</p>
+
+                    <h3>Part 1.3: Derivative of Gaussian (DoG) Filter</h3>
+                    
+                    <h4>Gaussian Smoothing Results</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/cameraman_blurred.jpg" alt="Gaussian blurred cameraman">
+                            <div class="image-caption">Gaussian Blurred</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blurred_dx.jpg" alt="Blurred then Dx">
+                            <div class="image-caption">Blurred then ∂/∂x</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blurred_dy.jpg" alt="Blurred then Dy">
+                            <div class="image-caption">Blurred then ∂/∂y</div>
+                        </div>
+                    </div>
+
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/blurred_gradient_magnitude.jpg" alt="Blurred gradient magnitude">
+                            <div class="image-caption">Gradient Magnitude (Gaussian smoothed)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/blurred_binarized_edges.jpg" alt="Blurred binarized edges">
+                            <div class="image-caption">Binarized Edges (Gaussian smoothed)</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Differences Observed:</strong> [Compare the results with and without Gaussian smoothing - noise reduction, edge quality, etc.]</p>
+
+                    <h4>Derivative of Gaussian Filters</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/dog_x_filter.jpg" alt="DoG filter in x direction">
+                            <div class="image-caption">DoG_x Filter</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/dog_y_filter.jpg" alt="DoG filter in y direction">
+                            <div class="image-caption">DoG_y Filter</div>
+                        </div>
+                    </div>
+
+                    <h4>Single Convolution Results</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/dog_x_result.jpg" alt="DoG x convolution result">
+                            <div class="image-caption">DoG_x * Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/dog_y_result.jpg" alt="DoG y convolution result">
+                            <div class="image-caption">DoG_y * Image</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Verification:</strong> [Confirm that the single convolution DoG results match the two-step process results]</p>
+                </div>
+            </div>
+
+            <!-- Part 2: Fun with Frequencies -->
+            <div class="project-content">
+                <h2>Part 2: Fun with Frequencies</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Part 2.1: Image "Sharpening"</h3>
+                    
+                    <h4>Unsharp Masking Theory</h4>
+                    <p>[Explain how unsharp masking works: Original + α(Original - Blurred) = Original + α(High frequencies)]</p>
+
+                    <h4>Taj Mahal Sharpening</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/taj_original.jpg" alt="Original Taj Mahal">
+                            <div class="image-caption">Original Taj Mahal</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/taj_blurred.jpg" alt="Blurred Taj Mahal">
+                            <div class="image-caption">Gaussian Blurred</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/taj_high_freq.jpg" alt="High frequency component">
+                            <div class="image-caption">High Frequencies</div>
+                        </div>
+                    </div>
+
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/taj_sharpened.jpg" alt="Sharpened Taj Mahal">
+                            <div class="image-caption">Sharpened Result (α = [your value])</div>
+                        </div>
+                    </div>
+
+                    <h4>Additional Image</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/my_image_original.jpg" alt="My original image">
+                            <div class="image-caption">Original Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/my_image_sharpened.jpg" alt="My sharpened image">
+                            <div class="image-caption">Sharpened Result</div>
+                        </div>
+                    </div>
+
+                    <h4>Blur and Sharpen Evaluation</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/sharp_original.jpg" alt="Original sharp image">
+                            <div class="image-caption">Original Sharp Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/sharp_blurred.jpg" alt="Artificially blurred">
+                            <div class="image-caption">Artificially Blurred</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/sharp_resharpened.jpg" alt="Re-sharpened">
+                            <div class="image-caption">Re-sharpened</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Observations:</strong> [Compare the original vs re-sharpened image - what details are lost/gained?]</p>
+
+                    <h3>Part 2.2: Hybrid Images</h3>
+                    
+                    <h4>Derek and Nutmeg (Example)</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/derek_original.jpg" alt="Derek original">
+                            <div class="image-caption">Derek (High freq)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/nutmeg_original.jpg" alt="Nutmeg original">
+                            <div class="image-caption">Nutmeg (Low freq)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/derek_nutmeg_hybrid.jpg" alt="Derek-Nutmeg hybrid">
+                            <div class="image-caption">Hybrid Result</div>
+                        </div>
+                    </div>
+
+                    <h4>Frequency Analysis (Favorite Result)</h4>
+                    <p><strong>Cutoff frequencies:</strong> Low-pass: [σ value], High-pass: [σ value]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_image1.jpg" alt="FFT of first image">
+                            <div class="image-caption">FFT of Image 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_image2.jpg" alt="FFT of second image">
+                            <div class="image-caption">FFT of Image 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_lowpass.jpg" alt="FFT of low-pass filtered">
+                            <div class="image-caption">FFT of Low-pass</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_highpass.jpg" alt="FFT of high-pass filtered">
+                            <div class="image-caption">FFT of High-pass</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_hybrid.jpg" alt="FFT of hybrid">
+                            <div class="image-caption">FFT of Hybrid</div>
+                        </div>
+                    </div>
+
+                    <h4>Additional Hybrid Images</h4>
+                    
+                    <h5>Hybrid Image 1</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid1_img1.jpg" alt="Hybrid 1 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid1_img2.jpg" alt="Hybrid 1 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid1_result.jpg" alt="Hybrid 1 result">
+                            <div class="image-caption">Hybrid Result</div>
+                        </div>
+                    </div>
+
+                    <h5>Hybrid Image 2</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid2_img1.jpg" alt="Hybrid 2 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid2_img2.jpg" alt="Hybrid 2 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid2_result.jpg" alt="Hybrid 2 result">
+                            <div class="image-caption">Hybrid Result</div>
+                        </div>
+                    </div>
+
+                    <h3>Part 2.3: Gaussian and Laplacian Stacks</h3>
+                    
+                    <h4>Apple and Orange Stacks</h4>
+                    <p>[Recreate Figure 3.42 from Szelski - show the Gaussian and Laplacian stacks for apple and orange]</p>
+                    
+                    <h5>Gaussian Stack</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_0.jpg" alt="Apple Gaussian level 0">
+                            <div class="image-caption">Apple G₀</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_1.jpg" alt="Apple Gaussian level 1">
+                            <div class="image-caption">Apple G₁</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_2.jpg" alt="Apple Gaussian level 2">
+                            <div class="image-caption">Apple G₂</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_3.jpg" alt="Apple Gaussian level 3">
+                            <div class="image-caption">Apple G₃</div>
+                        </div>
+                    </div>
+
+                    <h5>Laplacian Stack</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_0.jpg" alt="Apple Laplacian level 0">
+                            <div class="image-caption">Apple L₀</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_1.jpg" alt="Apple Laplacian level 1">
+                            <div class="image-caption">Apple L₁</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_2.jpg" alt="Apple Laplacian level 2">
+                            <div class="image-caption">Apple L₂</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_3.jpg" alt="Apple Laplacian level 3">
+                            <div class="image-caption">Apple L₃</div>
+                        </div>
+                    </div>
+
+                    <h3>Part 2.4: Multiresolution Blending</h3>
+                    
+                    <h4>The Oraple</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/apple_original.jpg" alt="Original apple">
+                            <div class="image-caption">Apple</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/orange_original.jpg" alt="Original orange">
+                            <div class="image-caption">Orange</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/oraple_result.jpg" alt="Oraple blend">
+                            <div class="image-caption">Oraple</div>
+                        </div>
+                    </div>
+
+                    <h4>Irregular Mask Blending</h4>
+                    
+                    <h5>Blend 1: [Describe your image pair]</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_img1.jpg" alt="Blend 1 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_img2.jpg" alt="Blend 1 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_mask.jpg" alt="Blend 1 mask">
+                            <div class="image-caption">Irregular Mask</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_result.jpg" alt="Blend 1 result">
+                            <div class="image-caption">Blended Result</div>
+                        </div>
+                    </div>
+
+                    <h5>Blend 2: [Describe your second image pair]</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blend2_img1.jpg" alt="Blend 2 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blend2_img2.jpg" alt="Blend 2 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blend2_result.jpg" alt="Blend 2 result">
+                            <div class="image-caption">Blended Result</div>
+                        </div>
+                    </div>
+
+                    <h4>Process Visualization (Favorite Result)</h4>
+                    <p>[Show the Laplacian stacks for your favorite blend, similar to Figure 10 in the Burt & Adelson paper]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/process_img1_l0.jpg" alt="Image 1 Laplacian 0">
+                            <div class="image-caption">Image 1 L₀</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/process_img1_l1.jpg" alt="Image 1 Laplacian 1">
+                            <div class="image-caption">Image 1 L₁</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/process_img1_l2.jpg" alt="Image 1 Laplacian 2">
+                            <div class="image-caption">Image 1 L₂</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reflection Section -->
+            <div class="project-content">
+                <h2>What I Learned</h2>
+                <div class="project-content-body">
+                    <p>[Reflect on the most important thing you learned from this project. Consider topics like: frequency domain concepts, the relationship between spatial and frequency filtering, the power of multi-resolution techniques, etc.]</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 CS180 Portfolio • Sylvie Venuto • UC Berkeley</p>
+        </footer>
+    </div>
+</body>
+</html>
