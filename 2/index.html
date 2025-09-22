@@ -167,13 +167,42 @@
                             <img src="./1.2/gradient_magnitude.png" alt="Gradient magnitude">
                             <div class="image-caption">Gradient Magnitude</div>
                         </div>
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./1.2/edge_img.png" alt="Binarized edge image">
-                            <div class="image-caption">Binarized Edges (threshold = [your value])</div>
+                    </div>
+
+                    <h4>Threshold Selection Process</h4>
+                    <p>I tested multiple thresholds for where to binarize my images. There was a tradeoff between including enough of the photographer while also not including too much of the background:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.3.png" alt="Threshold 0.3">
+                            <div class="image-caption">Threshold = 0.3</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.32.png" alt="Threshold 0.32">
+                            <div class="image-caption">Threshold = 0.32</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.35.png" alt="Threshold 0.35">
+                            <div class="image-caption">Threshold = 0.35</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.37.png" alt="Threshold 0.37">
+                            <div class="image-caption">Threshold = 0.37</div>
                         </div>
                     </div>
 
-                    <p><strong>Threshold Selection:</strong> [Explain how you chose your threshold value and the tradeoffs between noise suppression and edge detection]</p>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.4.png" alt="Threshold 0.4">
+                            <div class="image-caption">Threshold = 0.4</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.37.png" alt="Final threshold choice: 0.37">
+                            <div class="image-caption">Final Choice</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Threshold Selection Analysis:</strong>Lower threshold values (.3, .32, .35) tended to include a lot of background from the buildings as well as splotchy noise in the bottom right corner. I chose to have a higher threshold of 0.37, where I was able to limit the amount of noise but still include most of the details of the cameraman, which began to disappear when the threhold was 0.4</p>
 
                     <h3>Part 1.3: Derivative of Gaussian (DoG) Filter</h3>
                     
