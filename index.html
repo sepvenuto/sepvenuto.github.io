@@ -3,57 +3,530 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sylvie Venuto CS180 Introduction to Computer Vision and Computational Photography Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Project 2: Fun with Filters and Frequencies</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Introduction to Computer Vision and Computational Photography Portfolio</h1>
-            <p class="subtitle">CS180 • Fall 2025 • UC Berkeley</p>
+            <h1>Project 2: Fun with Filters and Frequencies</h1>
+            <p class="subtitle">Due: Friday, September 26, 2025 • CS180</p>
         </header>
+        
+        <div style="padding: 20px;">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
 
         <main>
-            <section class="intro">
-                <h2>Welcome!</h2>
-                <p>This portfolio contains my projects in computer vision and computational photography.</p>
-            </section>
+            <!-- Overview Section -->
+            <div class="project-content">
+                <h2>Overview</h2>
+                <div class="project-content-body">
+                    <p>This project explores 2D convolutions, filtering, and frequency domain operations for image processing. The work is divided into two main parts: building intuitions about filters and edges, and exploring frequency-based image manipulations including sharpening, hybrid images, and multi-resolution blending.</p>
+                </div>
+            </div>
 
-            <section class="projects">
-                <h2>Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <h3>Project 0: Becoming Friends with Your Camera</h3>
+            <!-- Part 1: Fun with Filters -->
+            <div class="project-content">
+                <h2>Part 1: Fun with Filters</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Part 1.1: Convolutions from Scratch</h3>
+                    <p>I implemented convolution using both four nested loops and two nested loops, with zero-padding to handle boundary conditions. The four-loop implementation handles kernel flipping explicitly, while the two-loop version uses numpy's flip function for efficiency.</p>
+                    
+                    <h4>Implementation Comparison</h4>
+                    <p>[Compare your implementation with scipy.signal.convolve2d - runtime differences, boundary handling]</p>
+                    
+                    <h4>Box Filter Results</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/original_img.jpeg" alt="Original selfie image">
+                            <div class="image-caption">Original Image</div>
                         </div>
-                        <div class="project-card-content">
-                            <p>Perspective, focal length/zoom, and the center of projection.</p>
-                            <a href="./0/index.html" class="project-link">View Project →</a>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/box_four_loop_convolve.png" alt="Box filter four loop result">
+                            <div class="image-caption">Box Filter (Four Loops)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/box_two_loop_convolve_res.png" alt="Box filter two loop result">
+                            <div class="image-caption">Box Filter (Two Loops)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/box_built_in_convolve_res.png" alt="Box filter built-in result">
+                            <div class="image-caption">Box Filter (Built-in)</div>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <h3>Project 1: Images of the Russian Empire</h3>
+
+                    <h4>Finite Difference Results</h4>
+                    
+                    <h5>D_x (Horizontal Edges)</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/D_x_four_loop_convolve_res.png" alt="Dx four loop result">
+                            <div class="image-caption">D_x (Four Loops)</div>
                         </div>
-                        <div class="project-card-content">
-                            <p>Image alignment and image pyramids.</p>
-                            <a href="./1/index.html" class="project-link">View Project →</a>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/D_x_two_loop_convolve_res.png" alt="Dx two loop result">
+                            <div class="image-caption">D_x (Two Loops)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/D_x_built_in_convolve_res.png" alt="Dx built-in result">
+                            <div class="image-caption">D_x (Built-in)</div>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <h3>Project 2: Fun with Filters and Frequencies!</h3>
+
+                    <h5>D_y (Vertical Edges)</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/D_y_four_loop_convolve_res.png" alt="Dy four loop result">
+                            <div class="image-caption">D_y (Four Loops)</div>
                         </div>
-                        <div class="project-card-content">
-                            <p>Image enhancement with convolution and frequencies.</p>
-                            <a href="./2/index.html" class="project-link">View Project →</a>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/D_y_two_loop_convolve_res.png" alt="Dy two loop result">
+                            <div class="image-caption">D_y (Two Loops)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.1/D_y_built_in_convolve_res.png" alt="Dy built-in result">
+                            <div class="image-caption">D_y (Built-in)</div>
                         </div>
                     </div>
-            </section>
+
+                    <h4>Code Implementation</h4>
+                    <pre><code>
+import numpy as np
+import scipy.signal
+from skimage import io as skio
+
+# Finite difference operators
+D_y = np.array([[1, 0, -1]])
+D_x = np.array([[1], [0], [-1]])
+
+def read_in_img(img_title, grayscale=False):
+    """Read in an image file"""
+    imname = img_title
+    im = skio.imread(imname, as_gray=grayscale)
+    return im
+
+def pad_img(img, kernel_height, kernel_width):
+    """Add zero padding to image based on kernel size"""
+    pad_height = kernel_height // 2
+    pad_width = kernel_width // 2
+    
+    padded_img = np.pad(img, ((pad_height, pad_height), (pad_width, pad_width)))
+    return padded_img
+
+def four_loop_convolve(image, kernel):
+    """Convolution implementation using four nested loops"""
+    image = pad_img(image, kernel.shape[0], kernel.shape[1])
+    img_width = image.shape[1]
+    img_height = image.shape[0]
+    kernel_width = kernel.shape[1]
+    kernel_height = kernel.shape[0]
+    result_height = img_height - kernel_height + 1
+    result_width = img_width - kernel_width + 1
+    result = np.zeros((result_height, result_width))
+
+    for img_row in range(result_height):
+        for img_col in range(result_width):
+            res = 0
+            for kernel_row in range(kernel_height):
+                for kernel_col in range(kernel_width):
+                    flipped_kernel_row = kernel_height - 1 - kernel_row
+                    flipped_kernel_col = kernel_width - 1 - kernel_col
+                    res += image[img_row + kernel_row, img_col + kernel_col] * kernel[flipped_kernel_row, flipped_kernel_col]
+            result[img_row][img_col] = res 
+    return result
+
+def two_loop_convolve(image, kernel):
+    """Convolution implementation using two nested loops with vectorized operations"""
+    image = pad_img(image, kernel.shape[0], kernel.shape[1])
+    img_width = image.shape[1]
+    img_height = image.shape[0]
+    kernel_width = kernel.shape[1]
+    kernel_height = kernel.shape[0]
+    result_height = img_height - kernel_height + 1
+    result_width = img_width - kernel_width + 1
+    result = np.zeros((result_height, result_width))
+    
+    flipped_kernel = np.flip(kernel)
+    for res_row in range(result_height):
+        for res_col in range(result_width):
+            img_start_row = res_row
+            img_end_row = img_start_row + kernel_height
+            img_start_col = res_col
+            img_end_col = img_start_col + kernel_width
+            img_section = image[img_start_row:img_end_row, img_start_col:img_end_col]
+            result[res_row][res_col] = np.sum(img_section * flipped_kernel)
+    return result
+
+def question_1_1():
+    """Test convolution implementations with box filter and finite difference operators"""
+    box_filter = np.ones((9,9))
+    img = read_in_img("1.1.jpeg", grayscale=True)
+    
+    # Box filter results
+    box_four_loop_convolve_res = four_loop_convolve(img, box_filter)
+    box_two_loop_convolve_res = two_loop_convolve(img, box_filter)
+    box_built_in_convolve_res = scipy.signal.convolve2d(img, box_filter, mode='same')
+
+    # D_x filter results
+    D_x_four_loop_convolve_res = four_loop_convolve(img, D_x)
+    D_x_two_loop_convolve_res = two_loop_convolve(img, D_x)
+    D_x_built_in_convolve_res = scipy.signal.convolve2d(img, D_x, mode='same')
+
+    # D_y filter results
+    D_y_four_loop_convolve_res = four_loop_convolve(img, D_y)
+    D_y_two_loop_convolve_res = two_loop_convolve(img, D_y)
+    D_y_built_in_convolve_res = scipy.signal.convolve2d(img, D_y, mode='same')
+    
+    return
+                    </code></pre>
+
+                    <h3>Part 1.2: Finite Difference Operator</h3>
+                    
+                    <h4>Partial Derivatives</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.2/x_partial_derivative.png" alt="Partial derivative in x">
+                            <div class="image-caption">∂/∂x (D_x)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.2/y_partial_derivative.png" alt="Partial derivative in y">
+                            <div class="image-caption">∂/∂y (D_y)</div>
+                        </div>
+                    </div>
+
+                    <h4>Gradient Magnitude and Edge Detection</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./1.2/gradient_magnitude.png" alt="Gradient magnitude">
+                            <div class="image-caption">Gradient Magnitude</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./1.2/edge_img.png" alt="Binarized edge image">
+                            <div class="image-caption">Binarized Edges (threshold = [your value])</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Threshold Selection:</strong> [Explain how you chose your threshold value and the tradeoffs between noise suppression and edge detection]</p>
+
+                    <h3>Part 1.3: Derivative of Gaussian (DoG) Filter</h3>
+                    
+                    <h4>Gaussian Smoothing Results</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.3/gaussian_smoothed_cameraman.png" alt="Gaussian blurred cameraman">
+                            <div class="image-caption">Gaussian Blurred Cameraman</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.3/gaussian_edge_img.png" alt="Blurred then edge detected">
+                            <div class="image-caption">Blurred then Edge Detection</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Differences Observed:</strong> [Compare the results with and without Gaussian smoothing - noise reduction, edge quality, etc.]</p>
+
+                    <h4>Derivative of Gaussian Filters</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.3/x_DoG_filter.png" alt="DoG filter in x direction">
+                            <div class="image-caption">DoG_x Filter</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.3/y_DoG_filter.png" alt="DoG filter in y direction">
+                            <div class="image-caption">DoG_y Filter</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.3/gaussian.png" alt="Gaussian filter visualization">
+                            <div class="image-caption">Gaussian Filter</div>
+                        </div>
+                    </div>
+
+                    <h4>Single Convolution Results</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./1.3/DoG_edge_img.png" alt="DoG edge detection result">
+                            <div class="image-caption">DoG Edge Detection Result</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Verification:</strong> [Confirm that the single convolution DoG results match the two-step process results]</p>
+                </div>
+            </div>
+
+            <!-- Part 2: Fun with Frequencies -->
+            <div class="project-content">
+                <h2>Part 2: Fun with Frequencies</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Part 2.1: Image "Sharpening"</h3>
+                    
+                    <h4>Unsharp Masking Theory</h4>
+                    <p>[Explain how unsharp masking works: Original + α(Original - Blurred) = Original + α(High frequencies)]</p>
+
+                    <h4>Taj Mahal Sharpening</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/taj_original.jpg" alt="Original Taj Mahal">
+                            <div class="image-caption">Original Taj Mahal</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/taj_blurred.jpg" alt="Blurred Taj Mahal">
+                            <div class="image-caption">Gaussian Blurred</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/taj_high_freq.jpg" alt="High frequency component">
+                            <div class="image-caption">High Frequencies</div>
+                        </div>
+                    </div>
+
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/taj_sharpened.jpg" alt="Sharpened Taj Mahal">
+                            <div class="image-caption">Sharpened Result (α = [your value])</div>
+                        </div>
+                    </div>
+
+                    <h4>Additional Image</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/my_image_original.jpg" alt="My original image">
+                            <div class="image-caption">Original Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./results/my_image_sharpened.jpg" alt="My sharpened image">
+                            <div class="image-caption">Sharpened Result</div>
+                        </div>
+                    </div>
+
+                    <h4>Blur and Sharpen Evaluation</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/sharp_original.jpg" alt="Original sharp image">
+                            <div class="image-caption">Original Sharp Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/sharp_blurred.jpg" alt="Artificially blurred">
+                            <div class="image-caption">Artificially Blurred</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/sharp_resharpened.jpg" alt="Re-sharpened">
+                            <div class="image-caption">Re-sharpened</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Observations:</strong> [Compare the original vs re-sharpened image - what details are lost/gained?]</p>
+
+                    <h3>Part 2.2: Hybrid Images</h3>
+                    
+                    <h4>Derek and Nutmeg (Example)</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/derek_original.jpg" alt="Derek original">
+                            <div class="image-caption">Derek (High freq)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/nutmeg_original.jpg" alt="Nutmeg original">
+                            <div class="image-caption">Nutmeg (Low freq)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/derek_nutmeg_hybrid.jpg" alt="Derek-Nutmeg hybrid">
+                            <div class="image-caption">Hybrid Result</div>
+                        </div>
+                    </div>
+
+                    <h4>Frequency Analysis (Favorite Result)</h4>
+                    <p><strong>Cutoff frequencies:</strong> Low-pass: [σ value], High-pass: [σ value]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_image1.jpg" alt="FFT of first image">
+                            <div class="image-caption">FFT of Image 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_image2.jpg" alt="FFT of second image">
+                            <div class="image-caption">FFT of Image 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_lowpass.jpg" alt="FFT of low-pass filtered">
+                            <div class="image-caption">FFT of Low-pass</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_highpass.jpg" alt="FFT of high-pass filtered">
+                            <div class="image-caption">FFT of High-pass</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/fft_hybrid.jpg" alt="FFT of hybrid">
+                            <div class="image-caption">FFT of Hybrid</div>
+                        </div>
+                    </div>
+
+                    <h4>Additional Hybrid Images</h4>
+                    
+                    <h5>Hybrid Image 1</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid1_img1.jpg" alt="Hybrid 1 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid1_img2.jpg" alt="Hybrid 1 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid1_result.jpg" alt="Hybrid 1 result">
+                            <div class="image-caption">Hybrid Result</div>
+                        </div>
+                    </div>
+
+                    <h5>Hybrid Image 2</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid2_img1.jpg" alt="Hybrid 2 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid2_img2.jpg" alt="Hybrid 2 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/hybrid2_result.jpg" alt="Hybrid 2 result">
+                            <div class="image-caption">Hybrid Result</div>
+                        </div>
+                    </div>
+
+                    <h3>Part 2.3: Gaussian and Laplacian Stacks</h3>
+                    
+                    <h4>Apple and Orange Stacks</h4>
+                    <p>[Recreate Figure 3.42 from Szelski - show the Gaussian and Laplacian stacks for apple and orange]</p>
+                    
+                    <h5>Gaussian Stack</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_0.jpg" alt="Apple Gaussian level 0">
+                            <div class="image-caption">Apple G₀</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_1.jpg" alt="Apple Gaussian level 1">
+                            <div class="image-caption">Apple G₁</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_2.jpg" alt="Apple Gaussian level 2">
+                            <div class="image-caption">Apple G₂</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_gaussian_3.jpg" alt="Apple Gaussian level 3">
+                            <div class="image-caption">Apple G₃</div>
+                        </div>
+                    </div>
+
+                    <h5>Laplacian Stack</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_0.jpg" alt="Apple Laplacian level 0">
+                            <div class="image-caption">Apple L₀</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_1.jpg" alt="Apple Laplacian level 1">
+                            <div class="image-caption">Apple L₁</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_2.jpg" alt="Apple Laplacian level 2">
+                            <div class="image-caption">Apple L₂</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/apple_laplacian_3.jpg" alt="Apple Laplacian level 3">
+                            <div class="image-caption">Apple L₃</div>
+                        </div>
+                    </div>
+
+                    <h3>Part 2.4: Multiresolution Blending</h3>
+                    
+                    <h4>The Oraple</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/apple_original.jpg" alt="Original apple">
+                            <div class="image-caption">Apple</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/orange_original.jpg" alt="Original orange">
+                            <div class="image-caption">Orange</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/oraple_result.jpg" alt="Oraple blend">
+                            <div class="image-caption">Oraple</div>
+                        </div>
+                    </div>
+
+                    <h4>Irregular Mask Blending</h4>
+                    
+                    <h5>Blend 1: [Describe your image pair]</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_img1.jpg" alt="Blend 1 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_img2.jpg" alt="Blend 1 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_mask.jpg" alt="Blend 1 mask">
+                            <div class="image-caption">Irregular Mask</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./results/blend1_result.jpg" alt="Blend 1 result">
+                            <div class="image-caption">Blended Result</div>
+                        </div>
+                    </div>
+
+                    <h5>Blend 2: [Describe your second image pair]</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blend2_img1.jpg" alt="Blend 2 input 1">
+                            <div class="image-caption">Input 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blend2_img2.jpg" alt="Blend 2 input 2">
+                            <div class="image-caption">Input 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./results/blend2_result.jpg" alt="Blend 2 result">
+                            <div class="image-caption">Blended Result</div>
+                        </div>
+                    </div>
+
+                    <h4>Process Visualization (Favorite Result)</h4>
+                    <p>[Show the Laplacian stacks for your favorite blend, similar to Figure 10 in the Burt & Adelson paper]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/process_img1_l0.jpg" alt="Image 1 Laplacian 0">
+                            <div class="image-caption">Image 1 L₀</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/process_img1_l1.jpg" alt="Image 1 Laplacian 1">
+                            <div class="image-caption">Image 1 L₁</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./results/process_img1_l2.jpg" alt="Image 1 Laplacian 2">
+                            <div class="image-caption">Image 1 L₂</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reflection Section -->
+            <div class="project-content">
+                <h2>What I Learned</h2>
+                <div class="project-content-body">
+                    <p>[Reflect on the most important thing you learned from this project. Consider topics like: frequency domain concepts, the relationship between spatial and frequency filtering, the power of multi-resolution techniques, etc.]</p>
+                </div>
+            </div>
         </main>
 
         <footer>
-            <p>&copy; 2025 CS180 Portfolio • University of California, Berkeley</p>
+            <p>&copy; 2025 CS180 Portfolio • Sylvie Venuto • UC Berkeley</p>
         </footer>
     </div>
 </body>
