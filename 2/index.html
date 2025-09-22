@@ -240,8 +240,6 @@ def two_loop_convolve(image, kernel):
                             <div class="image-caption">Gaussian Filter</div>
                         </div>
                     </div>
-
-                    <p><strong>Verification:</strong> The single convolution DoG results are identical to the two-step process results, confirming that convolution is associative. Using DoG filters is more efficient as it combines smoothing and differentiation into a single operation, reducing computational cost while producing the same mathematical result.</p>
                 </div>
             </div>
 
@@ -253,7 +251,7 @@ def two_loop_convolve(image, kernel):
                     <h3>Part 2.1: Image "Sharpening"</h3>
                     
                     <h4>Unsharp Masking Theory</h4>
-                    <p>Unsharp masking is a sharpening technique that works by enhancing the high-frequency details in an image. The process can be described mathematically as: <strong>Sharpened = Original + α(Original - Blurred)</strong>, where α controls the sharpening strength. Since (Original - Blurred) extracts the high frequencies, we're essentially adding more high-frequency content to make the image appear sharper. The technique gets its name from the traditional photography method of creating an "unsharp" (blurred) mask.</p>
+                    <p>Unsharp masking filter works by first blurring an image, then subtracting that blurred version from the original, to obtain the "details" of the image. Then, the unsharp mask flter will add copies of the details to the image, to enhance their presence. The gaussian blur results in the lower frequencies in the image. When we subtract the lower frequencies from the image, we retain the high frequencies, or the details. As we add more copies of the details or higher frequency values, we are increasing the amplitude or darkness of the high frequencies, causing there to be more visible details, allowing the image to appear to be enhanced.</p>
 
                     <h4>Taj Mahal Sharpening</h4>
                     <div class="image-gallery">
@@ -328,12 +326,9 @@ def two_loop_convolve(image, kernel):
                             <div class="image-caption">Sharpened (α = 5)</div>
                         </div>
                     </div>
-
+    
                     <h4>Effect of Different Alpha Values</h4>
-                    <p>As the alpha value increases, the sharpening effect becomes more pronounced. With α = 1, we get subtle enhancement of edges and details. At α = 2, the sharpening is more noticeable, bringing out texture details in the Taj Mahal's architecture and enhancing contrast. With α = 5, the effect becomes quite strong, potentially introducing artifacts or over-sharpening in some areas while dramatically enhancing fine details.</p>
-
-                    <p><strong>Observations:</strong> The sharpening works best on images with clear edges and architectural details like the Taj Mahal and Campanile. For the night scene, higher alpha values help bring out details in the darker regions but can also amplify noise. The key is finding the right balance between enhancement and artifact introduction.</p>
-
+                    <p>As we increase alpha, we are "adding" more copies of the details back to the image. When alpha = 1, this is a more mild result, but as alpha increases, we see a much more stark impression where the details were added, as they are several times darker than the non-details around them.</p>
                     <h3>Part 2.2: Hybrid Images</h3>
                     
                     <h4>Derek and Nutmeg (Example)</h4>
