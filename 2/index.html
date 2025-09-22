@@ -277,61 +277,86 @@ def question_1_1():
                     <h3>Part 2.1: Image "Sharpening"</h3>
                     
                     <h4>Unsharp Masking Theory</h4>
-                    <p>[Explain how unsharp masking works: Original + α(Original - Blurred) = Original + α(High frequencies)]</p>
+                    <p>Unsharp masking is a sharpening technique that works by enhancing the high-frequency details in an image. The process can be described mathematically as: <strong>Sharpened = Original + α(Original - Blurred)</strong>, where α controls the sharpening strength. Since (Original - Blurred) extracts the high frequencies, we're essentially adding more high-frequency content to make the image appear sharper. The technique gets its name from the traditional photography method of creating an "unsharp" (blurred) mask.</p>
 
                     <h4>Taj Mahal Sharpening</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/taj_original.jpg" alt="Original Taj Mahal">
+                            <img src="./2.1/original_taj_mahal.jpg" alt="Original Taj Mahal">
                             <div class="image-caption">Original Taj Mahal</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/taj_blurred.jpg" alt="Blurred Taj Mahal">
+                            <img src="./2.1/blurred_taj_mahal.png" alt="Blurred Taj Mahal">
                             <div class="image-caption">Gaussian Blurred</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/taj_high_freq.jpg" alt="High frequency component">
-                            <div class="image-caption">High Frequencies</div>
+                            <img src="./2.1/sharpened_taj_mahal_alpha_1.jpeg" alt="Sharpened Taj Mahal alpha 1">
+                            <div class="image-caption">Sharpened Result (α = 1)</div>
                         </div>
                     </div>
 
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./results/taj_sharpened.jpg" alt="Sharpened Taj Mahal">
-                            <div class="image-caption">Sharpened Result (α = [your value])</div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/sharpened_taj_mahal_alpha_2.jpeg" alt="Sharpened Taj Mahal alpha 2">
+                            <div class="image-caption">Sharpened Result (α = 2)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/sharpened_taj_mahal_alpha_5.jpeg" alt="Sharpened Taj Mahal alpha 5">
+                            <div class="image-caption">Sharpened Result (α = 5)</div>
                         </div>
                     </div>
 
-                    <h4>Additional Image</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./results/my_image_original.jpg" alt="My original image">
-                            <div class="image-caption">Original Image</div>
-                        </div>
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./results/my_image_sharpened.jpg" alt="My sharpened image">
-                            <div class="image-caption">Sharpened Result</div>
-                        </div>
-                    </div>
-
-                    <h4>Blur and Sharpen Evaluation</h4>
+                    <h4>Additional Images - Campanile and Night Scene</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/sharp_original.jpg" alt="Original sharp image">
-                            <div class="image-caption">Original Sharp Image</div>
+                            <img src="./2.1/original_campanile.jpeg" alt="Original campanile">
+                            <div class="image-caption">Original Campanile</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/sharp_blurred.jpg" alt="Artificially blurred">
-                            <div class="image-caption">Artificially Blurred</div>
+                            <img src="./2.1/blurred_campanile.png" alt="Blurred campanile">
+                            <div class="image-caption">Blurred Campanile</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/sharp_resharpened.jpg" alt="Re-sharpened">
-                            <div class="image-caption">Re-sharpened</div>
+                            <img src="./2.1/sharpened_campanile_alpha_1.png" alt="Sharpened campanile alpha 1">
+                            <div class="image-caption">Sharpened (α = 1)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/sharpened_campanile_alpha_2.png" alt="Sharpened campanile alpha 2">
+                            <div class="image-caption">Sharpened (α = 2)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/sharpened_campanile_alpha_5.jpeg" alt="Sharpened campanile alpha 5">
+                            <div class="image-caption">Sharpened (α = 5)</div>
                         </div>
                     </div>
 
-                    <p><strong>Observations:</strong> [Compare the original vs re-sharpened image - what details are lost/gained?]</p>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/original_night.jpeg" alt="Original night scene">
+                            <div class="image-caption">Original Night Scene</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/blurred_night.png" alt="Blurred night scene">
+                            <div class="image-caption">Blurred Night Scene</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/sharpened_night_alpha_1.jpeg" alt="Sharpened night alpha 1">
+                            <div class="image-caption">Sharpened (α = 1)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/sharpened_night_alpha_2.jpeg" alt="Sharpened night alpha 2">
+                            <div class="image-caption">Sharpened (α = 2)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.1/sharpened_night_alpha_5.jpeg" alt="Sharpened night alpha 5">
+                            <div class="image-caption">Sharpened (α = 5)</div>
+                        </div>
+                    </div>
 
+                    <h4>Effect of Different Alpha Values</h4>
+                    <p>As the alpha value increases, the sharpening effect becomes more pronounced. With α = 1, we get subtle enhancement of edges and details. At α = 2, the sharpening is more noticeable, bringing out texture details in the Taj Mahal's architecture and enhancing contrast. With α = 5, the effect becomes quite strong, potentially introducing artifacts or over-sharpening in some areas while dramatically enhancing fine details.</p>
+
+                    <p><strong>Observations:</strong> The sharpening works best on images with clear edges and architectural details like the Taj Mahal and Campanile. For the night scene, higher alpha values help bring out details in the darker regions but can also amplify noise. The key is finding the right balance between enhancement and artifact introduction.</p>
                     <h3>Part 2.2: Hybrid Images</h3>
                     
                     <h4>Derek and Nutmeg (Example)</h4>
