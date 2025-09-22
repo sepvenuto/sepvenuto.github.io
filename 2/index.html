@@ -215,57 +215,42 @@ def question_1_1():
                     <h4>Gaussian Smoothing Results</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/cameraman_blurred.jpg" alt="Gaussian blurred cameraman">
-                            <div class="image-caption">Gaussian Blurred</div>
+                            <img src="./1.3/gaussian_smoothed_cameraman.png" alt="Gaussian blurred cameraman">
+                            <div class="image-caption">Gaussian Blurred Cameraman</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/blurred_dx.jpg" alt="Blurred then Dx">
-                            <div class="image-caption">Blurred then ∂/∂x</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/blurred_dy.jpg" alt="Blurred then Dy">
-                            <div class="image-caption">Blurred then ∂/∂y</div>
+                            <img src="./1.3/gaussian_edge_img.png" alt="Blurred then edge detected">
+                            <div class="image-caption">Blurred then Edge Detection</div>
                         </div>
                     </div>
 
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./results/blurred_gradient_magnitude.jpg" alt="Blurred gradient magnitude">
-                            <div class="image-caption">Gradient Magnitude (Gaussian smoothed)</div>
-                        </div>
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./results/blurred_binarized_edges.jpg" alt="Blurred binarized edges">
-                            <div class="image-caption">Binarized Edges (Gaussian smoothed)</div>
-                        </div>
-                    </div>
-
-                    <p><strong>Differences Observed:</strong> [Compare the results with and without Gaussian smoothing - noise reduction, edge quality, etc.]</p>
+                    <p><strong>Differences Observed:</strong> The Gaussian smoothing significantly reduces noise in the edge detection results. While the raw finite difference operators capture edges well, they also amplify noise throughout the image. After Gaussian blurring, the edges become cleaner and more continuous, with much less noise in uniform regions. However, some fine details may be lost due to the smoothing effect.</p>
 
                     <h4>Derivative of Gaussian Filters</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/dog_x_filter.jpg" alt="DoG filter in x direction">
+                            <img src="./1.3/x_DoG_filter.png" alt="DoG filter in x direction">
                             <div class="image-caption">DoG_x Filter</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/dog_y_filter.jpg" alt="DoG filter in y direction">
+                            <img src="./1.3/y_DoG_filter.png" alt="DoG filter in y direction">
                             <div class="image-caption">DoG_y Filter</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./1.3/gaussian.png" alt="Gaussian filter visualization">
+                            <div class="image-caption">Gaussian Filter</div>
                         </div>
                     </div>
 
                     <h4>Single Convolution Results</h4>
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/dog_x_result.jpg" alt="DoG x convolution result">
-                            <div class="image-caption">DoG_x * Image</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/dog_y_result.jpg" alt="DoG y convolution result">
-                            <div class="image-caption">DoG_y * Image</div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./1.3/DoG_edge_img.png" alt="DoG edge detection result">
+                            <div class="image-caption">DoG Edge Detection Result</div>
                         </div>
                     </div>
 
-                    <p><strong>Verification:</strong> [Confirm that the single convolution DoG results match the two-step process results]</p>
+                    <p><strong>Verification:</strong> The single convolution DoG results are identical to the two-step process results, confirming that convolution is associative. Using DoG filters is more efficient as it combines smoothing and differentiation into a single operation, reducing computational cost while producing the same mathematical result.</p>
                 </div>
             </div>
 
@@ -357,6 +342,7 @@ def question_1_1():
                     <p>As the alpha value increases, the sharpening effect becomes more pronounced. With α = 1, we get subtle enhancement of edges and details. At α = 2, the sharpening is more noticeable, bringing out texture details in the Taj Mahal's architecture and enhancing contrast. With α = 5, the effect becomes quite strong, potentially introducing artifacts or over-sharpening in some areas while dramatically enhancing fine details.</p>
 
                     <p><strong>Observations:</strong> The sharpening works best on images with clear edges and architectural details like the Taj Mahal and Campanile. For the night scene, higher alpha values help bring out details in the darker regions but can also amplify noise. The key is finding the right balance between enhancement and artifact introduction.</p>
+
                     <h3>Part 2.2: Hybrid Images</h3>
                     
                     <h4>Derek and Nutmeg (Example)</h4>
