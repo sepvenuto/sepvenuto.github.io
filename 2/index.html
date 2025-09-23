@@ -329,84 +329,118 @@ def two_loop_convolve(image, kernel):
     
                     <h4>Effect of Different Alpha Values (Sharpening Amount Variation)</h4>
                     <p>As we increase alpha, we are "adding" more copies of the details back to the image. When alpha = 1, this is a more mild result, but as alpha increases, we see a much more stark impression where the details were added, as they are several times darker than the non-details around them.</p>
-                    <h3>Part 2.2: Hybrid Images</h3>
+                   <h3>Part 2.2: Hybrid Images</h3>
                     
-                    <h4>Derek and Nutmeg (Example)</h4>
+                    <h4>Detailed Process: Sylvie and Chloe Hybrid</h4>
+                    <p>For this hybrid image, I demonstrate the complete frequency analysis process including original images, Fourier transforms, filtering steps, and the final result.</p>
+                    
+                    <h5>Original Input Images</h5>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/derek_original.jpg" alt="Derek original">
-                            <div class="image-caption">Derek (High freq)</div>
+                            <img src="./2.2/sylvie.jpeg" alt="Sylvie original">
+                            <div class="image-caption">Sylvie (High Frequency Component)</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/nutmeg_original.jpg" alt="Nutmeg original">
-                            <div class="image-caption">Nutmeg (Low freq)</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/derek_nutmeg_hybrid.jpg" alt="Derek-Nutmeg hybrid">
-                            <div class="image-caption">Hybrid Result</div>
+                            <img src="./2.2/chloe.jpeg" alt="Chloe original">
+                            <div class="image-caption">Chloe (Low Frequency Component)</div>
                         </div>
                     </div>
 
-                    <h4>Frequency Analysis (Favorite Result)</h4>
-                    <p><strong>Cutoff frequencies:</strong> Low-pass: [σ value], High-pass: [σ value]</p>
-                    
+                    <h5>Fourier Transform Analysis</h5>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/fft_image1.jpg" alt="FFT of first image">
-                            <div class="image-caption">FFT of Image 1</div>
+                            <img src="./2.2/sylvie_fourrier.jpeg" alt="FFT of Sylvie">
+                            <div class="image-caption">FFT of Sylvie</div>
                         </div>
                         <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/fft_image2.jpg" alt="FFT of second image">
-                            <div class="image-caption">FFT of Image 2</div>
+                            <img src="./2.2/chloe_fourrier.jpeg" alt="FFT of Chloe">
+                            <div class="image-caption">FFT of Chloe</div>
                         </div>
                         <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/fft_lowpass.jpg" alt="FFT of low-pass filtered">
-                            <div class="image-caption">FFT of Low-pass</div>
+                            <img src="./2.2/sylvie_chloe_hybrid_fourrier.jpeg" alt="FFT of hybrid">
+                            <div class="image-caption">FFT of Final Hybrid</div>
                         </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/fft_highpass.jpg" alt="FFT of high-pass filtered">
-                            <div class="image-caption">FFT of High-pass</div>
+                    </div>
+
+                    <h5>Filtered Components</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.2/high_freq_chloe.png" alt="High frequency Chloe">
+                            <div class="image-caption">High Frequency Chloe</div>
                         </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/fft_hybrid.jpg" alt="FFT of hybrid">
-                            <div class="image-caption">FFT of Hybrid</div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.2/low_freq_sylvie.png" alt="Low frequency Sylvie">
+                            <div class="image-caption">Low Frequency Sylvie</div>
+                        </div>
+                    </div>
+
+                    <h5>Cutoff Frequency Experimentation</h5>
+                    <p>I tested multiple cutoff frequency combinations to find the optimal balance:</p>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.1_low_cuttof_0.7.png" alt="Cutoff 0.1, 0.7">
+                            <div class="image-caption">Low: 0.1, High: 0.7</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.1_low_cuttof_0.8.png" alt="Cutoff 0.1, 0.8">
+                            <div class="image-caption">Low: 0.1, High: 0.8</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.1_low_cuttof_0.9.png" alt="Cutoff 0.1, 0.9">
+                            <div class="image-caption">Low: 0.1, High: 0.9</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.2_low_cuttof_0.7.png" alt="Cutoff 0.2, 0.7">
+                            <div class="image-caption">Low: 0.2, High: 0.7</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.2_low_cuttof_0.8.png" alt="Cutoff 0.2, 0.8">
+                            <div class="image-caption">Low: 0.2, High: 0.8</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.2_low_cuttof_0.9.png" alt="Cutoff 0.2, 0.9">
+                            <div class="image-caption">Low: 0.2, High: 0.9</div>
+                        </div>
+                    </div>
+
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.3_low_cuttof_0.7.png" alt="Cutoff 0.3, 0.7">
+                            <div class="image-caption">Low: 0.3, High: 0.7</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.3_low_cuttof_0.8.png" alt="Cutoff 0.3, 0.8">
+                            <div class="image-caption">Low: 0.3, High: 0.8</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid_low_cuttof_0.3_low_cuttof_0.9.png" alt="Cutoff 0.3, 0.9">
+                            <div class="image-caption">Low: 0.3, High: 0.8</div>                
+                    
+                    <h5>Final Hybrid Result</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./2.2/sylvie_chloe_hybrid.png" alt="Final Sylvie-Chloe hybrid">
+                            <div class="image-caption">Final Sylvie-Chloe Hybrid</div>
                         </div>
                     </div>
 
                     <h4>Additional Hybrid Images</h4>
                     
-                    <h5>Hybrid Image 1</h5>
+                    <h5>Dad and Boggle</h5>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/hybrid1_img1.jpg" alt="Hybrid 1 input 1">
-                            <div class="image-caption">Input 1</div>
+                            <img src="./2.2/dad_being_cute.jpeg" alt="Dad original">
+                            <div class="image-caption">Dad</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/hybrid1_img2.jpg" alt="Hybrid 1 input 2">
-                            <div class="image-caption">Input 2</div>
+                            <img src="./2.2/boggle_being_cute.jpeg" alt="Boggle original">
+                            <div class="image-caption">Boggle</div>
                         </div>
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/hybrid1_result.jpg" alt="Hybrid 1 result">
-                            <div class="image-caption">Hybrid Result</div>
+                            <img src="./2.2/dad_boggle_hybrid.png" alt="Dad-Boggle hybrid">
+                            <div class="image-caption">Dad-Boggle Hybrid</div>
                         </div>
                     </div>
-
-                    <h5>Hybrid Image 2</h5>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/hybrid2_img1.jpg" alt="Hybrid 2 input 1">
-                            <div class="image-caption">Input 1</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/hybrid2_img2.jpg" alt="Hybrid 2 input 2">
-                            <div class="image-caption">Input 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/hybrid2_result.jpg" alt="Hybrid 2 result">
-                            <div class="image-caption">Hybrid Result</div>
-                        </div>
-                    </div>
-
                     <h3>Part 2.3: Gaussian and Laplacian Stacks</h3>
                     
                     <h4>Apple and Orange Stacks</h4>
