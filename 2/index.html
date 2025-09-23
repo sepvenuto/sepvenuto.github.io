@@ -332,7 +332,7 @@ def two_loop_convolve(image, kernel):
                    <h3>Part 2.2: Hybrid Images</h3>
                     
                     <h4>Detailed Process: Sylvie and Chloe Hybrid</h4>
-                    <p>For this hybrid image, I demonstrate the complete frequency analysis process including original images, Fourier transforms, filtering steps, and the final result.</p>
+                    <p>I tried a variety of combinations of low cutoff frequency and high cutoff frequencies for the picture of me and my sister. I eventually settled on the low cutoff frequency being 0.1 and the high cutoff frequency being 0.9. I like the effect of having to significantly move your head around to see the different perspectives and different images withiin the hybrid. This is caused by the high difference in the cutoff frequencies, with each at the more extreme end. </p>
                     
                     <h5>Original Input Images</h5>
                     <div class="image-gallery">
@@ -371,6 +371,18 @@ def two_loop_convolve(image, kernel):
                         <div class="image-container" style="max-width: 300px; margin: 0 auto;">
                             <img src="./2.2/low_freq_sylvie.png" alt="Low frequency Sylvie">
                             <div class="image-caption">Low Frequency Sylvie</div>
+                        </div>
+                    </div>
+
+                    <h5>Filtered Components - Fourier Analysis</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.2/high_freq_chloe_fourrier.jpeg" alt="FFT of high frequency Chloe">
+                            <div class="image-caption">FFT of High Frequency Chloe</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.2/low_freq_sylvie_fourrier.jpeg" alt="FFT of low frequency Sylvie">
+                            <div class="image-caption">FFT of Low Frequency Sylvie</div>
                         </div>
                     </div>
 
@@ -427,6 +439,22 @@ def two_loop_convolve(image, kernel):
                     </div>
 
                     <h4>Additional Hybrid Images</h4>
+                    
+                    <h5>Derek and Nutmeg (Course Example)</h5>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.2/DerekPicture.jpg" alt="Derek original">
+                            <div class="image-caption">Derek</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.2/nutmeg.jpg" alt="Nutmeg original">
+                            <div class="image-caption">Nutmeg</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./2.2/derek_nutmeg_hybrid.png" alt="Derek-Nutmeg hybrid">
+                            <div class="image-caption">Derek-Nutmeg Hybrid</div>
+                        </div>
+                    </div>
                     
                     <h5>Dad and Boggle</h5>
                     <div class="image-gallery">
