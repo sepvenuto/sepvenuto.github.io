@@ -505,86 +505,58 @@ def two_loop_convolve(image, kernel):
                     <h3>Part 2.4: Multiresolution Blending</h3>
                     
                     <h4>The Oraple</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/apple_original.jpg" alt="Original apple">
-                            <div class="image-caption">Apple</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/orange_original.jpg" alt="Original orange">
-                            <div class="image-caption">Orange</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/oraple_result.jpg" alt="Oraple blend">
-                            <div class="image-caption">Oraple</div>
-                        </div>
-                    </div>
+<div class="image-gallery">
+    <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+        <img src="./2.4/apple.jpeg" alt="Original apple">
+        <div class="image-caption">Apple</div>
+    </div>
+    <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+        <img src="./2.4/orange.jpeg" alt="Original orange">
+        <div class="image-caption">Orange</div>
+    </div>
+    <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+        <img src="./2.4/oraple_result.png" alt="Oraple blend">
+        <div class="image-caption">Oraple Result</div>
+    </div>
+</div>
 
-                    <h4>Irregular Mask Blending</h4>
-                    
-                    <h5>Blend 1: [Describe your image pair]</h5>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/blend1_img1.jpg" alt="Blend 1 input 1">
-                            <div class="image-caption">Input 1</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/blend1_img2.jpg" alt="Blend 1 input 2">
-                            <div class="image-caption">Input 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/blend1_mask.jpg" alt="Blend 1 mask">
-                            <div class="image-caption">Irregular Mask</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./results/blend1_result.jpg" alt="Blend 1 result">
-                            <div class="image-caption">Blended Result</div>
-                        </div>
-                    </div>
+<h4>Custom Blends with Irregular Masks</h4>
 
-                    <h5>Blend 2: [Describe your second image pair]</h5>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/blend2_img1.jpg" alt="Blend 2 input 1">
-                            <div class="image-caption">Input 1</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/blend2_img2.jpg" alt="Blend 2 input 2">
-                            <div class="image-caption">Input 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./results/blend2_result.jpg" alt="Blend 2 result">
-                            <div class="image-caption">Blended Result</div>
-                        </div>
-                    </div>
+<h5>Coast and Painting Blend</h5>
+<div class="image-gallery">
+    <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+        <img src="./2.4/coast.jpeg" alt="Coast image">
+        <div class="image-caption">Coast</div>
+    </div>
+    <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+        <img src="./2.4/painting.jpeg" alt="Painting image">
+        <div class="image-caption">Painting</div>
+    </div>
+    <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+        <img src="./2.4/coast_painting_spline.png" alt="Irregular mask">
+        <div class="image-caption">Irregular Mask</div>
+    </div>
+    <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+        <img src="./2.4/coast_painting_result.png" alt="Blended result">
+        <div class="image-caption">Blended Result</div>
+    </div>
+</div>
 
-                    <h4>Process Visualization (Favorite Result)</h4>
-                    <p>[Show the Laplacian stacks for your favorite blend, similar to Figure 10 in the Burt & Adelson paper]</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./results/process_img1_l0.jpg" alt="Image 1 Laplacian 0">
-                            <div class="image-caption">Image 1 L₀</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./results/process_img1_l1.jpg" alt="Image 1 Laplacian 1">
-                            <div class="image-caption">Image 1 L₁</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./results/process_img1_l2.jpg" alt="Image 1 Laplacian 2">
-                            <div class="image-caption">Image 1 L₂</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reflection Section -->
-            <div class="project-content">
-                <h2>What I Learned</h2>
-                <div class="project-content-body">
-                    <p>[Reflect on the most important thing you learned from this project. Consider topics like: frequency domain concepts, the relationship between spatial and frequency filtering, the power of multi-resolution techniques, etc.]</p>
-                </div>
-            </div>
+<h5>Flower and Portrait Blend</h5>
+<div class="image-gallery">
+    <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+        <img src="./2.4/flower.jpeg" alt="Flower image">
+        <div class="image-caption">Flower</div>
+    </div>
+    <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+        <img src="./2.4/ashie_yawn.jpeg" alt="Portrait image">
+        <div class="image-caption">Portrait</div>
+    </div>
+    <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+        <img src="./2.4/flower_ashie_result.png" alt="Flower portrait blend">
+        <div class="image-caption">Blended Result</div>
+    </div>
+</div>
         </main>
 
         <footer>
