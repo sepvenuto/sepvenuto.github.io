@@ -34,7 +34,7 @@
                     <h3>Part 1.1: Convolutions from Scratch</h3>                    
                     <h4>Implementation Comparison</h4>
                     <p> The runtime on my implementations was significantly slower than the built-in implementation. The four-loop version was the slowest, with a runtime of 126.8491 seconds. The two-loop version had a runtime of 17.2778 seconds. The increase in speed is due to me taking advantage of broadcasting. The built-in had a runtime of 0.8796 seconds. (All runtimes are for convolution of the image and the box filter).
-                        In terms of padding, the built-in is in mode 'same,' where it maintains the size of the image by zero-padding it with the size of the pad overall. This is also what my pad_img function does. This padding maintains the size of the image, although it does introduce a slight dark border around the image, due to the zeros being averaged with the image itself. However, the result is the same size as the original image, due to the padding.
+                        In terms of padding, the built-in is in mode 'same,' where it maintains the size of the image by zero-padding it with the size of the pad overall. The way that I did this is by adding the equivalent of the kernel height and kernel width to the image overall. However, instead of adding all of these values on one edge, I added half of the padding to the top of the image, half to the bottom for the vertical padding and half of the padding to the left and half to the right. This helps make sure that the size of the image is maintained but also that the image remains centered in the end result. This is also what my pad_img function does. This padding maintains the size of the image, although it does introduce a slight dark border around the image, due to the zeros being averaged with the image itself. However, the result is the same size as the original image, due to the padding.
                     </p>
                     
                     <h4>Box Filter Results</h4>
@@ -172,20 +172,20 @@ def two_loop_convolve(image, kernel):
                     
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.15.png" alt="Threshold 0.15">
+                            <div class="image-caption">Threshold = 0.15</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.2.png" alt="Threshold 0.2">
+                            <div class="image-caption">Threshold = 0.2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./1.2/edge_img_threshold_0.25.png" alt="Threshold 0.25">
+                            <div class="image-caption">Threshold = 0.25</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
                             <img src="./1.2/edge_img_threshold_0.3.png" alt="Threshold 0.3">
                             <div class="image-caption">Threshold = 0.3</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./1.2/edge_img_threshold_0.32.png" alt="Threshold 0.32">
-                            <div class="image-caption">Threshold = 0.32</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./1.2/edge_img_threshold_0.35.png" alt="Threshold 0.35">
-                            <div class="image-caption">Threshold = 0.35</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./1.2/edge_img_threshold_0.37.png" alt="Threshold 0.37">
-                            <div class="image-caption">Threshold = 0.37</div>
                         </div>
                     </div>
 
@@ -200,7 +200,7 @@ def two_loop_convolve(image, kernel):
                         </div>
                     </div>
 
-                    <p><strong>Threshold Selection Analysis:</strong>Lower threshold values (.3, .32, .35) tended to include a lot of background from the buildings as well as splotchy noise in the bottom right corner. I chose to have a higher threshold of 0.37, where I was able to limit the amount of noise but still include most of the details of the cameraman, which began to disappear when the threhold was 0.4</p>
+                    <p><strong>Threshold Selection Analysis:</strong>Lower threshold values (.15) tended to include a more of background from the buildings in the background that were not part of the essential image of the cameraman. I chose to have a higher threshold of 0.2, where I was able to limit the amount of noise but still include most of the details of the cameraman, which began to disappear when the threhold  was larger, such as at 0.25 or at 0.3</p>
 
                     <h3>Part 1.3: Derivative of Gaussian (DoG) Filter</h3>
                     
@@ -223,7 +223,7 @@ def two_loop_convolve(image, kernel):
                         </div>
                     </div>
 
-                    <p><strong>Differences Observed:</strong> The Gaussian smoothing makes finding the balance between edges and noise much clearer. It reduced the noice, enabling moreof the background to be picked up without causing more noise. In fact, the outline of the cameraman is much stronger and more solid once we blur first than if we didn't. The results are the same whether we use the DoG or simply blur before convolution. This is because convolution doesn't take order into account. </p>
+                    <p><strong>Differences Observed:</strong> The Gaussian smoothing makes finding the balance between edges and noise much clearer. It reduced the noice, enabling moreof the background to be picked up without causing more noise. In fact, the outline of the cameraman is much stronger and more solid once we blur first than if we didn't. The results are the same whether we use the DoG or simply blur before convolution. This is because convolution is associative. </p>
 
                     <h4>Derivative of Gaussian Filters</h4>
                     <div class="image-gallery">
