@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 3A: Image Warping and Mosaicing</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Project 3A: Image Warping and Mosaicing</h1>
+            <p class="subtitle">CS180 • Image Warping and Mosaicing</p>
+        </header>
+        
+        <div style="padding: 20px;">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+
+        <main>
+            <!-- Overview Section -->
+            <div class="project-content">
+                <h2>Overview</h2>
+                <div class="project-content-body">
+                    <p>This project explores image warping and mosaicing techniques. I implemented homography computation, image warping with multiple interpolation methods, and blended multiple images together to create seamless panoramic mosaics. The project demonstrates how projective transformations can align images taken from the same camera position but different orientations.</p>
+                </div>
+            </div>
+
+            <!-- Part A.1: Shoot and Digitize Pictures -->
+            <div class="project-content">
+                <h2>Part A.1: Shoot and Digitize Pictures</h2>
+                <div class="project-content-body">
+                    <p>I captured multiple sets of images with projective transformations between them by fixing the center of projection and rotating the camera. The images have 40-70% overlap to facilitate registration.</p>
+                    
+                    <h3>Image Set 1: [Description]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./images/set1_img1.jpg" alt="Set 1 Image 1">
+                            <div class="image-caption">Image 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./images/set1_img2.jpg" alt="Set 1 Image 2">
+                            <div class="image-caption">Image 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./images/set1_img3.jpg" alt="Set 1 Image 3">
+                            <div class="image-caption">Image 3</div>
+                        </div>
+                    </div>
+
+                    <h3>Image Set 2: [Description]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./images/set2_img1.jpg" alt="Set 2 Image 1">
+                            <div class="image-caption">Image 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./images/set2_img2.jpg" alt="Set 2 Image 2">
+                            <div class="image-caption">Image 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./images/set2_img3.jpg" alt="Set 2 Image 3">
+                            <div class="image-caption">Image 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part A.2: Recover Homographies -->
+            <div class="project-content">
+                <h2>Part A.2: Recover Homographies</h2>
+                <div class="project-content-body">
+                    <h3>Implementation</h3>
+                    <p>I implemented the computeH(im1_pts, im2_pts) function to recover the 3x3 homography matrix from point correspondences. The homography relates points between two images via p' = Hp, where H has 8 degrees of freedom.</p>
+                    
+                    <h4>Mathematical Formulation</h4>
+                    <p>[Explain your system of equations Ah = b and how you solve it using least squares]</p>
+                    
+                    <h4>Code Implementation</h4>
+                    <pre><code>
+def computeH(im1_pts, im2_pts):
+    # Your implementation here
+    pass
+                    </code></pre>
+
+                    <h3>Point Correspondences</h3>
+                    <p>I established point correspondences between image pairs using [your method]. Here are the visualizations:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./images/correspondences_1.jpg" alt="Point correspondences visualization">
+                            <div class="image-caption">Point Correspondences - Image Pair 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./images/correspondences_2.jpg" alt="Point correspondences visualization">
+                            <div class="image-caption">Point Correspondences - Image Pair 2</div>
+                        </div>
+                    </div>
+
+                    <h3>Recovered Homography Matrices</h3>
+                    <p><strong>Image Pair 1:</strong></p>
+                    <pre><code>
+H = [[ ... , ... , ... ],
+     [ ... , ... , ... ],
+     [ ... , ... , ... ]]
+                    </code></pre>
+
+                    <p><strong>Image Pair 2:</strong></p>
+                    <pre><code>
+H = [[ ... , ... , ... ],
+     [ ... , ... , ... ],
+     [ ... , ... , ... ]]
+                    </code></pre>
+                </div>
+            </div>
+
+            <!-- Part A.3: Warp the Images -->
+            <div class="project-content">
+                <h2>Part A.3: Warp the Images</h2>
+                <div class="project-content-body">
+                    <h3>Implementation</h3>
+                    <p>I implemented two interpolation methods from scratch using inverse warping:</p>
+                    
+                    <h4>Nearest Neighbor Interpolation</h4>
+                    <pre><code>
+def warpImageNearestNeighbor(im, H):
+    # Your implementation here
+    pass
+                    </code></pre>
+
+                    <h4>Bilinear Interpolation</h4>
+                    <pre><code>
+def warpImageBilinear(im, H):
+    # Your implementation here
+    pass
+                    </code></pre>
+
+                    <h3>Image Rectification</h3>
+                    <p>I tested my homography and warping implementation by rectifying images containing rectangular objects.</p>
+                    
+                    <h4>Rectification Example 1</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./images/rect1_original.jpg" alt="Original tilted image">
+                            <div class="image-caption">Original Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./images/rect1_nearest.jpg" alt="Rectified with nearest neighbor">
+                            <div class="image-caption">Nearest Neighbor Interpolation</div>
+                        </div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./images/rect1_bilinear.jpg" alt="Rectified with bilinear">
+                            <div class="image-caption">Bilinear Interpolation</div>
+                        </div>
+                    </div>
+
+                    <h4>Rectification Example 2</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./images/rect2_original.jpg" alt="Original tilted image">
+                            <div class="image-caption">Original Image</div>
+                        </div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./images/rect2_nearest.jpg" alt="Rectified with nearest neighbor">
+                            <div class="image-caption">Nearest Neighbor Interpolation</div>
+                        </div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./images/rect2_bilinear.jpg" alt="Rectified with bilinear">
+                            <div class="image-caption">Bilinear Interpolation</div>
+                        </div>
+                    </div>
+
+                    <h3>Interpolation Comparison</h3>
+                    <p><strong>Quality:</strong> [Discuss quality differences between nearest neighbor and bilinear]</p>
+                    <p><strong>Speed:</strong> [Discuss speed tradeoffs]</p>
+                    <p><strong>Trade-offs:</strong> [Your analysis of when to use each method]</p>
+                </div>
+            </div>
+
+            <!-- Part A.4: Blend the Images into a Mosaic -->
+            <div class="project-content">
+                <h2>Part A.4: Blend the Images into a Mosaic</h2>
+                <div class="project-content-body">
+                    <h3>Blending Procedure</h3>
+                    <p>[Explain your blending approach: weighted averaging, alpha channel, distance transform, etc.]</p>
+
+                    <h3>Mosaic 1: [Description]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic1_src1.jpg" alt="Mosaic 1 source 1">
+                            <div class="image-caption">Source Image 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic1_src2.jpg" alt="Mosaic 1 source 2">
+                            <div class="image-caption">Source Image 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic1_src3.jpg" alt="Mosaic 1 source 3">
+                            <div class="image-caption">Source Image 3</div>
+                        </div>
+                    </div>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./images/mosaic1_result.jpg" alt="Mosaic 1 result">
+                            <div class="image-caption">Final Mosaic 1</div>
+                        </div>
+                    </div>
+
+                    <h3>Mosaic 2: [Description]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic2_src1.jpg" alt="Mosaic 2 source 1">
+                            <div class="image-caption">Source Image 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic2_src2.jpg" alt="Mosaic 2 source 2">
+                            <div class="image-caption">Source Image 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic2_src3.jpg" alt="Mosaic 2 source 3">
+                            <div class="image-caption">Source Image 3</div>
+                        </div>
+                    </div>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./images/mosaic2_result.jpg" alt="Mosaic 2 result">
+                            <div class="image-caption">Final Mosaic 2</div>
+                        </div>
+                    </div>
+
+                    <h3>Mosaic 3: [Description]</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic3_src1.jpg" alt="Mosaic 3 source 1">
+                            <div class="image-caption">Source Image 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic3_src2.jpg" alt="Mosaic 3 source 2">
+                            <div class="image-caption">Source Image 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./images/mosaic3_src3.jpg" alt="Mosaic 3 source 3">
+                            <div class="image-caption">Source Image 3</div>
+                        </div>
+                    </div>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./images/mosaic3_result.jpg" alt="Mosaic 3 result">
+                            <div class="image-caption">Final Mosaic 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 CS180 Portfolio • Sylvie Venuto • UC Berkeley</p>
+        </footer>
+    </div>
+</body>
+</html>
