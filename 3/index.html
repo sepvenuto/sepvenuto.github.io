@@ -118,38 +118,21 @@ H = [[ ... , ... , ... ],
             <div class="project-content">
                 <h2>Part A.3: Warp the Images</h2>
                 <div class="project-content-body">
-                    <h3>Implementation</h3>
-                    <p>I implemented two interpolation methods from scratch using inverse warping:</p>
-                    
-                    <h4>Nearest Neighbor Interpolation</h4>
-                    <pre><code>
-def warpImageNearestNeighbor(im, H):
-    # Your implementation here
-    pass
-                    </code></pre>
-
-                    <h4>Bilinear Interpolation</h4>
-                    <pre><code>
-def warpImageBilinear(im, H):
-    # Your implementation here
-    pass
-                    </code></pre>
-
                     <h3>Image Rectification</h3>
                     <p>I tested my homography and warping implementation by rectifying images containing rectangular objects.</p>
                     
-                    <h4>Rectification Example 1</h4>
+                    <h4>Rectification Example 1: Poster</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./images/rect1_original.jpg" alt="Original tilted image">
+                            <img src="A.3/poster.jpeg" alt="Original tilted image">
                             <div class="image-caption">Original Image</div>
                         </div>
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./images/rect1_nearest.jpg" alt="Rectified with nearest neighbor">
+                            <img src="A.3/rectified_poster_nearest_neightbor.png" alt="Rectified with nearest neighbor">
                             <div class="image-caption">Nearest Neighbor Interpolation</div>
                         </div>
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./images/rect1_bilinear.jpg" alt="Rectified with bilinear">
+                            <img src="A.3/rectified_poster_bilinear.png" alt="Rectified with bilinear">
                             <div class="image-caption">Bilinear Interpolation</div>
                         </div>
                     </div>
