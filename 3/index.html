@@ -171,9 +171,8 @@ def warpImageBilinear(im, H):
                     </div>
 
                     <h3>Interpolation Comparison</h3>
-                    <p><strong>Quality:</strong> [Discuss quality differences between nearest neighbor and bilinear]</p>
-                    <p><strong>Speed:</strong> [Discuss speed tradeoffs]</p>
-                    <p><strong>Trade-offs:</strong> [Your analysis of when to use each method]</p>
+                    <p><strong>Quality:</strong> The quality of the resulting image is better with bilinear interpolation than with the nearest neighbor approach. This is because the nearest neighbor approach tries to map partial pixels to the nearest full pixel, meaning that we lose the nuance and detail that may have been spread across pixels. For example, it is possible that some pixels in the original are never corresponding to a rounded pixel in the new version, meaning that that pixel value is completely lost. However, with the bilinear, the pixels will still contribute to the result, even if their weight is not 100%.</p>
+                    <p><strong>Speed:</strong> The nearest neighbor approach is quicker. This is due to the </p>
                 </div>
             </div>
 
