@@ -124,38 +124,38 @@ H = [[ ... , ... , ... ],
                     <h4>Rectification Example 1: Poster</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="A.3/poster.jpeg" alt="Original tilted image">
+                            <img src="./A.3/poster.jpeg" alt="Original tilted image">
                             <div class="image-caption">Original Image</div>
                         </div>
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="A.3/rectified_poster_nearest_neightbor.png" alt="Rectified with nearest neighbor">
+                            <img src="./A.3/rectified_poster_nearest_neightbor.png" alt="Rectified with nearest neighbor">
                             <div class="image-caption">Nearest Neighbor Interpolation</div>
                         </div>
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="A.3/rectified_poster_bilinear.png" alt="Rectified with bilinear">
+                            <img src="./A.3/rectified_poster_bilinear.png" alt="Rectified with bilinear">
                             <div class="image-caption">Bilinear Interpolation</div>
                         </div>
                     </div>
 
-                    <h4>Rectification Example 2</h4>
+                    <h4>Rectification Example 2: wall decoration</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./images/rect2_original.jpg" alt="Original tilted image">
+                            <img src="./A.3/shrine.jpeg" alt="Original tilted image">
                             <div class="image-caption">Original Image</div>
                         </div>
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./images/rect2_nearest.jpg" alt="Rectified with nearest neighbor">
+                            <img src="./A.3/rectified_shrine_nearest_neightbor.png" alt="Rectified with nearest neighbor">
                             <div class="image-caption">Nearest Neighbor Interpolation</div>
                         </div>
                         <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./images/rect2_bilinear.jpg" alt="Rectified with bilinear">
+                            <img src="./A.3/rectified_shrine_bilinear.png" alt="Rectified with bilinear">
                             <div class="image-caption">Bilinear Interpolation</div>
                         </div>
                     </div>
 
                     <h3>Interpolation Comparison</h3>
                     <p><strong>Quality:</strong> The quality of the resulting image is better with bilinear interpolation than with the nearest neighbor approach. This is because the nearest neighbor approach tries to map partial pixels to the nearest full pixel, meaning that we lose the nuance and detail that may have been spread across pixels. For example, it is possible that some pixels in the original are never corresponding to a rounded pixel in the new version, meaning that that pixel value is completely lost. However, with the bilinear, the pixels will still contribute to the result, even if their weight is not 100%.</p>
-                    <p><strong>Speed:</strong> The nearest neighbor approach is quicker. This is due to the </p>
+                    <p><strong>Speed:</strong> The nearest neighbor approach is quicker (7.0736 seconds instead of 7.3857 seconds after computing the homography). This is due to the simpler logic required of just rounding instead of checking more conditions. However, this is not a significant difference in time for the smaller imagegs that are lower quality and when we are only processing one image. If we have to process more images on a larger scale, we would have to take this difference into account more, as it would be compounded.</p>
                 </div>
             </div>
 
