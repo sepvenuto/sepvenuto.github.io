@@ -400,76 +400,82 @@ b = [723. 205. 186. 165. 203. 550. 117. 588. 509. 669. 895. 196. 478. 113.
                 </div>
             </div>
 
-            <!-- Part A.4: Blend the Images into a Mosaic -->
+           <!-- Part A.4: Blend the Images into a Mosaic -->
             <div class="project-content">
                 <h2>Part A.4: Blend the Images into a Mosaic</h2>
                 <div class="project-content-body">
                     <h3>Blending Procedure</h3>
-                    <p>My blending approach involves an alpha channel and laplacian pyramid. For each image, I create an alpha channel, which is the same dimensions as the output result, and has value 1 where the pixels are filled in using values from the original, and 0 everywhere else. I then use distance_transform_edt (the scipy version of bwdist) to create a dropoff on the weighting, where the closer to the center of the original image, the more it is weighted. I then determine the location of the overlap region (where both alpha channels equal one). For that area, I normalize the weight, so that the overall weight is equal to 1 for each pixel across the two images. I do this by dividing the weight of each image by the overall weight in that region. Where the total distance is 0, such as at the edge of both of the images, I will weight them evenly, with 0.5 each. I then get a laplacian stack. For the lower frequencies, I will weight the level from the laplacian stack by the alpha channel that I just created. For the highest frequency, I create a binary alpha channel, where the channel is 1 if the values in the channel were greater than 0, and 0 otherwise. This allows for the edges to be more clearly maintained, while the colors in the lower frequencies can be better blended more smoothly. I then collapse the modified and weighted laplacian. </p>
-
-                    <h3>Mosaic 1: [Description]</h3>
+                    <p>My blending approach involves an alpha channel and laplacian pyramid. For each image, I create an alpha channel, which is the same dimensions as the output result, and has value 1 where the pixels are filled in using values from the original, and 0 everywhere else. I then use distance_transform_edt (the scipy version of bwdist) to create a dropoff on the weighting, where the closer to the center of the original image, the more it is weighted. I then determine the location of the overlap region (where both alpha channels equal one). For that area, I normalize the weight, so that the overall weight is equal to 1 for each pixel across the two images. I do this by dividing the weight of each image by the overall weight in that region. Where the total distance is 0, such as at the edge of both of the images, I will weight them evenly, with 0.5 each. I then get a laplacian stack. For the lower frequencies, I will weight the level from the laplacian stack by the alpha channel that I just created. For the highest frequency, I create a binary alpha channel, where the channel is 1 if the values in the channel were greater than 0, and 0 otherwise. This allows for the edges to be more clearly maintained, while the colors in the lower frequencies can be better blended more smoothly. I then collapse the modified and weighted laplacian.</p>
+            
+                    <h3>Mosaic 1: Soda Patio</h3>
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic1_src1.jpg" alt="Mosaic 1 source 1">
-                            <div class="image-caption">Source Image 1</div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/soda_left.jpeg" alt="Soda Patio Left">
+                            <div class="image-caption">Source Image - Left</div>
                         </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic1_src2.jpg" alt="Mosaic 1 source 2">
-                            <div class="image-caption">Source Image 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic1_src3.jpg" alt="Mosaic 1 source 3">
-                            <div class="image-caption">Source Image 3</div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/soda_right.jpeg" alt="Soda Patio Right">
+                            <div class="image-caption">Source Image - Right</div>
                         </div>
                     </div>
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./images/mosaic1_result.jpg" alt="Mosaic 1 result">
-                            <div class="image-caption">Final Mosaic 1</div>
+                        <div class="image-container" style="max-width: 700px; margin: 0 auto;">
+                            <img src="./A.4/stitched_soda.png" alt="Soda Patio Mosaic">
+                            <div class="image-caption">Final Mosaic - Soda Patio</div>
                         </div>
                     </div>
-
-                    <h3>Mosaic 2: [Description]</h3>
+            
+                    <h3>Mosaic 2: Street View</h3>
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic2_src1.jpg" alt="Mosaic 2 source 1">
-                            <div class="image-caption">Source Image 1</div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/street_left.jpeg" alt="Street View Left">
+                            <div class="image-caption">Source Image - Left</div>
                         </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic2_src2.jpg" alt="Mosaic 2 source 2">
-                            <div class="image-caption">Source Image 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic2_src3.jpg" alt="Mosaic 2 source 3">
-                            <div class="image-caption">Source Image 3</div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/street_right.jpeg" alt="Street View Right">
+                            <div class="image-caption">Source Image - Right</div>
                         </div>
                     </div>
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./images/mosaic2_result.jpg" alt="Mosaic 2 result">
-                            <div class="image-caption">Final Mosaic 2</div>
+                        <div class="image-container" style="max-width: 700px; margin: 0 auto;">
+                            <img src="./A.4/stitched_street.png" alt="Street View Mosaic">
+                            <div class="image-caption">Final Mosaic - Street View</div>
                         </div>
                     </div>
-
-                    <h3>Mosaic 3: [Description]</h3>
+            
+                    <h3>Mosaic 3: Lamppost</h3>
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic3_src1.jpg" alt="Mosaic 3 source 1">
-                            <div class="image-caption">Source Image 1</div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/lamppost_top.jpeg" alt="Lamppost Top">
+                            <div class="image-caption">Source Image - Top</div>
                         </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic3_src2.jpg" alt="Mosaic 3 source 2">
-                            <div class="image-caption">Source Image 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./images/mosaic3_src3.jpg" alt="Mosaic 3 source 3">
-                            <div class="image-caption">Source Image 3</div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/lamppost_bottom.jpeg" alt="Lamppost Bottom">
+                            <div class="image-caption">Source Image - Bottom</div>
                         </div>
                     </div>
                     <div class="image-gallery">
-                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./images/mosaic3_result.jpg" alt="Mosaic 3 result">
-                            <div class="image-caption">Final Mosaic 3</div>
+                        <div class="image-container" style="max-width: 700px; margin: 0 auto;">
+                            <img src="./A.4/stitched_lamppost.png" alt="Lamppost Mosaic">
+                            <div class="image-caption">Final Mosaic - Lamppost</div>
+                        </div>
+                    </div>
+            
+                    <h3>Mosaic 4: Window</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/window_top.jpeg" alt="Window Top">
+                            <div class="image-caption">Source Image - Top</div>
+                        </div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./A.4/window_bottom.jpeg" alt="Window Bottom">
+                            <div class="image-caption">Source Image - Bottom</div>
+                        </div>
+                    </div>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 700px; margin: 0 auto;">
+                            <img src="./A.4/stitched_window.png" alt="Window Mosaic">
+                            <div class="image-caption">Final Mosaic - Window</div>
                         </div>
                     </div>
                 </div>
