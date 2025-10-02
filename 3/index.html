@@ -217,7 +217,7 @@
                 <h2>Part A.4: Blend the Images into a Mosaic</h2>
                 <div class="project-content-body">
                     <h3>Blending Procedure</h3>
-                    <p>[Explain your blending approach: weighted averaging, alpha channel, distance transform, etc.]</p>
+                    <p>My blending approach involves an alpha channel and laplacian pyramid. For each image, I create an alpha channel, which is the same dimensions as the output result, and has value 1 where the pixels are filled in using values from the original, and 0 everywhere else. I then use distance_transform_edt (the scipy version of bwdist) to create a dropoff on the weighting, where the closer to the center of the original image, the more it is weighted. I then determine the location of the overlap region (where both alpha channels equal one). For that area, I normalize the weight, so that the overall weight is equal to 1 for each pixel across the two images. I do this by dividing the weight of each image by the overall weight in that region. Where the total distance is 0, such as at the edge of both of the images, I will weight them evenly, with 0.5 each. I then get a laplacian stack. For the lower frequencies, I will weight the level from the laplacian stack by the alpha channel that I just created. For the highest frequency, I create a binary alpha channel, where the channel is 1 if the values in the channel were greater than 0, and 0 otherwise. This allows for the edges to be more clearly maintained, while the colors in the lower frequencies can be better blended more smoothly. I then collapse the modified and weighted laplacian. </p>
 
                     <h3>Mosaic 1: [Description]</h3>
                     <div class="image-gallery">
