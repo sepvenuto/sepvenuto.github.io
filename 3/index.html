@@ -142,8 +142,9 @@
                     
                     <p>The equations are structured as follows:</p>
                     <ul>
-                        <li>For each point: A contains the coefficients based on (x, y) coordinates</li>
-                        <li>b contains the target (x', y') coordinates</li>
+                        <li>For each point: A contains the coefficients based on (x, y) coordinates. For each (x, y) and (x', y'), there is a row  of A that looks like: [x y 1 0 0 0 -x(x') -y(x')] and another row that looks like [0 0 0 x y 1 -x(y') -y(y')] </li>
+                        <li>For each point, b will contain a row with the value [x'] and a row with the value [y'] </li>
+                        <li>H = [h_1 h_2 h_3 h_4 h_5 h_6 h_7 h_8], where H = [[h_1 h_2 h_3] [h_4 h_5 h_6] [h_7 h_8 1]]
                         <li>Solving Ah = b gives us the 8 parameters of the homography matrix</li>
                     </ul>
                     <h3>System of Equations and Recovered Homography Matrices</h3>
