@@ -86,48 +86,85 @@
             <div class="project-content">
                 <h2>Part A.2: Recover Homographies</h2>
                 <div class="project-content-body">
-                    <h3>Implementation</h3>
-                    <p>I implemented the computeH(im1_pts, im2_pts) function to recover the 3x3 homography matrix from point correspondences. The homography relates points between two images via p' = Hp, where H has 8 degrees of freedom.</p>
-                    
-                    <h4>Mathematical Formulation</h4>
-                    <p>[Explain your system of equations Ah = b and how you solve it using least squares]</p>
-                    
-                    <h4>Code Implementation</h4>
-                    <pre><code>
-def computeH(im1_pts, im2_pts):
-    # Your implementation here
-    pass
-                    </code></pre>
-
                     <h3>Point Correspondences</h3>
-                    <p>I established point correspondences between image pairs using [your method]. Here are the visualizations:</p>
+                    <p>I manually established point correspondences between image pairs by selecting matching features visible in both images. These correspondences were used to compute the homography matrices.</p>
                     
+                    <h4>Soda Patio</h4>
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./images/correspondences_1.jpg" alt="Point correspondences visualization">
-                            <div class="image-caption">Point Correspondences - Image Pair 1</div>
+                            <img src="./A.2/soda_left_correspondences.png" alt="Soda left correspondences">
+                            <div class="image-caption">Soda Left - Point Correspondences</div>
                         </div>
                         <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./images/correspondences_2.jpg" alt="Point correspondences visualization">
-                            <div class="image-caption">Point Correspondences - Image Pair 2</div>
+                            <img src="./A.2/soda_right_correspondences.png" alt="Soda right correspondences">
+                            <div class="image-caption">Soda Right - Point Correspondences</div>
                         </div>
                     </div>
-
+            
+                    <h4>Street View</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./A.2/street_left_correspondences.png" alt="Street left correspondences">
+                            <div class="image-caption">Street Left - Point Correspondences</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./A.2/street_right_correspondences.png" alt="Street right correspondences">
+                            <div class="image-caption">Street Right - Point Correspondences</div>
+                        </div>
+                    </div>
+            
+                    <h4>Lamppost</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./A.2/lamppost_top_correspondences.png" alt="Lamppost top correspondences">
+                            <div class="image-caption">Lamppost Top - Point Correspondences</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./A.2/lamppost_bottom_correspondences.png" alt="Lamppost bottom correspondences">
+                            <div class="image-caption">Lamppost Bottom - Point Correspondences</div>
+                        </div>
+                    </div>
+            
+                    <h4>Window</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./A.2/window_top_correspondences.png" alt="Window top correspondences">
+                            <div class="image-caption">Window Top - Point Correspondences</div>
+                        </div>
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./A.2/window_bottom_correspondences.png" alt="Window bottom correspondences">
+                            <div class="image-caption">Window Bottom - Point Correspondences</div>
+                        </div>
+                    </div>
+            
                     <h3>Recovered Homography Matrices</h3>
-                    <p><strong>Image Pair 1:</strong></p>
+                    <p><strong>Soda Patio:</strong></p>
                     <pre><code>
-H = [[ ... , ... , ... ],
-     [ ... , ... , ... ],
-     [ ... , ... , ... ]]
+            H = [[ 1.35064696e+00, -6.23925804e-02, -3.77444122e+02],
+                 [ 3.27778363e-01,  1.22122900e+00, -1.66985651e+02],
+                 [ 3.62976600e-04,  2.10998333e-05,  1.00000000e+00]]
                     </code></pre>
-
-                    <p><strong>Image Pair 2:</strong></p>
+            
+                    <p><strong>Street View:</strong></p>
                     <pre><code>
-H = [[ ... , ... , ... ],
-     [ ... , ... , ... ],
-     [ ... , ... , ... ]]
+            H = [[ 1.89035443e+00, -4.14374296e-02, -8.94674375e+02],
+                 [ 3.48853758e-01,  1.55862545e+00, -2.63932350e+02],
+                 [ 7.10015939e-04, -5.18404149e-05,  1.00000000e+00]]
                     </code></pre>
-                </div>
+            
+                    <p><strong>Lamppost:</strong></p>
+                    <pre><code>
+            H = [[ 1.95711262e+00,  5.18822017e-01, -4.93444794e+02],
+                 [-4.50896642e-02,  2.35600860e+00, -1.28429828e+03],
+                 [ 3.16527272e-05,  1.02943939e-03,  1.00000000e+00]]
+                    </code></pre>
+            
+                    <p><strong>Window:</strong></p>
+                    <pre><code>
+            H = [[ 1.65580294e+00,  4.39168291e-01, -2.87009207e+02],
+                 [-3.43960721e-02,  2.06082643e+00, -1.09533535e+03],
+                 [-1.06980663e-04,  8.60263728e-04,  1.00000000e+00]]
+                    </code></pre>
             </div>
 
             <!-- Part A.3: Warp the Images -->
