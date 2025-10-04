@@ -22,8 +22,13 @@
             <div class="project-content">
                 <h2>Overview</h2>
                 <div class="project-content-body">
-                    <p>This project explores image warping and mosaicing techniques. I implemented homography computation, image warping with multiple interpolation methods, and blended multiple images together to create seamless panoramic mosaics. The project demonstrates how projective transformations can align images taken from the same camera position but different orientations.</p>
+                    <p>This project is divided into two parts. Part A explores manual image warping and mosaicing techniques where I implemented homography computation, image warping with multiple interpolation methods, and blended multiple images together to create seamless panoramic mosaics. Part B extends this work by implementing an automatic feature detection and matching system that eliminates the need for manual point correspondence selection, using Harris corner detection, feature descriptors, and RANSAC for robust homography estimation.</p>
                 </div>
+            </div>
+
+            <!-- PART A -->
+            <div class="project-content">
+                <h2 style="color: #003262; border-bottom: 3px solid #003262; padding-bottom: 10px;">Part A: Manual Image Warping and Mosaicing</h2>
             </div>
 
             <!-- Part A.1: Shoot and Digitize Pictures -->
@@ -479,6 +484,167 @@ b = [723. 205. 186. 165. 203. 550. 117. 588. 509. 669. 895. 196. 478. 113.
                             <div class="image-caption">With Laplacian Pyramid Blending - Seamless transition</div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+                       <!-- PART B -->
+            <div class="project-content">
+                <h2 style="color: #003262; border-bottom: 3px solid #003262; padding-bottom: 10px;">Part B: Feature Matching for Autostitching</h2>
+            </div>
+
+            <!-- Part B.1: Harris Corner Detection -->
+            <div class="project-content">
+                <h2>Part B.1: Harris Corner Detection</h2>
+                <div class="project-content-body">
+                    <h3>Harris Interest Points</h3>
+                    <p>[Explain your Harris corner detection implementation]</p>
+                    
+                    <h4>Example: [Image Name]</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./B.1/harris_corners_before_anms.jpg" alt="Harris corners before ANMS">
+                            <div class="image-caption">Harris Corners (Before ANMS)</div>
+                        </div>
+                    </div>
+
+                    <h3>Adaptive Non-Maximal Suppression (ANMS)</h3>
+                    <p>[Explain your ANMS implementation and parameters]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                            <img src="./B.1/harris_corners_after_anms.jpg" alt="Harris corners after ANMS">
+                            <div class="image-caption">Selected Corners (After ANMS)</div>
+                        </div>
+                    </div>
+
+                    <h4>Additional Examples</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./B.1/example2_before_anms.jpg" alt="Example 2 before ANMS">
+                            <div class="image-caption">Example 2 - Before ANMS</div>
+                        </div>
+                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
+                            <img src="./B.1/example2_after_anms.jpg" alt="Example 2 after ANMS">
+                            <div class="image-caption">Example 2 - After ANMS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part B.2: Feature Descriptor Extraction -->
+            <div class="project-content">
+                <h2>Part B.2: Feature Descriptor Extraction</h2>
+                <div class="project-content-body">
+                    <h3>Implementation</h3>
+                    <p>[Explain how you extract 8x8 feature descriptors from 40x40 windows, including bias/gain normalization]</p>
+                    
+                    <h3>Extracted Feature Examples</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
+                            <img src="./B.2/feature_1.jpg" alt="Feature descriptor 1">
+                            <div class="image-caption">Feature 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
+                            <img src="./B.2/feature_2.jpg" alt="Feature descriptor 2">
+                            <div class="image-caption">Feature 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
+                            <img src="./B.2/feature_3.jpg" alt="Feature descriptor 3">
+                            <div class="image-caption">Feature 3</div>
+                        </div>
+                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
+                            <img src="./B.2/feature_4.jpg" alt="Feature descriptor 4">
+                            <div class="image-caption">Feature 4</div>
+                        </div>
+                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
+                            <img src="./B.2/feature_5.jpg" alt="Feature descriptor 5">
+                            <div class="image-caption">Feature 5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part B.3: Feature Matching -->
+            <div class="project-content">
+                <h2>Part B.3: Feature Matching</h2>
+                <div class="project-content-body">
+                    <h3>Lowe's Ratio Test</h3>
+                    <p>[Explain your feature matching implementation using Lowe's ratio test and your threshold choice]</p>
+                    
+                    <h3>Matched Features</h3>
+                    <h4>Image Pair 1</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./B.3/matched_features_pair1.jpg" alt="Matched features pair 1">
+                            <div class="image-caption">Matched Features - Pair 1</div>
+                        </div>
+                    </div>
+
+                    <h4>Image Pair 2</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./B.3/matched_features_pair2.jpg" alt="Matched features pair 2">
+                            <div class="image-caption">Matched Features - Pair 2</div>
+                        </div>
+                    </div>
+
+                    <h4>Image Pair 3</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./B.3/matched_features_pair3.jpg" alt="Matched features pair 3">
+                            <div class="image-caption">Matched Features - Pair 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part B.4: RANSAC -->
+            <div class="project-content">
+                <h2>Part B.4: RANSAC for Robust Homography</h2>
+                <div class="project-content-body">
+                    <h3>4-Point RANSAC Implementation</h3>
+                    <p>[Explain your RANSAC implementation: number of iterations, inlier threshold, how you select the best homography]</p>
+
+                    <h3>Comparison: Manual vs. Automatic Stitching</h3>
+                    
+                    <h4>Mosaic 1: [Scene Name]</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                            <img src="./B.4/manual_mosaic_1.jpg" alt="Manual mosaic 1">
+                            <div class="image-caption">Manual Stitching (Part A)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                            <img src="./B.4/auto_mosaic_1.jpg" alt="Automatic mosaic 1">
+                            <div class="image-caption">Automatic Stitching (Part B)</div>
+                        </div>
+                    </div>
+
+                    <h4>Mosaic 2: [Scene Name]</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                            <img src="./B.4/manual_mosaic_2.jpg" alt="Manual mosaic 2">
+                            <div class="image-caption">Manual Stitching (Part A)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                            <img src="./B.4/auto_mosaic_2.jpg" alt="Automatic mosaic 2">
+                            <div class="image-caption">Automatic Stitching (Part B)</div>
+                        </div>
+                    </div>
+
+                    <h4>Mosaic 3: [Scene Name]</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                            <img src="./B.4/manual_mosaic_3.jpg" alt="Manual mosaic 3">
+                            <div class="image-caption">Manual Stitching (Part A)</div>
+                        </div>
+                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                            <img src="./B.4/auto_mosaic_3.jpg" alt="Automatic mosaic 3">
+                            <div class="image-caption">Automatic Stitching (Part B)</div>
+                        </div>
+                    </div>
+
+                    <h3>Analysis</h3>
+                    <p>[Discuss the comparison between manual and automatic stitching. How do the results compare? What are the advantages and disadvantages of each approach?]</p>
                 </div>
             </div>
         </main>
