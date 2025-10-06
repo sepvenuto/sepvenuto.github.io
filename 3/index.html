@@ -706,84 +706,184 @@ b = [723. 205. 186. 165. 203. 550. 117. 588. 509. 669. 895. 196. 478. 113.
         <p>These 8x8 patches show various types of image features including edges, corners, and texture patterns. The normalization process makes them appear with similar contrast levels despite coming from different parts of the images with varying lighting conditions.</p>
     </div>
 </div>
-            <!-- Part B.3: Feature Matching -->
-            <div class="project-content">
-                <h2>Part B.3: Feature Matching</h2>
-                <div class="project-content-body">
-                    <h3>Lowe's Ratio Test</h3>
-                    
-                    <h3>Matched Features</h3>
-                    <h4>Image Pair 1</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
-                            <img src="./B.3/matched_features_pair1.jpg" alt="Matched features pair 1">
-                            <div class="image-caption">Matched Features - Pair 1</div>
-                        </div>
-                    </div>
+           <!-- Part B.3: Feature Matching -->
+<div class="project-content">
+    <h2>Part B.3: Feature Matching</h2>
+    <div class="project-content-body">
+        <h3>Lowe's Ratio Test</h3>
+        <p>I implemented feature matching using Lowe's ratio test to identify reliable correspondences between image pairs. For each feature descriptor in the first image, I find its two nearest neighbors in the second image using Sum of Squared Differences (SSD). A match is only accepted if the ratio of the distance to the nearest neighbor versus the distance to the second-nearest neighbor is below a threshold. This ensures that good matches are distinctive - the best match should be significantly better than the second-best match.</p>
 
-                    <h4>Image Pair 2</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
-                            <img src="./B.3/matched_features_pair2.jpg" alt="Matched features pair 2">
-                            <div class="image-caption">Matched Features - Pair 2</div>
-                        </div>
-                    </div>
-
-                    <h4>Image Pair 3</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
-                            <img src="./B.3/matched_features_pair3.jpg" alt="Matched features pair 3">
-                            <div class="image-caption">Matched Features - Pair 3</div>
-                        </div>
-                    </div>
-                </div>
+        <h3>Matched Feature Descriptor Pairs</h3>
+        <p>Below are examples of matched 8x8 feature descriptors between image pairs. Each row shows corresponding patches that were identified as matches - patch_0 from image 1 matches with patch_0 from image 2, and so on.</p>
+        
+        <h4>Lamppost Matches (Top ↔ Bottom)</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_lamppost_top_location_(1024, 663).png" alt="Lamppost match 0 top">
+                <div class="image-caption">Top - Match 0</div>
             </div>
-
-            <!-- Part B.4: RANSAC -->
-            <div class="project-content">
-                <h2>Part B.4: RANSAC for Robust Homography</h2>
-                <div class="project-content-body">
-                    <h3>4-Point RANSAC Implementation</h3>
-
-                    <h3>Comparison: Manual vs. Automatic Stitching</h3>
-                    
-                    <h4>Mosaic 1: [Scene Name]</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
-                            <img src="./B.4/manual_mosaic_1.jpg" alt="Manual mosaic 1">
-                            <div class="image-caption">Manual Stitching (Part A)</div>
-                        </div>
-                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
-                            <img src="./B.4/auto_mosaic_1.jpg" alt="Automatic mosaic 1">
-                            <div class="image-caption">Automatic Stitching (Part B)</div>
-                        </div>
-                    </div>
-
-                    <h4>Mosaic 2: [Scene Name]</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
-                            <img src="./B.4/manual_mosaic_2.jpg" alt="Manual mosaic 2">
-                            <div class="image-caption">Manual Stitching (Part A)</div>
-                        </div>
-                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
-                            <img src="./B.4/auto_mosaic_2.jpg" alt="Automatic mosaic 2">
-                            <div class="image-caption">Automatic Stitching (Part B)</div>
-                        </div>
-                    </div>
-
-                    <h4>Mosaic 3: [Scene Name]</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
-                            <img src="./B.4/manual_mosaic_3.jpg" alt="Manual mosaic 3">
-                            <div class="image-caption">Manual Stitching (Part A)</div>
-                        </div>
-                        <div class="image-container" style="max-width: 450px; margin: 0 auto;">
-                            <img src="./B.4/auto_mosaic_3.jpg" alt="Automatic mosaic 3">
-                            <div class="image-caption">Automatic Stitching (Part B)</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_lamppost_bottom_location_(529, 643).png" alt="Lamppost match 0 bottom">
+                <div class="image-caption">Bottom - Match 0</div>
             </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_lamppost_top_location_(966, 637).png" alt="Lamppost match 1 top">
+                <div class="image-caption">Top - Match 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_lamppost_bottom_location_(478, 621).png" alt="Lamppost match 1 bottom">
+                <div class="image-caption">Bottom - Match 1</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_lamppost_top_location_(979, 668).png" alt="Lamppost match 2 top">
+                <div class="image-caption">Top - Match 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_lamppost_bottom_location_(489, 650).png" alt="Lamppost match 2 bottom">
+                <div class="image-caption">Bottom - Match 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_lamppost_top_location_(890, 838).png" alt="Lamppost match 3 top">
+                <div class="image-caption">Top - Match 3</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_lamppost_bottom_location_(399, 827).png" alt="Lamppost match 3 bottom">
+                <div class="image-caption">Bottom - Match 3</div>
+            </div>
+        </div>
+
+        <h4>Street Matches (Left ↔ Right)</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_street_left_location_(498, 769).png" alt="Street match 0 left">
+                <div class="image-caption">Left - Match 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_street_right_location_(513, 358).png" alt="Street match 0 right">
+                <div class="image-caption">Right - Match 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_street_left_location_(491, 770).png" alt="Street match 1 left">
+                <div class="image-caption">Left - Match 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_street_right_location_(506, 359).png" alt="Street match 1 right">
+                <div class="image-caption">Right - Match 1</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_street_left_location_(285, 892).png" alt="Street match 2 left">
+                <div class="image-caption">Left - Match 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_street_right_location_(305, 482).png" alt="Street match 2 right">
+                <div class="image-caption">Right - Match 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_street_left_location_(510, 715).png" alt="Street match 3 left">
+                <div class="image-caption">Left - Match 3</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_street_right_location_(527, 297).png" alt="Street match 3 right">
+                <div class="image-caption">Right - Match 3</div>
+            </div>
+        </div>
+
+        <h4>Window Matches (Top ↔ Bottom)</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_window_top_location_(827, 94).png" alt="Window match 0 top">
+                <div class="image-caption">Top - Match 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_window_bottom_location_(356, 135).png" alt="Window match 0 bottom">
+                <div class="image-caption">Bottom - Match 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_window_top_location_(621, 727).png" alt="Window match 1 top">
+                <div class="image-caption">Top - Match 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_window_bottom_location_(107, 816).png" alt="Window match 1 bottom">
+                <div class="image-caption">Bottom - Match 1</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_window_top_location_(919, 121).png" alt="Window match 2 top">
+                <div class="image-caption">Top - Match 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_window_bottom_location_(447, 178).png" alt="Window match 2 bottom">
+                <div class="image-caption">Bottom - Match 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_window_top_location_(925, 404).png" alt="Window match 3 top">
+                <div class="image-caption">Top - Match 3</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_window_bottom_location_(454, 451).png" alt="Window match 3 bottom">
+                <div class="image-caption">Bottom - Match 3</div>
+            </div>
+        </div>
+
+        <p>These matched pairs show that the feature matching algorithm successfully identified corresponding image patches between the two views. The patches look visually similar despite being from different positions and potentially different lighting conditions, demonstrating the robustness of the normalized feature descriptors.</p>
+    </div>
+</div>
+
+           <!-- Part B.4: RANSAC for Robust Homography -->
+<div class="project-content">
+    <h2>Part B.4: RANSAC for Robust Homography</h2>
+    <div class="project-content-body">
+        <h3>4-Point RANSAC Implementation</h3>
+        <p>I implemented 4-point RANSAC from scratch to robustly estimate homographies from the matched feature correspondences. The algorithm works by randomly selecting 4 point pairs, computing a homography from those points, and then counting how many other point correspondences are consistent with that homography (inliers). This process is repeated many times, and the homography with the most inliers is selected as the best estimate. This approach is robust to outliers in the feature matching stage, which is critical since some feature matches will inevitably be incorrect.</p>
+        
+        <h3>Comparison: Manual vs. Automatic Stitching</h3>
+        <p>Below I compare the mosaics created using manual point correspondence (Part A) versus automatic feature detection and matching (Part B). The automatic approach produces comparable or even better results while requiring no manual intervention.</p>
+        
+        <h4>Mosaic 1: Lamppost</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./B.4/manual_stitched_lamppost.png" alt="Manual lamppost mosaic">
+                <div class="image-caption">Manual Stitching (Part A) - Hand-selected correspondences</div>
+            </div>
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./B.4/automatic_lamppost_stitched.png" alt="Automatic lamppost mosaic">
+                <div class="image-caption">Automatic Stitching (Part B) - Feature detection + RANSAC</div>
+            </div>
+        </div>
+
+        <h4>Mosaic 2: Street View</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./B.4/manual_stitched_street.png" alt="Manual street mosaic">
+                <div class="image-caption">Manual Stitching (Part A) - Hand-selected correspondences</div>
+            </div>
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./B.4/automatic_street_stitched.png" alt="Automatic street mosaic">
+                <div class="image-caption">Automatic Stitching (Part B) - Feature detection + RANSAC</div>
+            </div>
+        </div>
+
+        <h4>Mosaic 3: Window</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./B.4/manual_stitched_window.png" alt="Manual window mosaic">
+                <div class="image-caption">Manual Stitching (Part A) - Hand-selected correspondences</div>
+            </div>
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./B.4/automatic_window_stitched.png" alt="Automatic window mosaic">
+                <div class="image-caption">Automatic Stitching (Part B) - Feature detection + RANSAC</div>
+            </div>
+        </div>
+    </div>
+</div>
         </main>
 
         <footer>
