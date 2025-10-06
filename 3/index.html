@@ -577,37 +577,135 @@ b = [723. 205. 186. 165. 203. 550. 117. 588. 509. 669. 895. 196. 478. 113.
 </div>
 
             <!-- Part B.2: Feature Descriptor Extraction -->
-            <div class="project-content">
-                <h2>Part B.2: Feature Descriptor Extraction</h2>
-                <div class="project-content-body">
-                    <h3>Implementation</h3>
-                    
-                    <h3>Extracted Feature Examples</h3>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
-                            <img src="./B.2/feature_1.jpg" alt="Feature descriptor 1">
-                            <div class="image-caption">Feature 1</div>
-                        </div>
-                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
-                            <img src="./B.2/feature_2.jpg" alt="Feature descriptor 2">
-                            <div class="image-caption">Feature 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
-                            <img src="./B.2/feature_3.jpg" alt="Feature descriptor 3">
-                            <div class="image-caption">Feature 3</div>
-                        </div>
-                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
-                            <img src="./B.2/feature_4.jpg" alt="Feature descriptor 4">
-                            <div class="image-caption">Feature 4</div>
-                        </div>
-                        <div class="image-container" style="max-width: 150px; margin: 0 auto;">
-                            <img src="./B.2/feature_5.jpg" alt="Feature descriptor 5">
-                            <div class="image-caption">Feature 5</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="project-content">
+    <h2>Part B.2: Feature Descriptor Extraction</h2>
+    <div class="project-content-body">
+        <h3>Implementation</h3>
+        <p>I implemented feature descriptor extraction by sampling 8x8 patches from larger 40x40 windows around each detected corner. The larger window is first blurred with a Gaussian filter to create a more robust descriptor that is less sensitive to small pixel-level variations. The 8x8 patch is then extracted by downsampling from this blurred 40x40 region. Each descriptor is bias/gain normalized by subtracting the mean and dividing by the standard deviation, which makes the descriptors more robust to illumination changes.</p>
+        
+        <h3>Extracted Feature Examples</h3>
+        <p>Below are sample 8x8 feature descriptors extracted from different locations in the images. Each patch represents the normalized local image structure around a detected corner point.</p>
 
+        <h4>Lamppost Features</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_lamppost_top_location_(1024, 663).png" alt="Lamppost top patch 0">
+                <div class="image-caption">Top - Patch 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_lamppost_top_location_(966, 637).png" alt="Lamppost top patch 1">
+                <div class="image-caption">Top - Patch 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_lamppost_top_location_(979, 668).png" alt="Lamppost top patch 2">
+                <div class="image-caption">Top - Patch 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_lamppost_top_location_(890, 838).png" alt="Lamppost top patch 3">
+                <div class="image-caption">Top - Patch 3</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_lamppost_bottom_location_(529, 643).png" alt="Lamppost bottom patch 0">
+                <div class="image-caption">Bottom - Patch 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_lamppost_bottom_location_(478, 621).png" alt="Lamppost bottom patch 1">
+                <div class="image-caption">Bottom - Patch 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_lamppost_bottom_location_(489, 650).png" alt="Lamppost bottom patch 2">
+                <div class="image-caption">Bottom - Patch 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_lamppost_bottom_location_(399, 827).png" alt="Lamppost bottom patch 3">
+                <div class="image-caption">Bottom - Patch 3</div>
+            </div>
+        </div>
+
+        <h4>Street Features</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_street_left_location_(498, 769).png" alt="Street left patch 0">
+                <div class="image-caption">Left - Patch 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_street_left_location_(491, 770).png" alt="Street left patch 1">
+                <div class="image-caption">Left - Patch 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_street_left_location_(285, 892).png" alt="Street left patch 2">
+                <div class="image-caption">Left - Patch 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_street_left_location_(510, 715).png" alt="Street left patch 3">
+                <div class="image-caption">Left - Patch 3</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_street_right_location_(513, 358).png" alt="Street right patch 0">
+                <div class="image-caption">Right - Patch 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_street_right_location_(506, 359).png" alt="Street right patch 1">
+                <div class="image-caption">Right - Patch 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_street_right_location_(305, 482).png" alt="Street right patch 2">
+                <div class="image-caption">Right - Patch 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_street_right_location_(527, 297).png" alt="Street right patch 3">
+                <div class="image-caption">Right - Patch 3</div>
+            </div>
+        </div>
+
+        <h4>Window Features</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_window_top_location_(827, 94).png" alt="Window top patch 0">
+                <div class="image-caption">Top - Patch 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_window_top_location_(621, 727).png" alt="Window top patch 1">
+                <div class="image-caption">Top - Patch 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_window_top_location_(919, 121).png" alt="Window top patch 2">
+                <div class="image-caption">Top - Patch 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_window_top_location_(925, 404).png" alt="Window top patch 3">
+                <div class="image-caption">Top - Patch 3</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_0_window_bottom_location_(356, 135).png" alt="Window bottom patch 0">
+                <div class="image-caption">Bottom - Patch 0</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_1_window_bottom_location_(107, 816).png" alt="Window bottom patch 1">
+                <div class="image-caption">Bottom - Patch 1</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_2_window_bottom_location_(447, 178).png" alt="Window bottom patch 2">
+                <div class="image-caption">Bottom - Patch 2</div>
+            </div>
+            <div class="image-container" style="max-width: 120px; margin: 0 auto;">
+                <img src="./B.2/patch_3_window_bottom_location_(454, 451).png" alt="Window bottom patch 3">
+                <div class="image-caption">Bottom - Patch 3</div>
+            </div>
+        </div>
+
+        <p>These 8x8 patches show various types of image features including edges, corners, and texture patterns. The normalization process makes them appear with similar contrast levels despite coming from different parts of the images with varying lighting conditions.</p>
+    </div>
+</div>
             <!-- Part B.3: Feature Matching -->
             <div class="project-content">
                 <h2>Part B.3: Feature Matching</h2>
