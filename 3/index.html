@@ -493,41 +493,88 @@ b = [723. 205. 186. 165. 203. 550. 117. 588. 509. 669. 895. 196. 478. 113.
             </div>
 
             <!-- Part B.1: Harris Corner Detection -->
-            <div class="project-content">
-                <h2>Part B.1: Harris Corner Detection</h2>
-                <div class="project-content-body">
-                    <h3>Harris Interest Points</h3>
-                    
-                    <h4>Example: [Image Name]</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./B.1/harris_corners_before_anms.jpg" alt="Harris corners before ANMS">
-                            <div class="image-caption">Harris Corners (Before ANMS)</div>
-                        </div>
-                    </div>
+<div class="project-content">
+    <h2>Part B.1: Harris Corner Detection</h2>
+    <div class="project-content-body">
+        <h3>Harris Interest Points</h3>
+        <p>I implemented Harris corner detection to identify interest points in images. The Harris detector finds corners by analyzing the intensity gradient in different directions. Initially, this produces many corner detections, including many redundant points clustered in the same regions.</p>
+        
+        <h3>Adaptive Non-Maximal Suppression (ANMS)</h3>
+        <p>To select a well-distributed subset of the strongest corners, I implemented Adaptive Non-Maximal Suppression. ANMS ensures that selected corners are spatially distributed across the image rather than clustered in high-contrast regions. Each corner is only kept if it is the strongest corner within a certain radius, where that radius is as large as possible. This gives us a more evenly distributed set of feature points suitable for matching.</p>
 
-                    <h3>Adaptive Non-Maximal Suppression (ANMS)</h3>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 400px; margin: 0 auto;">
-                            <img src="./B.1/harris_corners_after_anms.jpg" alt="Harris corners after ANMS">
-                            <div class="image-caption">Selected Corners (After ANMS)</div>
-                        </div>
-                    </div>
-
-                    <h4>Additional Examples</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./B.1/example2_before_anms.jpg" alt="Example 2 before ANMS">
-                            <div class="image-caption">Example 2 - Before ANMS</div>
-                        </div>
-                        <div class="image-container" style="max-width: 350px; margin: 0 auto;">
-                            <img src="./B.1/example2_after_anms.jpg" alt="Example 2 after ANMS">
-                            <div class="image-caption">Example 2 - After ANMS</div>
-                        </div>
-                    </div>
-                </div>
+        <h4>Lamppost - Top</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/lamppost_top_correspondences_without_ANMS.png" alt="Lamppost top without ANMS">
+                <div class="image-caption">Before ANMS - Many clustered corners</div>
             </div>
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/lamppost_top_correspondences_withANMS.png" alt="Lamppost top with ANMS">
+                <div class="image-caption">After ANMS - Well-distributed corners</div>
+            </div>
+        </div>
+
+        <h4>Lamppost - Bottom</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/lamppost_bottom_correspondences_without_ANMS.png" alt="Lamppost bottom without ANMS">
+                <div class="image-caption">Before ANMS - Many clustered corners</div>
+            </div>
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/lamppost_bottom_correspondences_withANMS.png" alt="Lamppost bottom with ANMS">
+                <div class="image-caption">After ANMS - Well-distributed corners</div>
+            </div>
+        </div>
+
+        <h4>Street - Left</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/street_left_correspondences_without_ANMS.png" alt="Street left without ANMS">
+                <div class="image-caption">Before ANMS - Many clustered corners</div>
+            </div>
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/street_left_correspondences_withANMS.png" alt="Street left with ANMS">
+                <div class="image-caption">After ANMS - Well-distributed corners</div>
+            </div>
+        </div>
+
+        <h4>Street - Right</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/street_right_correspondences_without_ANMS.png" alt="Street right without ANMS">
+                <div class="image-caption">Before ANMS - Many clustered corners</div>
+            </div>
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/street_right_correspondences_withANMS.png" alt="Street right with ANMS">
+                <div class="image-caption">After ANMS - Well-distributed corners</div>
+            </div>
+        </div>
+
+        <h4>Window - Top</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/window_top_correspondences_without_ANMS.png" alt="Window top without ANMS">
+                <div class="image-caption">Before ANMS - Many clustered corners</div>
+            </div>
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/window_top_correspondences_withANMS.png" alt="Window top with ANMS">
+                <div class="image-caption">After ANMS - Well-distributed corners</div>
+            </div>
+        </div>
+
+        <h4>Window - Bottom</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/window_bottom_correspondences_without_ANMS.png" alt="Window bottom without ANMS">
+                <div class="image-caption">Before ANMS - Many clustered corners</div>
+            </div>
+            <div class="image-container" style="max-width: 400px; margin: 0 auto;">
+                <img src="./B.1/window_bottom_correspondences_withANMS.png" alt="Window bottom with ANMS">
+                <div class="image-caption">After ANMS - Well-distributed corners</div>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- Part B.2: Feature Descriptor Extraction -->
             <div class="project-content">
