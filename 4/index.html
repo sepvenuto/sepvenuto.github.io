@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 4: Neural Radiance Field</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Project 4: Neural Radiance Field</h1>
+            <p class="subtitle">CS180 • Neural Radiance Field (NeRF)</p>
+        </header>
+        
+        <div style="padding: 20px;">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+
+        <main>
+            <!-- Overview Section -->
+            <div class="project-content">
+                <h2>Overview</h2>
+                <div class="project-content-body">
+                    <p>This project explores Neural Radiance Fields (NeRF), a technique for synthesizing novel views of complex 3D scenes from a set of 2D images. The project is divided into three main parts: camera calibration and 3D scanning using ArUco markers, fitting a neural field to 2D images, and finally training a full 3D NeRF from multi-view images. Through this project, I learned how to implement volume rendering, positional encoding, and the complete NeRF pipeline from scratch using PyTorch.</p>
+                </div>
+            </div>
+
+            <!-- Part 0: Camera Calibration -->
+            <div class="project-content">
+                <h2>Part 0: Camera Calibration and 3D Scanning</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Part 0.1: Camera Calibration</h3>
+                    <p>I calibrated my camera using ArUco markers to obtain the camera intrinsic matrix and distortion coefficients. I captured [NUMBER] calibration images from various angles and distances to ensure robust calibration.</p>
+                    
+                    <p><strong>Calibration Process:</strong></p>
+                    <ul>
+                        <li>Captured calibration images with varying angles and distances</li>
+                        <li>Detected ArUco tags using OpenCV's detector</li>
+                        <li>Extracted corner coordinates and corresponding 3D world points</li>
+                        <li>Used cv2.calibrateCamera() to compute intrinsic parameters</li>
+                    </ul>
+
+                    <p><strong>Calibration Results:</strong></p>
+                    <pre><code>
+Camera Intrinsic Matrix (K):
+[[fx,  0, cx],
+ [ 0, fy, cy],
+ [ 0,  0,  1]]
+
+Focal Length: fx = [VALUE], fy = [VALUE]
+Principal Point: cx = [VALUE], cy = [VALUE]
+Distortion Coefficients: [VALUES]
+                    </code></pre>
+
+                    <h3>Part 0.2: Capturing My Object</h3>
+                    <p>[Describe your chosen object and the scanning process]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./part0/object_sample1.jpg" alt="Object sample 1">
+                            <div class="image-caption">Sample View 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./part0/object_sample2.jpg" alt="Object sample 2">
+                            <div class="image-caption">Sample View 2</div>
+                        </div>
+                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
+                            <img src="./part0/object_sample3.jpg" alt="Object sample 3">
+                            <div class="image-caption">Sample View 3</div>
+                        </div>
+                    </div>
+
+                    <h3>Part 0.3: Camera Pose Estimation</h3>
+                    <p>Using the calibrated camera parameters, I estimated the camera pose for each captured image using cv2.solvePnP(). This provided the rotation and translation vectors that describe the camera's position and orientation relative to the ArUco tag.</p>
+
+                    <h4>Viser Visualization</h4>
+                    <p>Below are screenshots of the camera frustums visualized in 3D using Viser, showing the estimated poses for all captured images.</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./part0/viser_view1.png" alt="Viser visualization 1">
+                            <div class="image-caption">Camera Frustums - View 1</div>
+                        </div>
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./part0/viser_view2.png" alt="Viser visualization 2">
+                            <div class="image-caption">Camera Frustums - View 2</div>
+                        </div>
+                    </div>
+
+                    <h3>Part 0.4: Dataset Creation</h3>
+                    <p>I undistorted all images and packaged them into an .npz file with the following structure:</p>
+                    <ul>
+                        <li>Training images: [N_train] images</li>
+                        <li>Validation images: [N_val] images</li>
+                        <li>Test camera poses: [N_test] poses for novel view rendering</li>
+                        <li>Focal length: [VALUE]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Part 1: 2D Neural Field -->
+            <div class="project-content">
+                <h2>Part 1: Fit a Neural Field to a 2D Image</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Implementation</h3>
+                    <h4>Network Architecture</h4>
+                    <p><strong>Model Details:</strong></p>
+                    <ul>
+                        <li>Number of layers: [NUMBER]</li>
+                        <li>Layer width (channels): [NUMBER]</li>
+                        <li>Positional encoding max frequency (L): [NUMBER]</li>
+                        <li>Learning rate: [VALUE]</li>
+                        <li>Optimizer: Adam</li>
+                        <li>Loss function: MSE</li>
+                        <li>Training iterations: [NUMBER]</li>
+                        <li>Batch size: [NUMBER] pixels</li>
+                    </ul>
+
+                    <p><strong>Architecture Description:</strong> [Describe your MLP structure, including activation functions and positional encoding implementation]</p>
+
+                    <h3>Training Results - Provided Image</h3>
+                    <p>Training progression on the provided fox image:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/provided_original.png" alt="Original image">
+                            <div class="image-caption">Original</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/provided_iter100.png" alt="Iteration 100">
+                            <div class="image-caption">100 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/provided_iter500.png" alt="Iteration 500">
+                            <div class="image-caption">500 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/provided_iter1000.png" alt="Iteration 1000">
+                            <div class="image-caption">1000 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/provided_final.png" alt="Final result">
+                            <div class="image-caption">Final ([NUMBER] iters)</div>
+                        </div>
+                    </div>
+
+                    <h3>Training Results - My Own Image</h3>
+                    <p>Training progression on my chosen image:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/custom_original.png" alt="My original image">
+                            <div class="image-caption">Original</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/custom_iter100.png" alt="Iteration 100">
+                            <div class="image-caption">100 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/custom_iter500.png" alt="Iteration 500">
+                            <div class="image-caption">500 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/custom_iter1000.png" alt="Iteration 1000">
+                            <div class="image-caption">1000 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                            <img src="./part1/custom_final.png" alt="Final result">
+                            <div class="image-caption">Final ([NUMBER] iters)</div>
+                        </div>
+                    </div>
+
+                    <h3>Hyperparameter Exploration</h3>
+                    <p>I experimented with different positional encoding frequencies (L) and network widths to understand their impact on reconstruction quality.</p>
+
+                    <h4>Varying Positional Encoding Frequency (L)</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./part1/freq_low_width_baseline.png" alt="Low freq, baseline width">
+                            <div class="image-caption">L = [LOW_VALUE], Width = [BASELINE]</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./part1/freq_high_width_baseline.png" alt="High freq, baseline width">
+                            <div class="image-caption">L = [HIGH_VALUE], Width = [BASELINE]</div>
+                        </div>
+                    </div>
+
+                    <h4>Varying Network Width</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./part1/freq_baseline_width_low.png" alt="Baseline freq, low width">
+                            <div class="image-caption">L = [BASELINE], Width = [LOW_VALUE]</div>
+                        </div>
+                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                            <img src="./part1/freq_baseline_width_high.png" alt="Baseline freq, high width">
+                            <div class="image-caption">L = [BASELINE], Width = [HIGH_VALUE]</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Observations:</strong> [Discuss how varying L and width affects the quality of reconstruction, ability to capture fine details, and training convergence]</p>
+
+                    <h3>PSNR Curve</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part1/psnr_curve.png" alt="PSNR over iterations">
+                            <div class="image-caption">PSNR vs Training Iterations</div>
+                        </div>
+                    </div>
+                    
+                    <p><strong>Final PSNR:</strong> [VALUE] dB</p>
+                </div>
+            </div>
+
+            <!-- Part 2: 3D NeRF -->
+            <div class="project-content">
+                <h2>Part 2: Fit a Neural Radiance Field from Multi-view Images</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Implementation Overview</h3>
+                    <p>I implemented a complete NeRF pipeline including:</p>
+                    <ul>
+                        <li><strong>Camera-to-world coordinate transformation:</strong> Converting between camera and world coordinate systems</li>
+                        <li><strong>Pixel-to-camera coordinate conversion:</strong> Using camera intrinsics to map pixels to 3D rays</li>
+                        <li><strong>Ray generation:</strong> Creating rays with origins and directions for each pixel</li>
+                        <li><strong>Point sampling along rays:</strong> Discretizing rays with perturbed sampling for regularization</li>
+                        <li><strong>Neural radiance field network:</strong> MLP with positional encoding for predicting color and density</li>
+                        <li><strong>Volume rendering:</strong> Integrating along rays to render final pixel colors</li>
+                    </ul>
+
+                    <h3>Part 2.1-2.3: Ray Generation and Sampling</h3>
+                    
+                    <h4>Visualization of Rays and Samples</h4>
+                    <p>Below is a 3D visualization showing the training cameras, sampled rays (up to 100), and sample points along those rays.</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part2/rays_samples_viz.png" alt="Rays and samples visualization">
+                            <div class="image-caption">Camera Frustums, Rays, and Sample Points</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Sampling Parameters:</strong></p>
+                    <ul>
+                        <li>Near plane: [VALUE]</li>
+                        <li>Far plane: [VALUE]</li>
+                        <li>Number of samples per ray: [NUMBER]</li>
+                        <li>Perturbation applied: [Yes/No]</li>
+                    </ul>
+
+                    <h3>Part 2.4: Neural Radiance Field Network</h3>
+                    
+                    <p><strong>Network Architecture:</strong></p>
+                    <ul>
+                        <li>Input: 3D position (x, y, z) + 3D view direction (θ, φ)</li>
+                        <li>Position encoding frequency: L = [VALUE]</li>
+                        <li>Direction encoding frequency: L = [VALUE]</li>
+                        <li>Number of layers: [NUMBER]</li>
+                        <li>Hidden layer width: [NUMBER]</li>
+                        <li>Skip connections at layer: [NUMBER]</li>
+                        <li>Output: RGB color (3 channels) + density σ (1 channel)</li>
+                    </ul>
+
+                    <p>[Describe your network architecture, including where you inject positional encodings and view directions]</p>
+
+                    <h3>Part 2.5: Volume Rendering</h3>
+                    <p>I implemented the discrete volume rendering equation to composite colors and densities along rays into final pixel colors. The rendering equation accumulates contributions from each sample point, weighted by transmittance and opacity.</p>
+
+                    <h3>Training Results - Lego Dataset</h3>
+                    
+                    <h4>Training Progression</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                            <img src="./part2/lego_iter100.png" alt="Lego 100 iterations">
+                            <div class="image-caption">100 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                            <img src="./part2/lego_iter250.png" alt="Lego 250 iterations">
+                            <div class="image-caption">250 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                            <img src="./part2/lego_iter500.png" alt="Lego 500 iterations">
+                            <div class="image-caption">500 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                            <img src="./part2/lego_iter750.png" alt="Lego 750 iterations">
+                            <div class="image-caption">750 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                            <img src="./part2/lego_iter1000.png" alt="Lego 1000 iterations">
+                            <div class="image-caption">1000 iterations</div>
+                        </div>
+                    </div>
+
+                    <h4>PSNR Curve - Validation Set</h4>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part2/psnr_validation.png" alt="PSNR on validation">
+                            <div class="image-caption">PSNR on Validation Images</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Training Details:</strong></p>
+                    <ul>
+                        <li>Learning rate: [VALUE]</li>
+                        <li>Optimizer: Adam</li>
+                        <li>Batch size: [NUMBER] rays</li>
+                        <li>Total iterations: [NUMBER]</li>
+                        <li>Final validation PSNR: [VALUE] dB</li>
+                    </ul>
+
+                    <h4>Novel View Synthesis Video</h4>
+                    <p>Spherical rendering of the Lego bulldozer from novel viewpoints using the test camera poses:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <video width="600" controls>
+                                <source src="./part2/lego_novel_views.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="image-caption">Novel View Synthesis - Lego Dataset</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Alternative: Use GIF if video doesn't work -->
+                    <!-- <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part2/lego_novel_views.gif" alt="Novel views GIF">
+                            <div class="image-caption">Novel View Synthesis - Lego Dataset</div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Part 2.6: Own Data -->
+            <div class="project-content">
+                <h2>Part 2.6: Training NeRF on My Own Data</h2>
+                <div class="project-content-body">
+                    
+                    <h3>Dataset and Training Setup</h3>
+                    <p><strong>Object:</strong> [Describe your object]</p>
+                    
+                    <p><strong>Dataset Statistics:</strong></p>
+                    <ul>
+                        <li>Training images: [NUMBER]</li>
+                        <li>Validation images: [NUMBER]</li>
+                        <li>Image resolution: [WIDTH] × [HEIGHT]</li>
+                        <li>Focal length: [VALUE]</li>
+                    </ul>
+
+                    <p><strong>Hyperparameter Changes:</strong></p>
+                    <ul>
+                        <li>Near plane: [VALUE] (adjusted from 2.0)</li>
+                        <li>Far plane: [VALUE] (adjusted from 6.0)</li>
+                        <li>Samples per ray: [NUMBER]</li>
+                        <li>[Any other changes you made and why]</li>
+                    </ul>
+
+                    <h3>Training Progression</h3>
+                    <p>Intermediate renders showing the NeRF learning process:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 220px; margin: 0 auto;">
+                            <img src="./part2/own_iter100.png" alt="Own data 100 iterations">
+                            <div class="image-caption">100 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 220px; margin: 0 auto;">
+                            <img src="./part2/own_iter500.png" alt="Own data 500 iterations">
+                            <div class="image-caption">500 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 220px; margin: 0 auto;">
+                            <img src="./part2/own_iter1000.png" alt="Own data 1000 iterations">
+                            <div class="image-caption">1000 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 220px; margin: 0 auto;">
+                            <img src="./part2/own_final.png" alt="Own data final">
+                            <div class="image-caption">Final result</div>
+                        </div>
+                    </div>
+
+                    <h3>Training Loss Curve</h3>
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part2/own_loss_curve.png" alt="Training loss">
+                            <div class="image-caption">Training Loss over Iterations</div>
+                        </div>
+                    </div>
+
+                    <h3>Novel View Synthesis</h3>
+                    <p>Rendered video of a camera circling my object:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <video width="600" controls>
+                                <source src="./part2/own_novel_views.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="image-caption">Novel View Synthesis - My Object</div>
+                        </div>
+                    </div>
+
+                    <!-- Alternative: GIF -->
+                    <!-- <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part2/own_novel_views.gif" alt="Own object novel views">
+                            <div class="image-caption">Novel View Synthesis - My Object</div>
+                        </div>
+                    </div> -->
+
+                    <h3>Discussion</h3>
+                    <p>[Discuss any challenges you faced, what worked well, what didn't work as expected, and how the results compare to the Lego dataset]</p>
+                </div>
+            </div>
+
+            <!-- Bells & Whistles -->
+            <div class="project-content">
+                <h2>Bells & Whistles</h2>
+                <div class="project-content-body">
+                    <h3>[Your Bell & Whistle Choice]</h3>
+                    <p>[Description of what you implemented]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                            <img src="./bells_whistles/result.png" alt="Bells and whistles result">
+                            <div class="image-caption">Result</div>
+                        </div>
+                    </div>
+                    
+                    <p>[Analysis and discussion of results]</p>
+                </div>
+            </div>
+
+            <!-- What I Learned -->
+            <div class="project-content">
+                <h2>What I Learned</h2>
+                <div class="project-content-body">
+                    <p>[Reflect on the most important concepts you learned from this project. Consider topics like: the importance of positional encoding for neural fields, how volume rendering works, the challenges of 3D reconstruction from 2D images, camera calibration, the role of view-dependent effects, etc.]</p>
+                    
+                    <p><strong>Key Takeaways:</strong></p>
+                    <ul>
+                        <li>[Takeaway 1]</li>
+                        <li>[Takeaway 2]</li>
+                        <li>[Takeaway 3]</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 CS180 Portfolio • Sylvie Venuto • UC Berkeley</p>
+        </footer>
+    </div>
+</body>
+</html>
