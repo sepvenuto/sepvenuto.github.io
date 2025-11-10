@@ -229,9 +229,15 @@ Distortion Coefficients: [VALUES]
                     </ul>
 
                     <h3>Part 2.1-2.3: Ray Generation and Sampling</h3>
-                    
+
+                    <h4>Part 2.1: Create Rays from Cameras</h4>
+                    <h5>Camera to World Coordinate Conversion</h5>
+                    <p>I first expand the camera coordinates to include the homogeneous 1 coordinate. Then, I multiply the camera_to_world matrix by the camera coordinates, to obtain the world coordinates.</p>
+                    <h5>Pixel to Camera Coordinate Conversion</h5>
+                    <p>I first expand the camera coordinates to include the homogeneous 1 coordinate. Then, I multiply the camera_to_world matrix by the camera coordinates, to obtain the world coordinates.</p>
+
                     <h4>Visualization of Rays and Samples</h4>
-                    <p>Below is a 3D visualization showing the training cameras, sampled rays (up to 100), and sample points along those rays.</p>
+                    <p>To enable batching, I do something similar to what we did in Project 3, where instead of doing matrix multiplication, I extract the values from K and then use broadcasting to create the equations. The x coordinate in camera is the (u_pixel - offset_x) * s / x_focal_length, and the y coordinate in camera is the (v_pixel - offset_y) * s / y_focal_length. The Z (depth) is the s, because s is the depth.</p>
                     
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 600px; margin: 0 auto;">
