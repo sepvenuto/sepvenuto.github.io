@@ -387,8 +387,8 @@ Distortion Coefficients: [VALUES]
                     <h4>Visualization of Rays and Samples</h4>                    
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./part2/rays_samples_viz.png" alt="Rays and samples visualization">
-                            <div class="image-caption">Camera Frustums, Rays, and Sample Points</div>
+                            <img src="./part2/testPointCloud.png" alt="Point cloud visualization">
+                            <div class="image-caption">Camera Frustums and Sample Points in 3D Space</div>
                         </div>
                     </div>
 
@@ -422,36 +422,49 @@ Distortion Coefficients: [VALUES]
                     <h3>Training Results - Lego Dataset</h3>
                     
                     <h4>Training Progression</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
-                            <img src="./part2/lego_iter100.png" alt="Lego 100 iterations">
-                            <div class="image-caption">100 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
-                            <img src="./part2/lego_iter250.png" alt="Lego 250 iterations">
-                            <div class="image-caption">250 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
-                            <img src="./part2/lego_iter500.png" alt="Lego 500 iterations">
-                            <div class="image-caption">500 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
-                            <img src="./part2/lego_iter750.png" alt="Lego 750 iterations">
-                            <div class="image-caption">750 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 180px; margin: 0 auto;">
-                            <img src="./part2/lego_iter1000.png" alt="Lego 1000 iterations">
-                            <div class="image-caption">1000 iterations</div>
-                        </div>
-                    </div>
+        <p>Training progression showing how the NeRF learns to reconstruct the 3D scene over time:</p>
+        
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part2/nerf_epoch_0000.png" alt="NeRF epoch 0">
+                <div class="image-caption">0 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part2/nerf_epoch_0200.png" alt="NeRF epoch 200">
+                <div class="image-caption">200 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part2/nerf_epoch_0400.png" alt="NeRF epoch 400">
+                <div class="image-caption">400 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part2/nerf_epoch_0600.png" alt="NeRF epoch 600">
+                <div class="image-caption">600 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part2/nerf_epoch_0800.png" alt="NeRF epoch 800">
+                <div class="image-caption">800 iterations</div>
+            </div>
+        </div>
 
-                    <h4>PSNR Curve - Validation Set</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./part2/psnr_validation.png" alt="PSNR on validation">
-                            <div class="image-caption">PSNR on Validation Images</div>
-                        </div>
-                    </div>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                <img src="./part2/nerf_epoch_1000.png" alt="NeRF epoch 1000">
+                <div class="image-caption">1000 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                <img src="./part2/nerf_training_progress.png" alt="Training progress comparison">
+                <div class="image-caption">Training Progress Summary</div>
+            </div>
+        </div>
+
+        <h4>PSNR Curve - Validation Set</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                <img src="./part2/nerf_psnr_curve.png" alt="PSNR validation curve">
+                <div class="image-caption">PSNR on Validation Images</div>
+            </div>
+        </div>
 
                     <p><strong>Training Details:</strong></p>
                     <ul>
@@ -459,8 +472,8 @@ Distortion Coefficients: [VALUES]
                         <li>Optimizer: Adam</li>
                         <li>Batch size: 10000 rays</li>
                         <li>Points per ray: 64</li>
-                        <li>Total iterations: 2000</li>
-                        <li>Final validation PSNR: [VALUE] dB</li>
+                        <li>Total iterations: 1010</li>
+                        <li>Final validation PSNR: 23.18 dB</li>
                     </ul>
 
                     <h4>Novel View Synthesis Video</h4>
@@ -468,21 +481,21 @@ Distortion Coefficients: [VALUES]
                     
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <video width="600" controls>
-                                <source src="./part2/lego_novel_views.mp4" type="video/mp4">
+                            <video width="600" controls loop>
+                                <source src="./part2/lego_spherical.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                            <div class="image-caption">Novel View Synthesis - Lego Dataset</div>
+                            <div class="image-caption">Novel View Synthesis - Lego Dataset (Video)</div>
                         </div>
                     </div>
                     
-                    <!-- Alternative: Use GIF if video doesn't work -->
-                    <!-- <div class="image-gallery">
+                    <!-- Alternative GIF version -->
+                    <div class="image-gallery">
                         <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./part2/lego_novel_views.gif" alt="Novel views GIF">
-                            <div class="image-caption">Novel View Synthesis - Lego Dataset</div>
+                            <img src="./part2/lego_spherical.gif" alt="Novel views GIF">
+                            <div class="image-caption">Novel View Synthesis - Lego Dataset (GIF)</div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
