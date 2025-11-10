@@ -239,6 +239,8 @@ Distortion Coefficients: [VALUES]
                     <p>I first extract r_o=t from the K matrix, which is the 1st three rows of the last column of K. Then, I use my pixel_to_camera function on K, uv, and s=1. Then I use my camera_to_wolrd function on the resulting x_c with the c2w. I now have world coordinates. To calculate r_d, or the ray direction, I normalize the difference between my world point and the original ray r_o by dividing (X_w-r_o) by the L2 norm of (X_w-r_o). I then return r_o and r_d.</p>
 
                     <h4>Part 2.2: Sampling</h4>
+                     <h5>Sampling Rays from Images</h5>
+                    <p>I randomly generate N indicies of rays from my total number of rays. I then get the sampled pixels, rays_o, and rays_d from those indices. I precomputed the rays to save the time of re-computing them each time, and so that I could use batching and take advantage of the batch process.</p>
                     <h5>Sampling Points along rays</h5>
                     <p>I am using the MPS for this part to make it go quicker, so I first move to the MPS. Then, I set t = np.linspace(near, far, n_samples) to uniformly sample along the ray. Near=2.0 and Far = 6.0. Then, if I am meant to perturb the data for training purposes, I will randomly add in a "perturbation term" to the t value, so that the samples are randomly spaced instead of uniform. I then expand the t so that its shape matches that of r_o, before following the provided equation of point = r_o + r_d*t, which samples the points along the ray from starting at r_o and moving each interval of size t in direction r_d. I set num samples to 32.</p>
 
