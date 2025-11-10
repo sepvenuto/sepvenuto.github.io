@@ -234,7 +234,7 @@ Distortion Coefficients: [VALUES]
                     <h5>Camera to World Coordinate Conversion</h5>
                     <p>I first expand the camera coordinates to include the homogeneous 1 coordinate. Then, I multiply the camera_to_world matrix by the camera coordinates, to obtain the world coordinates.</p>
                     <h5>Pixel to Camera Coordinate Conversion</h5>
-                    <p>I first expand the camera coordinates to include the homogeneous 1 coordinate. Then, I multiply the camera_to_world matrix by the camera coordinates, to obtain the world coordinates.</p>
+                    <p>To enable batching, I do something similar to what we did in Project 3, where instead of doing matrix multiplication, I extract the values from K and then use broadcasting to create the equations. The x coordinate in camera is the (u_pixel - offset_x) * s / x_focal_length, and the y coordinate in camera is the (v_pixel - offset_y) * s / y_focal_length. The Z (depth) is the s, because s is the depth.</p>
                     <h5>Pixel to Ray Coordinate Conversion</h5>
                     <p>I first extract r_o=t from the K matrix, which is the 1st three rows of the last column of K. Then, I use my pixel_to_camera function on K, uv, and s=1. Then I use my camera_to_wolrd function on the resulting x_c with the c2w. I now have world coordinates. To calculate r_d, or the ray direction, I normalize the difference between my world point and the original ray r_o by dividing (X_w-r_o) by the L2 norm of (X_w-r_o). I then return r_o and r_d.</p>
 
@@ -246,9 +246,7 @@ Distortion Coefficients: [VALUES]
 
                     <h4>Putting the Dataloading All Together</h4>
                     <p>I created a RaysData class that takes in the Dataset to follow the format in the provided testing code. I first convert all images, K, and c2ws to floats and torch tensor types. Then, I create a meshgrid to create the pairings of possible (u, v) points, being sure to add the 0.5 per the instructions. I assign the self.images, self.K, self.c2ws, self.H, self.W to the RaysData. I then calculate the total rays per image, total rays, and flatten all of the pixels across all images. These will helpful for the ray sampling. Then, for each image (therefore each camera location, and so then each c2w), I use my pixel_to_ray function to calculate the rays_o and rays_d for each image. This way I can take advantage of batching and not need to recalculate with different c2ws later when I am sampling from my dataset.</p>
-                    <h4>Visualization of Rays and Samples</h4>
-                    <p>To enable batching, I do something similar to what we did in Project 3, where instead of doing matrix multiplication, I extract the values from K and then use broadcasting to create the equations. The x coordinate in camera is the (u_pixel - offset_x) * s / x_focal_length, and the y coordinate in camera is the (v_pixel - offset_y) * s / y_focal_length. The Z (depth) is the s, because s is the depth.</p>
-                    
+                    <h4>Visualization of Rays and Samples</h4>                    
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 600px; margin: 0 auto;">
                             <img src="./part2/rays_samples_viz.png" alt="Rays and samples visualization">
