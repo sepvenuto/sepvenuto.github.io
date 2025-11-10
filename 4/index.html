@@ -414,10 +414,10 @@ Distortion Coefficients: [VALUES]
                         <li>Output: RGB color (3 channels) + density σ (1 channel)</li>
                     </ul>
 
-                    <p>[Describe your network architecture, including where you inject positional encodings and view directions]</p>
+                    <p>My network architecture follows the diagram provided in the instructions. Above, you can see the parameters that I chose for my model. For the model, I created different breaks between where we had to inject the input, which ended up being breaks between layers. My model has a fork where it outputs a value for the density along with the rgb value, which also takes in the injected x_PE. I also created a function to calculate the dimensions of the x and r_d after they were positionally encoded. </p>
 
                     <h3>Part 2.5: Volume Rendering</h3>
-                    <p>I implemented the discrete volume rendering equation to composite colors and densities along rays into final pixel colors. The rendering equation accumulates contributions from each sample point, weighted by transmittance and opacity.</p>
+                    <p>I implemented the discrete volume rendering equation to composite colors and densities along rays into final pixel colors. The rendering equation accumulates contributions from each sample point, weighted by transmittance and opacity. To do this, we have the sigmas, which represent the density, deltas, which represent the step size/distance between each sample along our ray, and the opacity, which is the alpha value that we calculate. We can look at opacity as the probability that the given ray hits something and ends at the given point. T_i is the probability that we reach sample i without hitting anything first, or the transmittance. This is calculated by taking the product of the probabilities that we don't stop at all of the points before it, or (1-a_j) for all j less than i. We will then weight the color at each sample by the probability we hit that sample * the probability that it stops at that sample, or T_i * a_i. These can act as a "weight" on how much each sample will contrbute to the final color of what we view.</p>
 
                     <h3>Training Results - Lego Dataset</h3>
                     
