@@ -101,117 +101,254 @@ Distortion Coefficients: [VALUES]
             </div>
 
             <!-- Part 1: 2D Neural Field -->
-            <div class="project-content">
-                <h2>Part 1: Fit a Neural Field to a 2D Image</h2>
-                <div class="project-content-body">
-                    
-                    <h3>Implementation</h3>
-                    <h4>Network Architecture</h4>
-                    <p><strong>Model Details:</strong></p>
-                    <ul>
-                        <li>Number of layers: 3</li>
-                        <li>Layer width (channels): 256</li>
-                        <li>Positional encoding max frequency (L): 10</li>
-                        <li>Learning rate: 1e-2</li>
-                        <li>Optimizer: Adam</li>
-                        <li>Loss function: MSE</li>
-                        <li>Training iterations: 3000</li>
-                        <li>Batch size: 10000 pixels</li>
-                    </ul>
+<div class="project-content">
+    <h2>Part 1: Fit a Neural Field to a 2D Image</h2>
+    <div class="project-content-body">
+        
+        <h3>Implementation</h3>
+        <h4>Network Architecture</h4>
+        <p><strong>Model Details:</strong></p>
+        <ul>
+            <li>Number of layers: 4 hidden layers</li>
+            <li>Layer width (channels): 360</li>
+            <li>Positional encoding max frequency (L): 10</li>
+            <li>Learning rate: 1e-2</li>
+            <li>Optimizer: Adam</li>
+            <li>Loss function: MSE</li>
+            <li>Training iterations: 3000 epochs</li>
+            <li>Batch size: 10,000 pixels</li>
+        </ul>
 
-                    <h3>Training Results - Provided Image</h3>
-                    <p>Training progression on the provided fox image:</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/provided_original.png" alt="Original image">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/provided_iter100.png" alt="Iteration 100">
-                            <div class="image-caption">100 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/provided_iter500.png" alt="Iteration 500">
-                            <div class="image-caption">500 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/provided_iter1000.png" alt="Iteration 1000">
-                            <div class="image-caption">1000 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/provided_final.png" alt="Final result">
-                            <div class="image-caption">Final ([NUMBER] iters)</div>
-                        </div>
-                    </div>
+        <p><strong>Architecture Description:</strong> I implemented an MLP with positional encoding that takes 2D pixel coordinates and outputs RGB colors. The positional encoding expands the 2D input using sinusoidal functions at multiple frequencies (L=10), creating a 42-dimensional vector. The network uses ReLU activations between linear layers and a Sigmoid activation at the output to constrain colors to [0,1].</p>
 
-                    <h3>Training Results - My Own Image</h3>
-                    <p>Training progression on my chosen image:</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/custom_original.png" alt="My original image">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/custom_iter100.png" alt="Iteration 100">
-                            <div class="image-caption">100 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/custom_iter500.png" alt="Iteration 500">
-                            <div class="image-caption">500 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/custom_iter1000.png" alt="Iteration 1000">
-                            <div class="image-caption">1000 iterations</div>
-                        </div>
-                        <div class="image-container" style="max-width: 200px; margin: 0 auto;">
-                            <img src="./part1/custom_final.png" alt="Final result">
-                            <div class="image-caption">Final ([NUMBER] iters)</div>
-                        </div>
-                    </div>
-
-                    <h3>Hyperparameter Exploration</h3>
-                    <p>I experimented with different positional encoding frequencies (L) and network widths to understand their impact on reconstruction quality.</p>
-
-                    <h4>Varying Positional Encoding Frequency (L)</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./part1/freq_low_width_baseline.png" alt="Low freq, baseline width">
-                            <div class="image-caption">L = [LOW_VALUE], Width = [BASELINE]</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./part1/freq_high_width_baseline.png" alt="High freq, baseline width">
-                            <div class="image-caption">L = [HIGH_VALUE], Width = [BASELINE]</div>
-                        </div>
-                    </div>
-
-                    <h4>Varying Network Width</h4>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./part1/freq_baseline_width_low.png" alt="Baseline freq, low width">
-                            <div class="image-caption">L = [BASELINE], Width = [LOW_VALUE]</div>
-                        </div>
-                        <div class="image-container" style="max-width: 250px; margin: 0 auto;">
-                            <img src="./part1/freq_baseline_width_high.png" alt="Baseline freq, high width">
-                            <div class="image-caption">L = [BASELINE], Width = [HIGH_VALUE]</div>
-                        </div>
-                    </div>
-
-                    <p><strong>Observations:</strong> [Discuss how varying L and width affects the quality of reconstruction, ability to capture fine details, and training convergence]</p>
-
-                    <h3>PSNR Curve</h3>
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./part1/psnr_curve.png" alt="PSNR over iterations">
-                            <div class="image-caption">PSNR vs Training Iterations</div>
-                        </div>
-                    </div>
-                    
-                    <p><strong>Final PSNR:</strong> [VALUE] dB</p>
-                </div>
+        <h3>Training Results - Provided Fox Image</h3>
+        <p>Training progression on the provided fox image:</p>
+        
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox.jpg" alt="Original fox image">
+                <div class="image-caption">Original</div>
             </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_0_frequency_10.png" alt="Fox epoch 0">
+                <div class="image-caption">0 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_200_frequency_10.png" alt="Fox epoch 200">
+                <div class="image-caption">200 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_400_frequency_10.png" alt="Fox epoch 400">
+                <div class="image-caption">400 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_600_frequency_10.png" alt="Fox epoch 600">
+                <div class="image-caption">600 iterations</div>
+            </div>
+        </div>
 
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_800_frequency_10.png" alt="Fox epoch 800">
+                <div class="image-caption">800 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_1000_frequency_10.png" alt="Fox epoch 1000">
+                <div class="image-caption">1000 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_1200_frequency_10.png" alt="Fox epoch 1200">
+                <div class="image-caption">1200 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_1400_frequency_10.png" alt="Fox epoch 1400">
+                <div class="image-caption">1400 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_1600_frequency_10.png" alt="Fox epoch 1600">
+                <div class="image-caption">1600 iterations</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_1800_frequency_10.png" alt="Fox epoch 1800">
+                <div class="image-caption">1800 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_2000_frequency_10.png" alt="Fox epoch 2000">
+                <div class="image-caption">2000 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_2200_frequency_10.png" alt="Fox epoch 2200">
+                <div class="image-caption">2200 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_2400_frequency_10.png" alt="Fox epoch 2400">
+                <div class="image-caption">2400 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_2600_frequency_10.png" alt="Fox epoch 2600">
+                <div class="image-caption">2600 iterations</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                <img src="./part1/fox_rendered_epoch_2800_frequency_10.png" alt="Fox epoch 2800">
+                <div class="image-caption">2800 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                <img src="./part1/fox_L_10_width_360_final.png" alt="Fox final">
+                <div class="image-caption">Final (3000 iters)</div>
+            </div>
+        </div>
+
+        <h3>Training Results - My Cat Ashie</h3>
+        <p>Training progression on my own image of my cat:</p>
+        
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie.jpeg" alt="Original Ashie image">
+                <div class="image-caption">Original</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_0_frequency_10.png" alt="Ashie epoch 0">
+                <div class="image-caption">0 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_200_frequency_10.png" alt="Ashie epoch 200">
+                <div class="image-caption">200 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_400_frequency_10.png" alt="Ashie epoch 400">
+                <div class="image-caption">400 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_600_frequency_10.png" alt="Ashie epoch 600">
+                <div class="image-caption">600 iterations</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_800_frequency_10.png" alt="Ashie epoch 800">
+                <div class="image-caption">800 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_1000_frequency_10.png" alt="Ashie epoch 1000">
+                <div class="image-caption">1000 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_1200_frequency_10.png" alt="Ashie epoch 1200">
+                <div class="image-caption">1200 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_1400_frequency_10.png" alt="Ashie epoch 1400">
+                <div class="image-caption">1400 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_1600_frequency_10.png" alt="Ashie epoch 1600">
+                <div class="image-caption">1600 iterations</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_1800_frequency_10.png" alt="Ashie epoch 1800">
+                <div class="image-caption">1800 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_2000_frequency_10.png" alt="Ashie epoch 2000">
+                <div class="image-caption">2000 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_2200_frequency_10.png" alt="Ashie epoch 2200">
+                <div class="image-caption">2200 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_2400_frequency_10.png" alt="Ashie epoch 2400">
+                <div class="image-caption">2400 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 180px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_2600_frequency_10.png" alt="Ashie epoch 2600">
+                <div class="image-caption">2600 iterations</div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                <img src="./part1/ashie_rendered_epoch_2800_frequency_10.png" alt="Ashie epoch 2800">
+                <div class="image-caption">2800 iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 200px; margin: 0 auto;">
+                <img src="./part1/ashie_L_10_width_360_final.png" alt="Ashie final">
+                <div class="image-caption">Final (3000 iters)</div>
+            </div>
+        </div>
+
+        <h3>Hyperparameter Exploration</h3>
+        <p>I experimented with different positional encoding frequencies (L) and network widths to understand their impact on reconstruction quality.</p>
+
+        <h4>Fox - Varying L and Width (2×2 Grid)</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/fox_L_2_width_10_final.png" alt="Fox L=2, width=10">
+                <div class="image-caption">L = 2, Width = 10</div>
+            </div>
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/fox_L_2_width_256_final.png" alt="Fox L=2, width=256">
+                <div class="image-caption">L = 2, Width = 256</div>
+            </div>
+        </div>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/fox_L_10_width_10_final.png" alt="Fox L=10, width=10">
+                <div class="image-caption">L = 10, Width = 10</div>
+            </div>
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/fox_L_10_width_256_final.png" alt="Fox L=10, width=256">
+                <div class="image-caption">L = 10, Width = 256</div>
+            </div>
+        </div>
+
+        <h4>Ashie - Varying L and Width (2×2 Grid)</h4>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/ashie_L_2_width_10_final.png" alt="Ashie L=2, width=10">
+                <div class="image-caption">L = 2, Width = 10</div>
+            </div>
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/ashie_L_2_width_256_final.png" alt="Ashie L=2, width=256">
+                <div class="image-caption">L = 2, Width = 256</div>
+            </div>
+        </div>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/ashie_L_10_width_10_final.png" alt="Ashie L=10, width=10">
+                <div class="image-caption">L = 10, Width = 10</div>
+            </div>
+            <div class="image-container" style="max-width: 250px; margin: 0 auto;">
+                <img src="./part1/ashie_L_10_width_256_final.png" alt="Ashie L=10, width=256">
+                <div class="image-caption">L = 10, Width = 256</div>
+            </div>
+        </div>
+
+        <p><strong>Observations:</strong> With very low values (L=2, width=10), the network struggles to capture fine details and produces blurry results. Increasing the positional encoding frequency (L) allows the network to represent higher-frequency details. Increasing the network width provides more capacity to learn complex patterns. The best results come from combining high frequency encoding (L=10) with sufficient network capacity (width=256 or 360).</p>
+
+        <h3>PSNR Curves</h3>
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./part1/fox_psnr.png" alt="Fox PSNR curve">
+                <div class="image-caption">Fox - PSNR vs Training Iterations</div>
+            </div>
+            <div class="image-container" style="max-width: 450px; margin: 0 auto;">
+                <img src="./part1/ashie_psnr.png" alt="Ashie PSNR curve">
+                <div class="image-caption">Ashie - PSNR vs Training Iterations</div>
+            </div>
+        </div>
+    </div>
+</div>
             <!-- Part 2: 3D NeRF -->
             <div class="project-content">
                 <h2>Part 2: Fit a Neural Radiance Field from Multi-view Images</h2>
