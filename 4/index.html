@@ -109,17 +109,15 @@ Distortion Coefficients: [VALUES]
                     <h4>Network Architecture</h4>
                     <p><strong>Model Details:</strong></p>
                     <ul>
-                        <li>Number of layers: [NUMBER]</li>
-                        <li>Layer width (channels): [NUMBER]</li>
-                        <li>Positional encoding max frequency (L): [NUMBER]</li>
-                        <li>Learning rate: [VALUE]</li>
+                        <li>Number of layers: 3</li>
+                        <li>Layer width (channels): 256</li>
+                        <li>Positional encoding max frequency (L): 10</li>
+                        <li>Learning rate: 1e-2</li>
                         <li>Optimizer: Adam</li>
                         <li>Loss function: MSE</li>
-                        <li>Training iterations: [NUMBER]</li>
-                        <li>Batch size: [NUMBER] pixels</li>
+                        <li>Training iterations: 3000</li>
+                        <li>Batch size: 10000 pixels</li>
                     </ul>
-
-                    <p><strong>Architecture Description:</strong> [Describe your MLP structure, including activation functions and positional encoding implementation]</p>
 
                     <h3>Training Results - Provided Image</h3>
                     <p>Training progression on the provided fox image:</p>
