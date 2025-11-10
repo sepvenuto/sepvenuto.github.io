@@ -246,6 +246,7 @@ Distortion Coefficients: [VALUES]
 
                     <h4>Putting the Dataloading All Together</h4>
                     <p>I created a RaysData class that takes in the Dataset to follow the format in the provided testing code. I first convert all images, K, and c2ws to floats and torch tensor types. Then, I create a meshgrid to create the pairings of possible (u, v) points, being sure to add the 0.5 per the instructions. I assign the self.images, self.K, self.c2ws, self.H, self.W to the RaysData. I then calculate the total rays per image, total rays, and flatten all of the pixels across all images. These will helpful for the ray sampling. Then, for each image (therefore each camera location, and so then each c2w), I use my pixel_to_ray function to calculate the rays_o and rays_d for each image. This way I can take advantage of batching and not need to recalculate with different c2ws later when I am sampling from my dataset.</p>
+                    
                     <h4>Visualization of Rays and Samples</h4>                    
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 600px; margin: 0 auto;">
@@ -256,10 +257,10 @@ Distortion Coefficients: [VALUES]
 
                     <p><strong>Sampling Parameters:</strong></p>
                     <ul>
-                        <li>Near plane: [VALUE]</li>
-                        <li>Far plane: [VALUE]</li>
-                        <li>Number of samples per ray: [NUMBER]</li>
-                        <li>Perturbation applied: [Yes/No]</li>
+                        <li>Near plane: 2.0 </li>
+                        <li>Far plane: 6.0 </li>
+                        <li>Number of samples per ray: 32</li>
+                        <li>Perturbation applied: Yes</li>
                     </ul>
 
                     <h3>Part 2.4: Neural Radiance Field Network</h3>
@@ -267,11 +268,12 @@ Distortion Coefficients: [VALUES]
                     <p><strong>Network Architecture:</strong></p>
                     <ul>
                         <li>Input: 3D position (x, y, z) + 3D view direction (θ, φ)</li>
-                        <li>Position encoding frequency: L = [VALUE]</li>
-                        <li>Direction encoding frequency: L = [VALUE]</li>
-                        <li>Number of layers: [NUMBER]</li>
-                        <li>Hidden layer width: [NUMBER]</li>
-                        <li>Skip connections at layer: [NUMBER]</li>
+                        <li>Position encoding frequency: L = 10</li>
+                        <li>Direction encoding frequency: L = 4</li>
+                        <li>Number of density layers: 9</li>
+                        <li>Number of rgb layers: 11</li>
+                        <li>Hidden layer width: 256</li>
+                        <li>Skip connections at layer: 5, (also 9 for density)</li>
                         <li>Output: RGB color (3 channels) + density σ (1 channel)</li>
                     </ul>
 
