@@ -27,78 +27,47 @@
             </div>
 
             <!-- Part 0: Camera Calibration -->
-            <div class="project-content">
-                <h2>Part 0: Camera Calibration and 3D Scanning</h2>
-                <div class="project-content-body">
-                    
-                    <h3>Part 0.1: Camera Calibration</h3>
-                    <p>I calibrated my camera using ArUco markers to obtain the camera intrinsic matrix and distortion coefficients. I captured [NUMBER] calibration images from various angles and distances to ensure robust calibration.</p>
-                    
-                    <p><strong>Calibration Process:</strong></p>
-                    <ul>
-                        <li>Captured calibration images with varying angles and distances</li>
-                        <li>Detected ArUco tags using OpenCV's detector</li>
-                        <li>Extracted corner coordinates and corresponding 3D world points</li>
-                        <li>Used cv2.calibrateCamera() to compute intrinsic parameters</li>
-                    </ul>
+<div class="project-content">
+    <h2>Part 0: Camera Calibration and 3D Scanning</h2>
+    <div class="project-content-body">
+        
+        <h3>Part 0.1: Camera Calibration</h3>
+        <p>I calibrated my camera using ArUco markers to obtain the camera intrinsic matrix and distortion coefficients. I captured [NUMBER] calibration images from various angles and distances to ensure robust calibration.</p>
+        
+        <p><strong>Calibration Process:</strong></p>
+        <ul>
+            <li>Captured calibration images with varying angles and distances</li>
+            <li>Detected ArUco tags using OpenCV's detector</li>
+            <li>Extracted corner coordinates and corresponding 3D world points</li>
+            <li>Used cv2.calibrateCamera() to compute intrinsic parameters</li>
+        </ul>
 
-                    <p><strong>Calibration Results:</strong></p>
-                    <pre><code>
-Camera Intrinsic Matrix (K):
-[[fx,  0, cx],
- [ 0, fy, cy],
- [ 0,  0,  1]]
+        <p><strong>Calibration Results:</strong></p>
 
-Focal Length: fx = [VALUE], fy = [VALUE]
-Principal Point: cx = [VALUE], cy = [VALUE]
-Distortion Coefficients: [VALUES]
-                    </code></pre>
+        <h3>Part 0.2: Capturing My Object</h3>
+        
+        <p>I chose to scan my bunnies jewlery holder. I placed it next to an ArUco marker and captured [NUMBER] images from different angles, maintaining consistent camera settings and zoom level as used during calibration.</p>
 
-                    <h3>Part 0.2: Capturing My Object</h3>
-                    <p>[Describe your chosen object and the scanning process]</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./part0/object_sample1.jpg" alt="Object sample 1">
-                            <div class="image-caption">Sample View 1</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./part0/object_sample2.jpg" alt="Object sample 2">
-                            <div class="image-caption">Sample View 2</div>
-                        </div>
-                        <div class="image-container" style="max-width: 300px; margin: 0 auto;">
-                            <img src="./part0/object_sample3.jpg" alt="Object sample 3">
-                            <div class="image-caption">Sample View 3</div>
-                        </div>
-                    </div>
+        <h3>Part 0.3: Camera Pose Estimation</h3>
+        <p>Using the calibrated camera parameters, I estimated the camera pose for each captured image using cv2.solvePnP(). This provided the rotation and translation vectors that describe the camera's position and orientation relative to the ArUco tag.</p>
 
-                    <h3>Part 0.3: Camera Pose Estimation</h3>
-                    <p>Using the calibrated camera parameters, I estimated the camera pose for each captured image using cv2.solvePnP(). This provided the rotation and translation vectors that describe the camera's position and orientation relative to the ArUco tag.</p>
-
-                    <h4>Viser Visualization</h4>
-                    <p>Below are screenshots of the camera frustums visualized in 3D using Viser, showing the estimated poses for all captured images.</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
-                            <img src="./part0/viser_view1.png" alt="Viser visualization 1">
-                            <div class="image-caption">Camera Frustums - View 1</div>
-                        </div>
-                        <div class="image-container" style="max-width: 500px; margin: 0 auto;">
-                            <img src="./part0/viser_view2.png" alt="Viser visualization 2">
-                            <div class="image-caption">Camera Frustums - View 2</div>
-                        </div>
-                    </div>
-
-                    <h3>Part 0.4: Dataset Creation</h3>
-                    <p>I undistorted all images and packaged them into an .npz file with the following structure:</p>
-                    <ul>
-                        <li>Training images: [N_train] images</li>
-                        <li>Validation images: [N_val] images</li>
-                        <li>Test camera poses: [N_test] poses for novel view rendering</li>
-                        <li>Focal length: [VALUE]</li>
-                    </ul>
-                </div>
+        <h4>Viser Visualization - Camera Frustums</h4>
+        <p>Below are screenshots of the camera frustums visualized in 3D using Viser, showing the estimated poses for all captured images of the bunny scene.</p>
+        
+        <div class="image-gallery">
+            <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                <img src="./part0/bunnies_poses.png" alt="Viser visualization of camera poses">
+                <div class="image-caption">Camera Frustums Showing All Capture Positions</div>
             </div>
+            <div class="image-container" style="max-width: 500px; margin: 0 auto;">
+                <img src="./part0/bunnies_poses_again.png" alt="Viser visualization alternative view">
+                <div class="image-caption">Camera Frustums - Alternative Viewpoint</div>
+            </div>
+        </div>
+
+        <p>The visualization shows the spatial distribution of camera positions around the object. Each camera frustum represents one captured image, with the frustum orientation showing the camera's viewing direction and the embedded image showing what was captured from that viewpoint.</p>
+    </div>
+</div>
 
             <!-- Part 1: 2D Neural Field -->
 <div class="project-content">
