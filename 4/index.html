@@ -356,7 +356,7 @@
                     <h4>Visualization of Rays and Samples</h4>                    
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <img src="./part2/testPointCloud.png" alt="Point cloud visualization">
+                            <img src="" alt="Point cloud visualization">
                             <div class="image-caption">Camera Frustums and Sample Points in 3D Space</div>
                         </div>
                     </div>
@@ -376,10 +376,10 @@
                         <li>Input: 3D position (x, y, z) + 3D view direction (θ, φ)</li>
                         <li>Position encoding frequency: L = 10</li>
                         <li>Direction encoding frequency: L = 4</li>
-                        <li>Number of density layers: 9</li>
-                        <li>Number of rgb layers: 11</li>
+                        <li>Number of Linear layers (position path): 8</li>
+                        <li>Number of Linear layers (RGB path): 4 </li>
                         <li>Hidden layer width: 256</li>
-                        <li>Skip connections at layer: 5, (also 9 for density)</li>
+                        <li>Skip connections at layer: 5 (concatenates x_PE)</li>
                         <li>Output: RGB color (3 channels) + density σ (1 channel)</li>
                     </ul>
 
@@ -447,16 +447,6 @@
 
                     <h4>Novel View Synthesis Video</h4>
                     <p>Spherical rendering of the Lego bulldozer from novel viewpoints using the test camera poses:</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
-                            <video width="600" controls loop>
-                                <source src="./part2/lego_spherical.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="image-caption">Novel View Synthesis - Lego Dataset (Video)</div>
-                        </div>
-                    </div>
                     
                     <!-- Alternative GIF version -->
                     <div class="image-gallery">
