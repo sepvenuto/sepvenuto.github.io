@@ -46,7 +46,7 @@
 
         <h3>Part 0.2: Capturing My Object</h3>
         
-        <p>I chose to scan my bunnies jewlery holder. I placed it next to an ArUco marker and captured [NUMBER] images from different angles, maintaining consistent camera settings and zoom level as used during calibration.</p>
+        <p>I chose to scan my decorative candle (because candles are not allowed to be burned in the dorms lol). I placed it next to an ArUco marker and captured 53 images from different angles, maintaining consistent camera settings and zoom level as used during calibration.</p>
 
         <h3>Part 0.3: Camera Pose Estimation</h3>
         <p>Using the calibrated camera parameters, I estimated the camera pose for each captured image using cv2.solvePnP(). This provided the rotation and translation vectors that describe the camera's position and orientation relative to the ArUco tag.</p>
@@ -56,12 +56,12 @@
         
         <div class="image-gallery">
             <div class="image-container" style="max-width: 500px; margin: 0 auto;">
-                <img src="./part0/bunnies_poses.png" alt="Viser visualization of camera poses">
-                <div class="image-caption">Camera Frustums Showing All Capture Positions</div>
+                <img src="./part0/candle_cloud_side.png" alt="Viser visualization of camera poses from the side">
+                <div class="image-caption">Camera Frustums Showing All Capture Positions From the Side</div>
             </div>
             <div class="image-container" style="max-width: 500px; margin: 0 auto;">
-                <img src="./part0/bunnies_poses_again.png" alt="Viser visualization alternative view">
-                <div class="image-caption">Camera Frustums - Alternative Viewpoint</div>
+                <img src="./part0/candle_cloud_above.png" alt="Viser visualization above view">
+                <div class="image-caption">Camera Frustums - Above Viewpoint</div>
             </div>
         </div>
 
