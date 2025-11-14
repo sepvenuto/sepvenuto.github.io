@@ -468,18 +468,18 @@
                     
                     <p><strong>Dataset Statistics:</strong></p>
                     <ul>
-                        <li>Training images: [NUMBER]</li>
-                        <li>Validation images: [NUMBER]</li>
-                        <li>Image resolution: [WIDTH] × [HEIGHT]</li>
-                        <li>Focal length: [VALUE]</li>
+                        <li>Training images: 53</li>
+                        <li>Image resolution: 240 × 320. This was a significant consideration for me. I was originally attempting to train on images of size 3024x4032 pixels. While the images were higher quality, the training time was significantly longer, and made the traning infeasible. As a result, I decided to sacrifice the detail for improved training efficiency, and sped up the process by over twice the speed. </li>
+                        <li>Focal length: 243.96342</li>
                     </ul>
 
                     <p><strong>Hyperparameter Changes:</strong></p>
                     <ul>
-                        <li>Near plane: [VALUE] (adjusted from 2.0)</li>
-                        <li>Far plane: [VALUE] (adjusted from 6.0)</li>
-                        <li>Samples per ray: [NUMBER]</li>
-                        <li>[Any other changes you made and why]</li>
+                        <li>Near plane: 0.032 (adjusted from 2.0)</li>
+                        <li>Far plane: 0.32 (adjusted from 6.0). I determined the near/far values by determining the min difference between any camera and the center of the scene, and the max distance between any camera and the center of the scene. I did this using the l2 norm. Then, I set the near to be the min distance and the far to be the max distance.</li>
+                        <li>Samples per ray: 64</li>
+                        <li>Num epochs: 12487 -- because my dataset has a more complex background and the camera calibration was worse than the lego dataset, it took many more epochs to successfully train the model to achieve a sufficient PSNR of level 23. </li>
+                        <li>I also added a learning rate schedule of the exponential type to my model. We learned about learning rate schedules in CS189 a couple of lectures ago, and I thought the concept was really interesting and wanted to see how it would affect the training process. I chose a very high gamma, so that the decay was slow. This was helpful because the model training was very slow, so by adding in the learning rate schedule, I was able to start with a large learning rate and have it decay lower. It was also cool to get to connect the two classes!</li>
                     </ul>
 
                     <h3>Training Progression</h3>
@@ -487,20 +487,32 @@
                     
                     <div class="image-gallery">
                         <div class="image-container" style="max-width: 220px; margin: 0 auto;">
-                            <img src="./part2/own_iter100.png" alt="Own data 100 iterations">
-                            <div class="image-caption">100 iterations</div>
+                            <img src="./part2/candle_nerf_epoch_0000.png" alt="Own data 0 iterations">
+                            <div class="image-caption">0 iterations</div>
                         </div>
                         <div class="image-container" style="max-width: 220px; margin: 0 auto;">
-                            <img src="./part2/own_iter500.png" alt="Own data 500 iterations">
-                            <div class="image-caption">500 iterations</div>
+                            <img src="./part2/candle_nerf_epoch_2000.png" alt="Own data 2000 iterations">
+                            <div class="image-caption">2000 iterations</div>
                         </div>
                         <div class="image-container" style="max-width: 220px; margin: 0 auto;">
-                            <img src="./part2/own_iter1000.png" alt="Own data 1000 iterations">
-                            <div class="image-caption">1000 iterations</div>
+                            <img src="./part2/candle_nerf_epoch_4000.png" alt="Own data 4000 iterations">
+                            <div class="image-caption">4000 iterations</div>
                         </div>
                         <div class="image-container" style="max-width: 220px; margin: 0 auto;">
-                            <img src="./part2/own_final.png" alt="Own data final">
-                            <div class="image-caption">Final result</div>
+                            <img src="./part2/candle_nerf_epoch_6000.png" alt="Own data 6000 iterations">
+                            <div class="image-caption">6000 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 220px; margin: 0 auto;">
+                            <img src="./part2/candle_nerf_epoch_8000.png" alt="Own data 8000 iterations">
+                            <div class="image-caption">8000 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 220px; margin: 0 auto;">
+                            <img src="./part2/candle_nerf_epoch_10000.png" alt="Own data 10000 iterations">
+                            <div class="image-caption">10000 iterations</div>
+                        </div>
+                        <div class="image-container" style="max-width: 220px; margin: 0 auto;">
+                            <img src="./part2/12400.png" alt="Own data 12400 iterations">
+                            <div class="image-caption">12400 iterations</div>
                         </div>
                     </div>
 
