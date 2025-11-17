@@ -18,25 +18,109 @@
         </div>
 
         <main>
-            <!-- Overview Section -->
-            <div class="project-content">
-                <h2>Overview</h2>
-                <div class="project-content-body">
-                    <p>[Write your overview here explaining what you learned about diffusion models, implementing sampling loops, and using them for tasks like inpainting and creating optical illusions.]</p>
-                </div>
-            </div>
 
             <!-- Part 0: Setup -->
             <div class="project-content">
                 <h2>Part 0: Setup and Text Prompts</h2>
                 <div class="project-content-body">
                     
-                    <h3>DeepFloyd IF Model</h3>
-                    <p>[Explain the DeepFloyd IF model setup and access process]</p>
                     
                     <h3>Text Prompts and Embeddings</h3>
-                    <p><strong>Random Seed Used:</strong> [YOUR SEED HERE]</p>
-                    <p>[Explain your text prompt selection process and why you chose them]</p>
+                    <p><strong>Random Seed Used:</strong> 100 </p>
+                    <p>These are my prompts: You have the embeddings for the following prompts
+['a high quality photo of a strong blonde woman with blue eyes',
+ 'a portrait of a college student with straight blonde hair',
+ 'a photo of a woman weightlifting at the gym',
+ 'a CrossFit athlete with blonde hair doing a workout',
+ 'a portrait of a brown-haired woman with green eyes and curly hair',
+ 'two sisters with different hair colors standing together',
+ 'a Berkeley student studying computer science',
+ 'a grey cat sitting peacefully',
+ 'a tabby cat lounging in sunlight',
+ 'two cats playing together',
+ 'a fluffy grey cat portrait',
+ 'a striped tabby cat looking at camera',
+ 'a CrossFit gym with equipment',
+ 'a woman doing a snatch in a CrossFit gym',
+ 'a Formula 1 race car on the track',
+ 'an F1 car speeding around a corner',
+ 'a Formula 1 paddock scene',
+ 'a woman playing video games',
+ 'an Overwatch character in action',
+ 'UC Berkeley campus with the Campanile tower',
+ 'Sather Tower at UC Berkeley',
+ 'a computer science classroom',
+ 'a student studying French in a library',
+ 'the Berkeley campus on a sunny day',
+ 'a cornflower blue gradient background',
+ 'an oil painting of a sunset',
+ 'a watercolor painting of flowers',
+ 'a lithograph of a waterfall',
+ 'an oil painting of an old man',
+ 'an oil painting of people around a campfire',
+ 'a rocket ship launching into space',
+ 'a lighthouse on a cliff',
+ 'a skull',
+ 'a waterfall in a forest',
+ 'a peaceful mountain landscape',
+ 'a busy city street at night',
+ 'a cat face close up',
+ 'a tiger in the jungle',
+ 'the Eiffel Tower',
+ 'the Golden Gate Bridge',
+ 'a coffee cup on a table',
+ 'a book open on a desk',
+ 'a Formula 1 car in cornflower blue',
+ 'a CrossFit gym with blue lighting',
+ 'a grey cat watching a computer screen',
+ 'a Berkeley student at a CrossFit competition',
+ 'two sisters watching Formula 1 together',
+ 'a tabby cat sleeping on a French textbook',
+ 'a high quality photo',
+ 'a professional esports tournament',
+ 'a cozy study space with cats',
+ 'a sunrise over San Francisco Bay',
+ 'a vintage Formula 1 poster',
+ 'a minimalist gym interior',
+ 'a French café in Paris',
+ 'a blonde woman studying at a library desk',
+ 'a blonde woman lifting weights at the gym',
+ 'a college student reading computer science textbooks',
+ 'a strong woman doing a deadlift',
+ 'a woman typing code on a laptop',
+ 'a CrossFit athlete doing pull-ups',
+ 'a student with blonde hair in a lecture hall',
+ 'a woman in workout clothes holding dumbbells',
+ 'a Berkeley student walking across campus',
+ 'a woman running on a track',
+ 'a blonde athlete stretching before a workout',
+ 'a focused student studying late at night',
+ 'a woman doing a handstand in a gym',
+ 'a college student drinking coffee while coding',
+ 'two sisters working out together',
+ 'two sisters studying together in a library',
+ 'a grey cat and a tabby cat cuddling',
+ 'a blonde woman and a brown-haired woman smiling',
+ 'a woman in a cornflower blue CrossFit shirt',
+ 'a Formula 1 driver in a racing suit',
+ 'an Overwatch player at a gaming setup',
+ 'a barbell loaded with weights',
+ 'a laptop showing lines of code',
+ 'a French language textbook open on a desk',
+ 'a gym filled with kettlebells and ropes',
+ 'a bookshelf full of computer science books',
+ 'a racing helmet on a pit wall',
+ 'a gaming keyboard with colorful lights',
+ 'a woman celebrating a personal record lift',
+ 'a student acing a computer science exam',
+ 'a peaceful meditation pose in a gym',
+ 'an intense study session with notes everywhere',
+ 'a sunrise workout at an outdoor gym',
+ 'a late night coding session with desk lamp',
+ 'a victory celebration at a CrossFit competition',
+ 'a successful project presentation in class',
+ '']
+                    I was partially inspired by common examples of ananagrams/hybrids I saw online so I knew I would have some to work with if my others don't work, and then I also included my interests of crossfit and video games, and my studying computer science and French, and going to Berkeley. I also have descriptions of myself and my sister, as well as our two pet cats</p>
                     
                     <h3>Sample Generated Images</h3>
                     <p>Below are images generated from my custom text prompts at different inference steps:</p>
