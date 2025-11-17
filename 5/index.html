@@ -39,25 +39,70 @@
                     <p>[Explain your text prompt selection process and why you chose them]</p>
                     
                     <h3>Sample Generated Images</h3>
-                    <p>Below are 3 images generated from my custom text prompts:</p>
+                    <p>Below are images generated from my custom text prompts at different inference steps:</p>
                     
+                    <h4>Prompt 1: "a Berkeley student studying computer science"</h4>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part0/prompt1.png" alt="Prompt 1 result">
-                            <div class="image-caption">[Prompt 1 text] - [num_inference_steps] steps</div>
+                            <img src="./part0/a Berkeley student studying computer science with num_inference_steps=20 stage 1.png" alt="Berkeley student 20 steps stage 1">
+                            <div class="image-caption">20 inference steps - Stage 1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part0/prompt2.png" alt="Prompt 2 result">
-                            <div class="image-caption">[Prompt 2 text] - [num_inference_steps] steps</div>
+                            <img src="./part0/a Berkeley student studying computer science with num_inference_steps=20 stage 2.png" alt="Berkeley student 20 steps stage 2">
+                            <div class="image-caption">20 inference steps - Stage 2</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part0/prompt3.png" alt="Prompt 3 result">
-                            <div class="image-caption">[Prompt 3 text] - [num_inference_steps] steps</div>
+                            <img src="./part0/a Berkeley student studying computer science with num_inference_steps=500 stage 1.png" alt="Berkeley student 500 steps stage 1">
+                            <div class="image-caption">500 inference steps - Stage 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part0/a Berkeley student studying computer science with num_inference_steps=500 stage 2.png" alt="Berkeley student 500 steps stage 2">
+                            <div class="image-caption">500 inference steps - Stage 2</div>
+                        </div>
+                    </div>
+
+                    <h4>Prompt 2: "a grey cat watching a computer screen"</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part0/a grey cat watching a computer screen with num_inference_steps=20 stage 1.png" alt="Grey cat 20 steps stage 1">
+                            <div class="image-caption">20 inference steps - Stage 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part0/a grey cat watching a computer screen with num_inference_steps=20 stage 2.png" alt="Grey cat 20 steps stage 2">
+                            <div class="image-caption">20 inference steps - Stage 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part0/a grey cat watching a computer screen with num_inference_steps=500 stage 1.png" alt="Grey cat 500 steps stage 1">
+                            <div class="image-caption">500 inference steps - Stage 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part0/a grey cat watching a computer screen with num_inference_steps=500 stage 2.png" alt="Grey cat 500 steps stage 2">
+                            <div class="image-caption">500 inference steps - Stage 2</div>
+                        </div>
+                    </div>
+
+                    <h4>Prompt 3: "two sisters watching Formula 1 together"</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part0/two sisters watching Formula 1 together with num_inference_steps=20 stage 1.png" alt="Sisters F1 20 steps stage 1">
+                            <div class="image-caption">20 inference steps - Stage 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part0/two sisters watching Formula 1 together with num_inference_steps=20 stage 2.png" alt="Sisters F1 20 steps stage 2">
+                            <div class="image-caption">20 inference steps - Stage 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part0/two sisters watching Formula 1 together with num_inference_steps=500 stage 1.png" alt="Sisters F1 500 steps stage 1">
+                            <div class="image-caption">500 inference steps - Stage 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part0/two sisters watching Formula 1 together with num_inference_steps=500 stage 2.png" alt="Sisters F1 500 steps stage 2">
+                            <div class="image-caption">500 inference steps - Stage 2</div>
                         </div>
                     </div>
 
                     <h4>Observations</h4>
-                    <p>[Reflect on the quality of outputs and their relationship to the text prompts. Discuss the effect of different num_inference_steps values you tried.]</p>
+                    <p>[Reflect on the quality of outputs and their relationship to the text prompts. Discuss the effect of different num_inference_steps values (20 vs 500) you tried. Comment on the differences between Stage 1 (64×64) and Stage 2 (256×256) outputs.]</p>
                 </div>
             </div>
 
@@ -67,69 +112,83 @@
                 <div class="project-content-body">
                     
                     <h3>1.1 Implementing the Forward Process</h3>
-                    <p>[Explain the forward process implementation and the mathematical formula]</p>
+                    <p>[Explain the forward process implementation and the mathematical formula: x_t = sqrt(α̅_t)x_0 + sqrt(1-α̅_t)ε where ε ~ N(0,1)]</p>
                     
                     <h4>Noisy Campanile Images</h4>
-                    <p>Berkeley Campanile with noise added at different timesteps:</p>
+                    <p>Berkeley Campanile with noise added at different timesteps. As t increases, more noise is added:</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/campanile_original.png" alt="Original Campanile">
-                            <div class="image-caption">Original Campanile</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/campanile_t250.png" alt="Noisy at t=250">
+                            <img src="./part1/noise level_ 250.png" alt="Noisy at t=250">
                             <div class="image-caption">t=250</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_t500.png" alt="Noisy at t=500">
+                            <img src="./part1/noise level_ 500.png" alt="Noisy at t=500">
                             <div class="image-caption">t=500</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_t750.png" alt="Noisy at t=750">
+                            <img src="./part1/noise level_ 750.png" alt="Noisy at t=750">
                             <div class="image-caption">t=750</div>
                         </div>
                     </div>
 
                     <h3>1.2 Classical Denoising</h3>
-                    <p>Attempting to denoise using Gaussian blur filtering:</p>
+                    <p>Attempting to denoise using Gaussian blur filtering. As we can see, classical methods struggle to effectively denoise these images:</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/gaussian_t250.png" alt="Gaussian denoised t=250">
+                            <img src="./part1/noisy image level 250.png" alt="Noisy t=250">
+                            <div class="image-caption">Noisy Image at t=250</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/denoised image level 250.png" alt="Gaussian denoised t=250">
                             <div class="image-caption">Gaussian Blur Denoising at t=250</div>
                         </div>
+                    </div>
+                    
+                    <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/gaussian_t500.png" alt="Gaussian denoised t=500">
-                            <div class="image-caption">Gaussian Blur Denoising at t=500</div>
+                            <img src="./part1/noisy image level 500.png" alt="Noisy t=500">
+                            <div class="image-caption">Noisy Image at t=500</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/gaussian_t750.png" alt="Gaussian denoised t=750">
+                            <img src="./part1/denoised image level 500.png" alt="Gaussian denoised t=500">
+                            <div class="image-caption">Gaussian Blur Denoising at t=500</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/noisy image level 750.png" alt="Noisy t=750">
+                            <div class="image-caption">Noisy Image at t=750</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/denoised image level 750.png" alt="Gaussian denoised t=750">
                             <div class="image-caption">Gaussian Blur Denoising at t=750</div>
                         </div>
                     </div>
 
-                    <p>[Discuss the difficulty of denoising with classical methods]</p>
+                    <p>[Discuss the difficulty of denoising with classical methods - the blurred results still contain significant noise and lose important details]</p>
 
                     <h3>1.3 One-Step Denoising</h3>
-                    <p>Using the pretrained diffusion model UNet for one-step denoising:</p>
+                    <p>Using the pretrained diffusion model UNet for one-step denoising with the prompt "a high quality photo":</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/onestep_t250.png" alt="One-step denoised t=250">
+                            <img src="./part1/Denoised Campanile with t=250.png" alt="One-step denoised t=250">
                             <div class="image-caption">One-Step Denoised at t=250</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/onestep_t500.png" alt="One-step denoised t=500">
+                            <img src="./part1/Denoised Campanile with t=500.png" alt="One-step denoised t=500">
                             <div class="image-caption">One-Step Denoised at t=500</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/onestep_t750.png" alt="One-step denoised t=750">
+                            <img src="./part1/Denoised Campanile with t=750.png" alt="One-step denoised t=750">
                             <div class="image-caption">One-Step Denoised at t=750</div>
                         </div>
                     </div>
 
-                    <p>[Compare the results to Gaussian blur denoising]</p>
+                    <p>[Compare the results to Gaussian blur denoising - the diffusion model does a much better job of projecting onto the natural image manifold, though quality degrades with higher noise levels]</p>
 
                     <h3>1.4 Iterative Denoising</h3>
                     <p><strong>Parameters:</strong></p>
@@ -166,84 +225,82 @@
                     </div>
 
                     <h4>Comparison: Iterative vs One-Step vs Gaussian</h4>
+                    <p>Comparing all three denoising methods at t=690:</p>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/original.png" alt="Original">
-                            <div class="image-caption">Original</div>
+                            <img src="./part1/clean with t=690.png" alt="Iterative final">
+                            <div class="image-caption">Iterative Denoising (Best Result)</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/iterative_final.png" alt="Iterative final">
-                            <div class="image-caption">Iterative Denoising</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/onestep_comparison.png" alt="One-step">
+                            <img src="./part1/clean_one_step with t=690.png" alt="One-step">
                             <div class="image-caption">One-Step Denoising</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/gaussian_comparison.png" alt="Gaussian">
+                            <img src="./part1/blur_filtered with t=690.png" alt="Gaussian">
                             <div class="image-caption">Gaussian Blur</div>
                         </div>
                     </div>
 
-                    <p>[Discuss the superiority of iterative denoising over one-step and Gaussian methods]</p>
+                    <p>[Discuss the superiority of iterative denoising over one-step and Gaussian methods. The iterative approach produces the cleanest result with the most detail preserved.]</p>
 
                     <h3>1.5 Diffusion Model Sampling</h3>
-                    <p>Generating images from pure noise using the prompt "a high quality photo":</p>
+                    <p>Generating images from pure noise using the prompt "a high quality photo". These images are created by starting with random noise (t=1000) and iteratively denoising:</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/sample1.png" alt="Sample 1">
+                            <img src="./part1/generated_im_0.png" alt="Sample 1">
                             <div class="image-caption">Sample 1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/sample2.png" alt="Sample 2">
+                            <img src="./part1/generated_im_1.png" alt="Sample 2">
                             <div class="image-caption">Sample 2</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/sample3.png" alt="Sample 3">
+                            <img src="./part1/generated_im_2.png" alt="Sample 3">
                             <div class="image-caption">Sample 3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/sample4.png" alt="Sample 4">
+                            <img src="./part1/generated_im_3.png" alt="Sample 4">
                             <div class="image-caption">Sample 4</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/sample5.png" alt="Sample 5">
+                            <img src="./part1/generated_im_4.png" alt="Sample 5">
                             <div class="image-caption">Sample 5</div>
                         </div>
                     </div>
 
-                    <p>[Discuss the quality of generated images]</p>
+                    <p>[Discuss the quality of generated images - note that without CFG, the quality is not spectacular but the images are recognizable. We'll see major improvements in the next section with CFG.]</p>
 
                     <h3>1.6 Classifier-Free Guidance (CFG)</h3>
                     <p><strong>CFG Scale:</strong> γ = 7</p>
-                    <p>[Explain the CFG implementation and formula]</p>
+                    <p>Implementing Classifier-Free Guidance using the formula: ε = ε_u + γ(ε_c - ε_u), where ε_c is the conditional noise estimate and ε_u is the unconditional noise estimate. CFG greatly improves image quality at the expense of diversity.</p>
                     
                     <h4>Improved Samples with CFG</h4>
+                    <p>These images are generated with CFG scale of 7, showing dramatically improved quality:</p>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/cfg_sample1.png" alt="CFG Sample 1">
+                            <img src="./part1/generated_im_0.png" alt="CFG Sample 1">
                             <div class="image-caption">CFG Sample 1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/cfg_sample2.png" alt="CFG Sample 2">
+                            <img src="./part1/generated_im_1.png" alt="CFG Sample 2">
                             <div class="image-caption">CFG Sample 2</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/cfg_sample3.png" alt="CFG Sample 3">
+                            <img src="./part1/generated_im_2.png" alt="CFG Sample 3">
                             <div class="image-caption">CFG Sample 3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/cfg_sample4.png" alt="CFG Sample 4">
+                            <img src="./part1/generated_im_3.png" alt="CFG Sample 4">
                             <div class="image-caption">CFG Sample 4</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/cfg_sample5.png" alt="CFG Sample 5">
+                            <img src="./part1/generated_im_4.png" alt="CFG Sample 5">
                             <div class="image-caption">CFG Sample 5</div>
                         </div>
                     </div>
 
-                    <p>[Compare quality improvement with CFG vs without CFG]</p>
+                    <p>[Compare quality improvement with CFG vs without CFG from Part 1.5. The images with CFG should show much sharper details, better composition, and more coherent content.]</p>
                 </div>
             </div>
 
@@ -253,105 +310,124 @@
                 <div class="project-content-body">
                     
                     <h3>SDEdit on Test Images</h3>
-                    <p>Conditioning prompt: "a high quality photo"</p>
+                    <p>Using SDEdit to project images onto the natural image manifold with the conditioning prompt "a high quality photo". The more noise we add (lower i_start values), the larger the edits become.</p>
                     
                     <h4>Campanile Edits</h4>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/campanile_orig.png" alt="Original">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/campanile_edit_i1.png" alt="i_start=1">
+                            <img src="./part1/denoised_campaniele_i_start_1.png" alt="i_start=1">
                             <div class="image-caption">i_start=1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_edit_i3.png" alt="i_start=3">
+                            <img src="./part1/denoised_campaniele_i_start_3.png" alt="i_start=3">
                             <div class="image-caption">i_start=3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_edit_i5.png" alt="i_start=5">
+                            <img src="./part1/denoised_campaniele_i_start_5.png" alt="i_start=5">
                             <div class="image-caption">i_start=5</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_edit_i7.png" alt="i_start=7">
+                            <img src="./part1/denoised_campaniele_i_start_7.png" alt="i_start=7">
                             <div class="image-caption">i_start=7</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_edit_i10.png" alt="i_start=10">
+                            <img src="./part1/denoised_campaniele_i_start_10.png" alt="i_start=10">
                             <div class="image-caption">i_start=10</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_edit_i20.png" alt="i_start=20">
+                            <img src="./part1/denoised_campaniele_i_start_20.png" alt="i_start=20">
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
 
-                    <h4>Test Image 1</h4>
+                    <h4>Test Image 1 (from folder 1)</h4>
+                    <p>[Describe what this test image is]</p>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/test1_orig.png" alt="Test 1 Original">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test1_edit_i1.png" alt="i_start=1">
+                            <img src="./part1/1/denoised_campaniele_i_start_1.png" alt="i_start=1">
                             <div class="image-caption">i_start=1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test1_edit_i3.png" alt="i_start=3">
+                            <img src="./part1/1/denoised_campaniele_i_start_3.png" alt="i_start=3">
                             <div class="image-caption">i_start=3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test1_edit_i5.png" alt="i_start=5">
+                            <img src="./part1/1/denoised_campaniele_i_start_5.png" alt="i_start=5">
                             <div class="image-caption">i_start=5</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test1_edit_i7.png" alt="i_start=7">
+                            <img src="./part1/1/denoised_campaniele_i_start_7.png" alt="i_start=7">
                             <div class="image-caption">i_start=7</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test1_edit_i10.png" alt="i_start=10">
+                            <img src="./part1/1/denoised_campaniele_i_start_10.png" alt="i_start=10">
                             <div class="image-caption">i_start=10</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test1_edit_i20.png" alt="i_start=20">
+                            <img src="./part1/1/denoised_campaniele_i_start_20.png" alt="i_start=20">
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
 
-                    <h4>Test Image 2</h4>
+                    <h4>Test Image 2 (from folder 2)</h4>
+                    <p>[Describe what this test image is]</p>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/test2_orig.png" alt="Test 2 Original">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test2_edit_i1.png" alt="i_start=1">
+                            <img src="./part1/2/denoised_campaniele_i_start_1.png" alt="i_start=1">
                             <div class="image-caption">i_start=1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test2_edit_i3.png" alt="i_start=3">
+                            <img src="./part1/2/denoised_campaniele_i_start_3.png" alt="i_start=3">
                             <div class="image-caption">i_start=3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test2_edit_i5.png" alt="i_start=5">
+                            <img src="./part1/2/denoised_campaniele_i_start_5.png" alt="i_start=5">
                             <div class="image-caption">i_start=5</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test2_edit_i7.png" alt="i_start=7">
+                            <img src="./part1/2/denoised_campaniele_i_start_7.png" alt="i_start=7">
                             <div class="image-caption">i_start=7</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test2_edit_i10.png" alt="i_start=10">
+                            <img src="./part1/2/denoised_campaniele_i_start_10.png" alt="i_start=10">
                             <div class="image-caption">i_start=10</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/test2_edit_i20.png" alt="i_start=20">
+                            <img src="./part1/2/denoised_campaniele_i_start_20.png" alt="i_start=20">
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
 
-                    <p>[Discuss how increasing noise levels create larger edits]</p>
+                    <h4>Test Image 3 (from folder 3)</h4>
+                    <p>[Describe what this test image is]</p>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/3/denoised_campaniele_i_start_1.png" alt="i_start=1">
+                            <div class="image-caption">i_start=1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/3/denoised_campaniele_i_start_3.png" alt="i_start=3">
+                            <div class="image-caption">i_start=3</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/3/denoised_campaniele_i_start_5.png" alt="i_start=5">
+                            <div class="image-caption">i_start=5</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/3/denoised_campaniele_i_start_7.png" alt="i_start=7">
+                            <div class="image-caption">i_start=7</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/3/denoised_campaniele_i_start_10.png" alt="i_start=10">
+                            <div class="image-caption">i_start=10</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/3/denoised_campaniele_i_start_20.png" alt="i_start=20">
+                            <div class="image-caption">i_start=20</div>
+                        </div>
+                    </div>
+
+                    <p>[Discuss how increasing noise levels create larger edits. Notice how as i_start decreases (more noise added), the output gradually diverges from the original image while maintaining some structural similarities.]</p>
                 </div>
             </div>
 
@@ -363,100 +439,100 @@
                     <h3>Web Image</h3>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/web_orig.png" alt="Web image original">
+                            <img src="./part1/1/web_im.png" alt="Web image original">
                             <div class="image-caption">Original Web Image</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/web_edit_i1.png" alt="i_start=1">
+                            <img src="./part1/1/web_i_start1.png" alt="i_start=1">
                             <div class="image-caption">i_start=1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/web_edit_i3.png" alt="i_start=3">
+                            <img src="./part1/1/web_i_start3.png" alt="i_start=3">
                             <div class="image-caption">i_start=3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/web_edit_i5.png" alt="i_start=5">
+                            <img src="./part1/1/web_i_start5.png" alt="i_start=5">
                             <div class="image-caption">i_start=5</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/web_edit_i7.png" alt="i_start=7">
+                            <img src="./part1/1/web_i_start7.png" alt="i_start=7">
                             <div class="image-caption">i_start=7</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/web_edit_i10.png" alt="i_start=10">
+                            <img src="./part1/1/web_i_start10.png" alt="i_start=10">
                             <div class="image-caption">i_start=10</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/web_edit_i20.png" alt="i_start=20">
+                            <img src="./part1/1/web_i_start20.png" alt="i_start=20">
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
 
-                    <h3>Hand-Drawn Image 1</h3>
+                    <h3>Hand-Drawn Image 1: Castle</h3>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/drawn1_orig.png" alt="Drawing 1 original">
-                            <div class="image-caption">Original Drawing 1</div>
+                            <img src="./part1/1/hand_drawn_castle.png" alt="Drawing 1 original">
+                            <div class="image-caption">Original Drawing: Castle</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn1_edit_i1.png" alt="i_start=1">
+                            <img src="./part1/1/hand_drawn_castle_start_i.png" alt="i_start=1">
                             <div class="image-caption">i_start=1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn1_edit_i3.png" alt="i_start=3">
+                            <img src="./part1/1/hand_drawn_castle_start_3.png" alt="i_start=3">
                             <div class="image-caption">i_start=3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn1_edit_i5.png" alt="i_start=5">
+                            <img src="./part1/1/hand_drawn_castle_start_5.png" alt="i_start=5">
                             <div class="image-caption">i_start=5</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn1_edit_i7.png" alt="i_start=7">
+                            <img src="./part1/1/hand_drawn_castle_start_7.png" alt="i_start=7">
                             <div class="image-caption">i_start=7</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn1_edit_i10.png" alt="i_start=10">
+                            <img src="./part1/1/hand_drawn_castle_start_10.png" alt="i_start=10">
                             <div class="image-caption">i_start=10</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn1_edit_i20.png" alt="i_start=20">
+                            <img src="./part1/1/hand_drawn_castle_start_20.png" alt="i_start=20">
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
 
-                    <h3>Hand-Drawn Image 2</h3>
+                    <h3>Hand-Drawn Image 2: Tree</h3>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/drawn2_orig.png" alt="Drawing 2 original">
-                            <div class="image-caption">Original Drawing 2</div>
+                            <img src="./part1/1/hand_drawn_tree.png" alt="Drawing 2 original">
+                            <div class="image-caption">Original Drawing: Tree</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn2_edit_i1.png" alt="i_start=1">
+                            <img src="./part1/1/hand_drawn_tree_start_1.png" alt="i_start=1">
                             <div class="image-caption">i_start=1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn2_edit_i3.png" alt="i_start=3">
+                            <img src="./part1/1/hand_drawn_tree_start_3.png" alt="i_start=3">
                             <div class="image-caption">i_start=3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn2_edit_i5.png" alt="i_start=5">
+                            <img src="./part1/1/hand_drawn_tree_start_5.png" alt="i_start=5">
                             <div class="image-caption">i_start=5</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn2_edit_i7.png" alt="i_start=7">
+                            <img src="./part1/1/hand_drawn_tree_start_7.png" alt="i_start=7">
                             <div class="image-caption">i_start=7</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn2_edit_i10.png" alt="i_start=10">
+                            <img src="./part1/1/hand_drawn_tree_start_10.png" alt="i_start=10">
                             <div class="image-caption">i_start=10</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/drawn2_edit_i20.png" alt="i_start=20">
+                            <img src="./part1/1/hand_drawn_tree_start_20.png" alt="i_start=20">
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
 
-                    <p>[Discuss how hand-drawn and stylized images are projected onto the natural image manifold]</p>
+                    <p>[Discuss how hand-drawn and stylized images are projected onto the natural image manifold. Note how the simple sketches are transformed into photorealistic versions while maintaining the basic structure and composition of the original drawings.]</p>
                 </div>
             </div>
 
@@ -464,57 +540,58 @@
             <div class="project-content">
                 <h2>Part 1.7.2: Inpainting</h2>
                 <div class="project-content-body">
-                    <p>[Explain the inpainting implementation using the formula from the RePaint paper]</p>
+                    <p>Implementing inpainting using the RePaint algorithm. At each denoising step, we replace the unmasked regions with the original image (with appropriate noise added), while allowing the model to generate content in the masked regions.</p>
+                    <p><strong>Formula:</strong> x_t ← m·x_t + (1-m)·forward(x_orig, t)</p>
                     
                     <h3>Campanile Inpainting</h3>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/campanile_inpaint_orig.png" alt="Original">
-                            <div class="image-caption">Original Campanile</div>
+                            <img src="./part1/2/campanile_inpainted.png" alt="Inpainted result">
+                            <div class="image-caption">Campanile Inpainted Result</div>
+                        </div>
+                    </div>
+
+                    <h3>Boggle Image Inpainting</h3>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/2/boggle_original.png" alt="Original">
+                            <div class="image-caption">Original Boggle</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_inpaint_mask.png" alt="Mask">
+                            <img src="./part1/2/boggle_mask.png" alt="Mask">
                             <div class="image-caption">Inpainting Mask</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_inpaint_result.png" alt="Result">
+                            <img src="./part1/2/boggle.png" alt="Inpainted result">
                             <div class="image-caption">Inpainted Result</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/2/inpainted_boggle.png" alt="Alternative inpainted">
+                            <div class="image-caption">Inpainted Result (Alternative)</div>
                         </div>
                     </div>
 
-                    <h3>Custom Image 1 Inpainting</h3>
+                    <h3>Mug Image Inpainting</h3>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/custom1_inpaint_orig.png" alt="Original">
-                            <div class="image-caption">Original</div>
+                            <img src="./part1/2/mug_original.png" alt="Original mug">
+                            <div class="image-caption">Original Mug</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/custom1_inpaint_mask.png" alt="Mask">
-                            <div class="image-caption">Mask</div>
+                            <img src="./part1/2/mug_original.jpeg" alt="Original mug jpeg">
+                            <div class="image-caption">Original Mug (Source)</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/custom1_inpaint_result.png" alt="Result">
+                            <img src="./part1/2/mug_mask.png" alt="Mask">
+                            <div class="image-caption">Inpainting Mask</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/2/mug_inpainted.png" alt="Inpainted result">
                             <div class="image-caption">Inpainted Result</div>
                         </div>
                     </div>
 
-                    <h3>Custom Image 2 Inpainting</h3>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./part1/custom2_inpaint_orig.png" alt="Original">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/custom2_inpaint_mask.png" alt="Mask">
-                            <div class="image-caption">Mask</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/custom2_inpaint_result.png" alt="Result">
-                            <div class="image-caption">Inpainted Result</div>
-                        </div>
-                    </div>
-
-                    <p>[Discuss the quality of inpainting results and any challenges]</p>
+                    <p>[Discuss the quality of inpainting results. Note that because we're using the diffusion model for tasks it wasn't trained for, you may need to run the sampling process multiple times to get good results. Comment on how well the inpainted regions blend with the original image.]</p>
                 </div>
             </div>
 
@@ -522,108 +599,37 @@
             <div class="project-content">
                 <h2>Part 1.7.3: Text-Conditional Image-to-Image Translation</h2>
                 <div class="project-content-body">
-                    <p>[Explain how you use custom text prompts to guide the projection]</p>
+                    <p>Now using custom text prompts to guide the projection, rather than just "a high quality photo". This gives us more control over the style and content of the generated images.</p>
                     
-                    <h3>Campanile with Custom Prompt</h3>
-                    <p><strong>Prompt:</strong> [YOUR PROMPT HERE]</p>
+                    <h3>Campanile with Custom Prompt: "sunset to campanielle"</h3>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/campanile_text_orig.png" alt="Original">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/campanile_text_i1.png" alt="i_start=1">
+                            <img src="./part1/3/sunset_to_campanielle_i_start_1.png" alt="i_start=1">
                             <div class="image-caption">i_start=1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_text_i3.png" alt="i_start=3">
+                            <img src="./part1/3/sunset_to_campanielle_i_start_3.png" alt="i_start=3">
                             <div class="image-caption">i_start=3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_text_i5.png" alt="i_start=5">
+                            <img src="./part1/3/sunset_to_campanielle_i_start_5.png" alt="i_start=5">
                             <div class="image-caption">i_start=5</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_text_i7.png" alt="i_start=7">
+                            <img src="./part1/3/sunset_to_campanielle_i_start_7.png" alt="i_start=7">
                             <div class="image-caption">i_start=7</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_text_i10.png" alt="i_start=10">
+                            <img src="./part1/3/sunset_to_campanielle_i_start_10.png" alt="i_start=10">
                             <div class="image-caption">i_start=10</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/campanile_text_i20.png" alt="i_start=20">
+                            <img src="./part1/3/sunset_to_campanielle_i_start_20.png" alt="i_start=20">
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
 
-                    <h3>Test Image 1 with Custom Prompt</h3>
-                    <p><strong>Prompt:</strong> [YOUR PROMPT HERE]</p>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./part1/test1_text_orig.png" alt="Original">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test1_text_i1.png" alt="i_start=1">
-                            <div class="image-caption">i_start=1</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test1_text_i3.png" alt="i_start=3">
-                            <div class="image-caption">i_start=3</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test1_text_i5.png" alt="i_start=5">
-                            <div class="image-caption">i_start=5</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test1_text_i7.png" alt="i_start=7">
-                            <div class="image-caption">i_start=7</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test1_text_i10.png" alt="i_start=10">
-                            <div class="image-caption">i_start=10</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test1_text_i20.png" alt="i_start=20">
-                            <div class="image-caption">i_start=20</div>
-                        </div>
-                    </div>
-
-                    <h3>Test Image 2 with Custom Prompt</h3>
-                    <p><strong>Prompt:</strong> [YOUR PROMPT HERE]</p>
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./part1/test2_text_orig.png" alt="Original">
-                            <div class="image-caption">Original</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test2_text_i1.png" alt="i_start=1">
-                            <div class="image-caption">i_start=1</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test2_text_i3.png" alt="i_start=3">
-                            <div class="image-caption">i_start=3</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test2_text_i5.png" alt="i_start=5">
-                            <div class="image-caption">i_start=5</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test2_text_i7.png" alt="i_start=7">
-                            <div class="image-caption">i_start=7</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test2_text_i10.png" alt="i_start=10">
-                            <div class="image-caption">i_start=10</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/test2_text_i20.png" alt="i_start=20">
-                            <div class="image-caption">i_start=20</div>
-                        </div>
-                    </div>
-
-                    <p>[Discuss how text conditioning affects the projection compared to using just "a high quality photo"]</p>
+                    <p>[Discuss how text conditioning affects the projection compared to using just "a high quality photo". Note how the sunset prompt influences the lighting, colors, and overall aesthetic of the generated images while preserving the Campanile structure.]</p>
                 </div>
             </div>
 
@@ -631,40 +637,100 @@
             <div class="project-content">
                 <h2>Part 1.8: Visual Anagrams</h2>
                 <div class="project-content-body">
-                    <p>[Explain the visual anagrams algorithm and implementation]</p>
-                    <p><strong>Formula:</strong> ε = (ε₁ + ε₂)/2 where ε₁ is the noise estimate for prompt 1 and ε₂ is the flipped noise estimate for prompt 2</p>
+                    <p>Creating optical illusions where an image shows one thing right-side up and something completely different when flipped upside down!</p>
+                    <p><strong>Algorithm:</strong> ε₁ = CFG of UNet(x_t, t, p₁), ε₂ = flip(CFG of UNet(flip(x_t), t, p₂)), ε = (ε₁ + ε₂)/2</p>
                     
-                    <h3>Visual Anagram Example 1</h3>
-                    <p><strong>Prompt 1:</strong> [YOUR PROMPT 1]</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [YOUR PROMPT 2]</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./part1/anagram1_normal.png" alt="Anagram 1 normal">
-                            <div class="image-caption">Normal View: [Prompt 1]</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./part1/anagram1_flipped.png" alt="Anagram 1 flipped" style="transform: rotate(180deg);">
-                            <div class="image-caption">Flipped View: [Prompt 2]</div>
-                        </div>
-                    </div>
-
-                    <h3>Visual Anagram Example 2</h3>
-                    <p><strong>Prompt 1:</strong> [YOUR PROMPT 1]</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [YOUR PROMPT 2]</p>
+                    <h3>Visual Anagram 1: Ashlie & Boggle</h3>
+                    <p><strong>Prompt 1 (normal):</strong> ashlie_boggle</p>
+                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./part1/anagram2_normal.png" alt="Anagram 2 normal">
-                            <div class="image-caption">Normal View: [Prompt 1]</div>
+                            <img src="./part1/1.8/ashie_boggle.png" alt="Anagram normal">
+                            <div class="image-caption">Normal View</div>
                         </div>
                         <div class="image-container">
-                            <img src="./part1/anagram2_flipped.png" alt="Anagram 2 flipped" style="transform: rotate(180deg);">
-                            <div class="image-caption">Flipped View: [Prompt 2]</div>
+                            <img src="./part1/1.8/ashie_boggle.png" alt="Anagram flipped" style="transform: rotate(180deg);">
+                            <div class="image-caption">Flipped 180° View</div>
                         </div>
                     </div>
 
-                    <p>[Discuss the success of the visual anagrams and any challenges in achieving good results]</p>
+                    <h3>Visual Anagram 2: Studying to Gym</h3>
+                    <p><strong>Prompt 1 (normal):</strong> studying_to_gym</p>
+                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/1.8/studying_to_gym.png" alt="Anagram normal">
+                            <div class="image-caption">Normal View</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/1.8/studying_to_gym.png" alt="Anagram flipped" style="transform: rotate(180deg);">
+                            <div class="image-caption">Flipped 180° View</div>
+                        </div>
+                    </div>
+
+                    <h3>Visual Anagram 3: Gym to Studying</h3>
+                    <p><strong>Prompt 1 (normal):</strong> gym_to_studying</p>
+                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/1.8/gym_to_studying.png" alt="Anagram normal">
+                            <div class="image-caption">Normal View</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/1.8/gym_to_studying.png" alt="Anagram flipped" style="transform: rotate(180deg);">
+                            <div class="image-caption">Flipped 180° View</div>
+                        </div>
+                    </div>
+
+                    <h3>Visual Anagram 4: Laptop</h3>
+                    <p><strong>Prompt 1 (normal):</strong> laptop</p>
+                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/1.8/laptop.png" alt="Anagram normal">
+                            <div class="image-caption">Normal View</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/1.8/laptop.png" alt="Anagram flipped" style="transform: rotate(180deg);">
+                            <div class="image-caption">Flipped 180° View</div>
+                        </div>
+                    </div>
+
+                    <h3>Visual Anagram 5: Sylvie & Chloe</h3>
+                    <p><strong>Prompt 1 (normal):</strong> sylvie_chloe</p>
+                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/1.8/sylvie_chloe.png" alt="Anagram normal">
+                            <div class="image-caption">Normal View</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/1.8/sylvie_chloe.png" alt="Anagram flipped" style="transform: rotate(180deg);">
+                            <div class="image-caption">Flipped 180° View</div>
+                        </div>
+                    </div>
+
+                    <h3>Visual Anagram 6: Textbook</h3>
+                    <p><strong>Prompt 1 (normal):</strong> textbook</p>
+                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./part1/1.8/textbook.png" alt="Anagram normal">
+                            <div class="image-caption">Normal View</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./part1/1.8/textbook.png" alt="Anagram flipped" style="transform: rotate(180deg);">
+                            <div class="image-caption">Flipped 180° View</div>
+                        </div>
+                    </div>
+
+                    <p>[Discuss the success of the visual anagrams. You may need to run the sampling process multiple times to get good results. Comment on which prompt pairs worked best and what makes an effective visual anagram.]</p>
                 </div>
             </div>
 
@@ -672,7 +738,7 @@
             <div class="project-content">
                 <h2>Part 1.9: Hybrid Images</h2>
                 <div class="project-content-body">
-                    <p>[Explain the hybrid image implementation using Factorized Diffusion]</p>
+                    <p>Implementing Factorized Diffusion to create hybrid images. We combine low frequencies from one noise estimate with high frequencies from another, similar to Project 2!</p>
                     <p><strong>Parameters:</strong></p>
                     <ul>
                         <li>Gaussian kernel size: 33</li>
@@ -680,29 +746,51 @@
                     </ul>
                     <p><strong>Formula:</strong> ε = f_lowpass(ε₁) + f_highpass(ε₂)</p>
                     
-                    <h3>Hybrid Image Example 1</h3>
-                    <p><strong>Low Frequency Prompt:</strong> [YOUR PROMPT 1]</p>
-                    <p><strong>High Frequency Prompt:</strong> [YOUR PROMPT 2]</p>
+                    <h3>Hybrid Image 1: Cat & Tiger</h3>
+                    <p><strong>Low Frequency Prompt:</strong> cat</p>
+                    <p><strong>High Frequency Prompt:</strong> tiger</p>
                     
                     <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./part1/hybrid1.png" alt="Hybrid 1">
-                            <div class="image-caption">Hybrid Image (view from near and far)</div>
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part1/1.9/cat_tiger_hybrid.png" alt="Cat Tiger Hybrid">
+                            <div class="image-caption">Hybrid Image: Cat (far) & Tiger (near)</div>
                         </div>
                     </div>
 
-                    <h3>Hybrid Image Example 2</h3>
-                    <p><strong>Low Frequency Prompt:</strong> [YOUR PROMPT 1]</p>
-                    <p><strong>High Frequency Prompt:</strong> [YOUR PROMPT 2]</p>
+                    <h3>Hybrid Image 2: Coffee & Book</h3>
+                    <p><strong>Low Frequency Prompt:</strong> coffee</p>
+                    <p><strong>High Frequency Prompt:</strong> book</p>
                     
                     <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./part1/hybrid2.png" alt="Hybrid 2">
-                            <div class="image-caption">Hybrid Image (view from near and far)</div>
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part1/1.9/coffee_book_hybrid.png" alt="Coffee Book Hybrid">
+                            <div class="image-caption">Hybrid Image: Coffee (far) & Book (near)</div>
                         </div>
                     </div>
 
-                    <p>[Discuss how well the hybrid images work when viewed from different distances]</p>
+                    <h3>Hybrid Image 3: Eiffel Tower & Golden Gate</h3>
+                    <p><strong>Low Frequency Prompt:</strong> eiffel [tower]</p>
+                    <p><strong>High Frequency Prompt:</strong> golden_gate [bridge]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part1/1.9/eiffel_golden_gate_hybrid.png" alt="Eiffel Golden Gate Hybrid">
+                            <div class="image-caption">Hybrid Image: Eiffel Tower (far) & Golden Gate Bridge (near)</div>
+                        </div>
+                    </div>
+
+                    <h3>Hybrid Image 4: Sylvie & Chloe</h3>
+                    <p><strong>Low Frequency Prompt:</strong> sylvie</p>
+                    <p><strong>High Frequency Prompt:</strong> chloe</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container" style="max-width: 600px; margin: 0 auto;">
+                            <img src="./part1/1.9/sylvie_chloe_hybrid.png" alt="Sylvie Chloe Hybrid">
+                            <div class="image-caption">Hybrid Image: Sylvie (far) & Chloe (near)</div>
+                        </div>
+                    </div>
+
+                    <p>[Discuss how well the hybrid images work when viewed from different distances. Explain that when viewed from far away, you should see the low-frequency content (first prompt), and when viewed up close, you should see the high-frequency content (second prompt). You may need to run multiple times to get good results since this is a challenging task for the model.]</p>
                 </div>
             </div>
 
