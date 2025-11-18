@@ -295,8 +295,6 @@
                         </div>
                     </div>
 
-                    <p>[Compare the results to Gaussian blur denoising - the diffusion model does a much better job of projecting onto the natural image manifold, though quality degrades with higher noise levels]</p>
-
                     <h3>1.4 Iterative Denoising</h3>
                     <p><strong>Parameters:</strong></p>
                     <ul>
@@ -347,8 +345,6 @@
                             <div class="image-caption">Gaussian Blur</div>
                         </div>
                     </div>
-
-                    <p>[Discuss the superiority of iterative denoising over one-step and Gaussian methods. The iterative approach produces the cleanest result with the most detail preserved.]</p>
 
                     <h3>1.5 Diffusion Model Sampling</h3>
                     <p>Generating images from pure noise using the prompt "a high quality photo". These images are created by starting with random noise (t=1000) and iteratively denoising:</p>
@@ -404,8 +400,6 @@
                             <div class="image-caption">CFG Sample 5</div>
                         </div>
                     </div>
-
-                    <p>[Compare quality improvement with CFG vs without CFG from Part 1.5. The images with CFG should show much sharper details, better composition, and more coherent content.]</p>
                 </div>
             </div>
 
@@ -541,8 +535,6 @@
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
-
-                    <p>[Discuss how increasing noise levels create larger edits. Notice how as i_start decreases (more noise added), the output gradually diverges from the original image while maintaining some structural similarities.]</p>
                 </div>
             </div>
 
@@ -646,8 +638,6 @@
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
-
-                    <p>[Discuss how hand-drawn and stylized images are projected onto the natural image manifold. Note how the simple sketches are transformed into photorealistic versions while maintaining the basic structure and composition of the original drawings.]</p>
                 </div>
             </div>
 
@@ -705,8 +695,6 @@
                             <div class="image-caption">Inpainted Result</div>
                         </div>
                     </div>
-
-                    <p>[Discuss the quality of inpainting results. Note that because we're using the diffusion model for tasks it wasn't trained for, you may need to run the sampling process multiple times to get good results. Comment on how well the inpainted regions blend with the original image.]</p>
                 </div>
             </div>
 
@@ -743,8 +731,6 @@
                             <div class="image-caption">i_start=20</div>
                         </div>
                     </div>
-
-                    <p>[Discuss how text conditioning affects the projection compared to using just "a high quality photo". Note how the sunset prompt influences the lighting, colors, and overall aesthetic of the generated images while preserving the Campanile structure.]</p>
                 </div>
             </div>
 
@@ -756,8 +742,8 @@
                     <p><strong>Algorithm:</strong> ε₁ = CFG of UNet(x_t, t, p₁), ε₂ = flip(CFG of UNet(flip(x_t), t, p₂)), ε = (ε₁ + ε₂)/2</p>
                     
                     <h3>Visual Anagram 1: Ashlie & Boggle</h3>
-                    <p><strong>Prompt 1 (normal):</strong> ashlie_boggle</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    <p><strong>Prompt 1 (normal):</strong> "a grey cat and a tabby cat cuddling"</p>
+                    <p><strong>Prompt 2 (upside down):</strong> "a blonde woman and a brown-haired woman smiling"</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
@@ -771,8 +757,8 @@
                     </div>
 
                     <h3>Visual Anagram 2: Studying to Gym</h3>
-                    <p><strong>Prompt 1 (normal):</strong> studying_to_gym</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    <p><strong>Prompt 1 (normal):</strong> "a blonde woman lifting weights at the gym"</p>
+                    <p><strong>Prompt 2 (upside down):</strong> "a blonde woman studying at a library desk"</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
@@ -785,24 +771,10 @@
                         </div>
                     </div>
 
-                    <h3>Visual Anagram 3: Gym to Studying</h3>
-                    <p><strong>Prompt 1 (normal):</strong> gym_to_studying</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./1.8/gym_to_studying.png" alt="Anagram normal">
-                            <div class="image-caption">Normal View</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./1.8/gym_to_studying.png" alt="Anagram flipped" style="transform: rotate(180deg);">
-                            <div class="image-caption">Flipped 180° View</div>
-                        </div>
-                    </div>
 
                     <h3>Visual Anagram 4: Laptop</h3>
-                    <p><strong>Prompt 1 (normal):</strong> laptop</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
+                    <p><strong>Prompt 1 (normal):</strong> "a laptop showing lines of code"</p>
+                    <p><strong>Prompt 2 (upside down):</strong> "a French language textbook open on a desk"</p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
@@ -814,38 +786,6 @@
                             <div class="image-caption">Flipped 180° View</div>
                         </div>
                     </div>
-
-                    <h3>Visual Anagram 5: Sylvie & Chloe</h3>
-                    <p><strong>Prompt 1 (normal):</strong> sylvie_chloe</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./1.8/sylvie_chloe.png" alt="Anagram normal">
-                            <div class="image-caption">Normal View</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./1.8/sylvie_chloe.png" alt="Anagram flipped" style="transform: rotate(180deg);">
-                            <div class="image-caption">Flipped 180° View</div>
-                        </div>
-                    </div>
-
-                    <h3>Visual Anagram 6: Textbook</h3>
-                    <p><strong>Prompt 1 (normal):</strong> textbook</p>
-                    <p><strong>Prompt 2 (upside down):</strong> [complementary prompt]</p>
-                    
-                    <div class="image-gallery">
-                        <div class="image-container">
-                            <img src="./1.8/textbook.png" alt="Anagram normal">
-                            <div class="image-caption">Normal View</div>
-                        </div>
-                        <div class="image-container">
-                            <img src="./1.8/textbook.png" alt="Anagram flipped" style="transform: rotate(180deg);">
-                            <div class="image-caption">Flipped 180° View</div>
-                        </div>
-                    </div>
-
-                    <p>[Discuss the success of the visual anagrams. You may need to run the sampling process multiple times to get good results. Comment on which prompt pairs worked best and what makes an effective visual anagram.]</p>
                 </div>
             </div>
 
