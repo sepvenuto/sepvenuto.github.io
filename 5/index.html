@@ -451,7 +451,68 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h3>1.6 Classifier-Free Guidance (CFG)</h3>
                     <p><strong>CFG Scale:</strong> γ = 7</p>
                     <p>Implementing Classifier-Free Guidance using the formula: ε = ε_u + γ(ε_c - ε_u), where ε_c is the conditional noise estimate and ε_u is the unconditional noise estimate. CFG greatly improves image quality at the expense of diversity.</p>
-                    
+                                        
+                    <pre><code>def iterative_denoise_cfg(im_noisy, i_start, prompt_embeds, uncond_prompt_embeds, timesteps, scale=7, display=True):
+  image = im_noisy
+
+  with torch.no_grad():
+    for i in range(i_start, len(timesteps) - 1):
+      # Get timesteps
+      t = timesteps[i]
+      prev_t = timesteps[i+1]
+
+      # Get `alpha_cumprod`, `alpha_cumprod_prev`, `alpha`, `beta`
+      # ===== your code here! =====
+      alpha_t_bar = alphas_cumprod[t]
+      alpha_t_prime_bar = alphas_cumprod[prev_t]
+      alpha_t = alpha_t_bar / alpha_t_prime_bar
+      beta_t = 1 - alpha_t
+      # ==== end of code ====
+
+      # Get cond noise estimate
+      model_output = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+
+      # Get uncond noise estimate
+      uncond_model_output = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=uncond_prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+
+      # Split estimate into noise and variance estimate
+      noise_est, predicted_variance = torch.split(model_output, image.shape[1], dim=1)
+      uncond_noise_est, _ = torch.split(uncond_model_output, image.shape[1], dim=1)
+
+      # Compute the CFG noise estimate based on equation 4
+      # ===== your code here! =====
+      cfg_noise = uncond_noise_est + scale * (noise_est - uncond_noise_est)
+      # ==== end of code ====
+
+
+      # Get `pred_prev_image`, the next less noisy image.
+      # ===== your code here! =====
+      sqrt_alpha_t_bar = torch.sqrt(alpha_t_bar)
+      sqrt_1_minus_alpha_t_bar = torch.sqrt(1 - alpha_t_bar)
+      x_0 = (image - sqrt_1_minus_alpha_t_bar * cfg_noise) / sqrt_alpha_t_bar
+      sqrt_alpha_t_prime_bar = torch.sqrt(alpha_t_prime_bar)
+      sqrt_alpha_t = torch.sqrt(alpha_t)
+      term1 = (sqrt_alpha_t_prime_bar * beta_t) / (1 - alpha_t_bar) * x_0
+      term2 = (sqrt_alpha_t * (1 - alpha_t_prime_bar)) / (1 - alpha_t_bar) * image
+      pred_prev_image = add_variance(predicted_variance, t, term1 + term2)
+      # ==== end of code ====
+
+      image = pred_prev_image
+
+    clean = image.cpu().detach().numpy()
+
+  return clean</code></pre>
+
                     <h4>Improved Samples with CFG</h4>
                     <p>These images are generated with CFG scale of 7, showing dramatically improved quality:</p>
                     <div class="image-gallery">
@@ -621,6 +682,75 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                 <div class="project-content-body">
                     <p>Implementing inpainting using the RePaint algorithm. At each denoising step, we replace the unmasked regions with the original image (with appropriate noise added), while allowing the model to generate content in the masked regions.</p>
                     <p><strong>Formula:</strong> x_t ← m·x_t + (1-m)·forward(x_orig, t)</p>
+                    <pre><code>def inpaint(original_image, mask, prompt_embeds, uncond_prompt_embeds, timesteps, scale=7, display=True):
+  image = torch.randn_like(original_image).to(device).half()
+  original_image = original_image.to(device).half()
+  mask = mask.to(device).half()
+    # use your previous `iterative_denoise_cfg` function and make the appropriate changes
+  with torch.no_grad():
+    for i in range(0, len(timesteps) - 1):
+      # Get timesteps
+      t = timesteps[i]
+      prev_t = timesteps[i+1]
+
+      # Get `alpha_cumprod`, `alpha_cumprod_prev`, `alpha`, `beta`
+      # ===== your code here! =====
+      alpha_t_bar = alphas_cumprod[t]
+      alpha_t_prime_bar = alphas_cumprod[prev_t]
+      alpha_t = alpha_t_bar / alpha_t_prime_bar
+      beta_t = 1 - alpha_t
+      # ==== end of code ====
+
+      # Get cond noise estimate
+      model_output = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+
+      # Get uncond noise estimate
+      uncond_model_output = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=uncond_prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+
+      # Split estimate into noise and variance estimate
+      noise_est, predicted_variance = torch.split(model_output, image.shape[1], dim=1)
+      uncond_noise_est, _ = torch.split(uncond_model_output, image.shape[1], dim=1)
+
+      # Compute the CFG noise estimate based on equation 4
+      # ===== your code here! =====
+      cfg_noise = uncond_noise_est + scale * (noise_est - uncond_noise_est)
+      # ==== end of code ====
+
+
+      # Get `pred_prev_image`, the next less noisy image.
+      # ===== your code here! =====
+      sqrt_alpha_t_bar = torch.sqrt(alpha_t_bar)
+      sqrt_1_minus_alpha_t_bar = torch.sqrt(1 - alpha_t_bar)
+      x_0 = (image - sqrt_1_minus_alpha_t_bar * cfg_noise) / sqrt_alpha_t_bar
+      sqrt_alpha_t_prime_bar = torch.sqrt(alpha_t_prime_bar)
+      sqrt_alpha_t = torch.sqrt(alpha_t)
+      term1 = (sqrt_alpha_t_prime_bar * beta_t) / (1 - alpha_t_bar) * x_0
+      term2 = (sqrt_alpha_t * (1 - alpha_t_prime_bar)) / (1 - alpha_t_bar) * image
+      pred_prev_image = add_variance(predicted_variance, t, term1 + term2)
+      # ==== end of code ====
+      # noisy_original = forward(original_image.cpu(), prev_t)
+      if t == len(timesteps) - 2:
+        noisy_original = forward(original_image.cpu(), t)
+      else:
+        noisy_original = forward(original_image.cpu(), prev_t)
+
+      noisy_original = noisy_original.to(device).half()
+      pred_prev_image = mask * pred_prev_image + (1 - mask) * noisy_original
+      image = pred_prev_image
+
+    clean = image.cpu().detach().numpy()
+
+  return clean</code></pre>
                     
                     <h3>Campanile Inpainting</h3>
                     <div class="image-gallery">
@@ -761,6 +891,65 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                 <div class="project-content-body">
                     <p>Creating optical illusions where an image shows one thing right-side up and something completely different when flipped upside down!</p>
                     <p><strong>Algorithm:</strong> ε₁ = CFG of UNet(x_t, t, p₁), ε₂ = flip(CFG of UNet(flip(x_t), t, p₂)), ε = (ε₁ + ε₂)/2</p>
+                    <pre><code>def make_flip_illusion(image, i_start, prompt_embeds, uncond_prompt_embeds, timesteps, scale=7, display=True):
+  p1 = prompt_embeds[0]
+  p2 = prompt_embeds[1]
+  with torch.no_grad():
+    for i in range(i_start, len(timesteps) - 1):
+      t = timesteps[i]
+      prev_t = timesteps[i+1]
+      alpha_t_bar = alphas_cumprod[t]
+      alpha_t_prime_bar = alphas_cumprod[prev_t]
+      alpha_t = alpha_t_bar / alpha_t_prime_bar
+      beta_t = 1 - alpha_t
+
+      cond_output_1 = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=p1.half().cuda(),
+          return_dict=False
+      )[0]
+      uncond_output_1 = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=uncond_prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+      noise_est_1, predicted_variance_1 = torch.split(cond_output_1, image.shape[1], dim=1)
+      uncond_noise_1, _ = torch.split(uncond_output_1, image.shape[1], dim=1)
+      epsilon_1 = uncond_noise_1 + scale * (noise_est_1 - uncond_noise_1)
+
+      image_flipped = torch.flip(image, dims=[2])
+      cond_output_2 = stage_1.unet(
+          image_flipped,
+          t,
+          encoder_hidden_states=p2.half().cuda(),
+          return_dict=False
+      )[0]
+      uncond_output_2 = stage_1.unet(
+          image_flipped,
+          t,
+          encoder_hidden_states=uncond_prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+      noise_est_2, predicted_variance_2 = torch.split(cond_output_2, image.shape[1], dim=1)
+      uncond_noise_2, _ = torch.split(uncond_output_2, image.shape[1], dim=1)
+      epsilon_2 = uncond_noise_2 + scale * (noise_est_2 - uncond_noise_2)
+
+      #now we need to reverse /flip al of the 2 stuff
+      epsilon_2 = torch.flip(epsilon_2, dims=[2])
+      epsilon = (epsilon_1 + epsilon_2) / 2
+
+      sqrt_alpha_t_bar = torch.sqrt(alpha_t_bar)
+      sqrt_1_minus_alpha_t_bar = torch.sqrt(1 - alpha_t_bar)
+      x_0 = (image - sqrt_1_minus_alpha_t_bar * epsilon) / sqrt_alpha_t_bar
+      sqrt_alpha_t_prime_bar = torch.sqrt(alpha_t_prime_bar)
+      sqrt_alpha_t = torch.sqrt(alpha_t)
+      term1 = (sqrt_alpha_t_prime_bar * beta_t) / (1 - alpha_t_bar) * x_0
+      term2 = (sqrt_alpha_t * (1 - alpha_t_prime_bar)) / (1 - alpha_t_bar) * image
+      pred_prev_image = add_variance(predicted_variance_1, t, term1 + term2)
+      image = pred_prev_image
+  return image.cpu()</code></pre>
                     
                     <h3>Visual Anagram 1: Eiffel tower and golden gate bridge</h3>
                     <p><strong>Prompt 1 (normal):</strong> "the Eiffel Tower"</p>
@@ -815,6 +1004,64 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                 <h2>Part 1.9: Hybrid Images</h2>
                 <div class="project-content-body">
                     <p>Implementing Factorized Diffusion to create hybrid images. We combine low frequencies from one noise estimate with high frequencies from another, similar to Project 2!</p>
+                    <pre><code>def make_hybrids(image, i_start, prompt_embeds, uncond_prompt_embeds, timesteps, scale=7, display=True):
+  p1 = prompt_embeds[0]
+  p2 = prompt_embeds[1]
+  with torch.no_grad():
+    for i in range(i_start, len(timesteps) - 1):
+      t = timesteps[i]
+      prev_t = timesteps[i+1]
+      alpha_t_bar = alphas_cumprod[t]
+      alpha_t_prime_bar = alphas_cumprod[prev_t]
+      alpha_t = alpha_t_bar / alpha_t_prime_bar
+      beta_t = 1 - alpha_t
+
+      cond_output_1 = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=p1.half().cuda(),
+          return_dict=False
+      )[0]
+      uncond_output_1 = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=uncond_prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+      noise_est_1, predicted_variance_1 = torch.split(cond_output_1, image.shape[1], dim=1)
+      uncond_noise_1, _ = torch.split(uncond_output_1, image.shape[1], dim=1)
+      epsilon_1 = uncond_noise_1 + scale * (noise_est_1 - uncond_noise_1)
+
+      cond_output_2 = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=p2.half().cuda(),
+          return_dict=False
+      )[0]
+      uncond_output_2 = stage_1.unet(
+          image,
+          t,
+          encoder_hidden_states=uncond_prompt_embeds.half().cuda(),
+          return_dict=False
+      )[0]
+      noise_est_2, predicted_variance_2 = torch.split(cond_output_2, image.shape[1], dim=1)
+      uncond_noise_2, _ = torch.split(uncond_output_2, image.shape[1], dim=1)
+      epsilon_2 = uncond_noise_2 + scale * (noise_est_2 - uncond_noise_2)
+
+      #now we need to lowpass/high pass
+      epsilon = lowpass(epsilon_1) + highpass(epsilon_2)
+
+      sqrt_alpha_t_bar = torch.sqrt(alpha_t_bar)
+      sqrt_1_minus_alpha_t_bar = torch.sqrt(1 - alpha_t_bar)
+      x_0 = (image - sqrt_1_minus_alpha_t_bar * epsilon) / sqrt_alpha_t_bar
+      sqrt_alpha_t_prime_bar = torch.sqrt(alpha_t_prime_bar)
+      sqrt_alpha_t = torch.sqrt(alpha_t)
+      term1 = (sqrt_alpha_t_prime_bar * beta_t) / (1 - alpha_t_bar) * x_0
+      term2 = (sqrt_alpha_t * (1 - alpha_t_prime_bar)) / (1 - alpha_t_bar) * image
+      pred_prev_image = add_variance(predicted_variance_1, t, term1 + term2)
+      image = pred_prev_image
+  return image.cpu()
+</code></pre>
                     <p><strong>Parameters:</strong></p>
                     <ul>
                         <li>Gaussian kernel size: 33</li>
