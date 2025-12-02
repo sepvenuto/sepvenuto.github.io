@@ -1093,6 +1093,231 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
 
                 </div>
             </div>
+
+            <!-- Part B: Flow Matching from Scratch -->
+            <div class="project-content">
+                <h2>Part B: Flow Matching from Scratch!</h2>
+                <div class="project-content-body">
+                    <p>In Part B, we train our own flow matching model on MNIST to generate handwritten digits from scratch. This involves building and training a UNet architecture with time and class conditioning.</p>
+                </div>
+            </div>
+
+            <!-- Part 1: Single-Step Denoising UNet -->
+            <div class="project-content">
+                <h2>Part 1: Training a Single-Step Denoising UNet</h2>
+                <div class="project-content-body">
+                    
+                    <h3>1.1 Implementing the UNet</h3>
+                    <p>[Explain the UNet architecture implementation with downsampling and upsampling blocks]</p>
+                    
+                    <h3>1.2 Using the UNet to Train a Denoiser</h3>
+                    
+                    <h4>Visualizing the Noising Process</h4>
+                    <p>Visualization of adding different levels of noise (σ) to clean MNIST images:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2/noising_process.png" alt="Noising process">
+                            <div class="image-caption">Noising Process with σ = [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]</div>
+                        </div>
+                    </div>
+
+                    <h4>1.2.1 Training</h4>
+                    <p><strong>Training Details:</strong></p>
+                    <ul>
+                        <li>Dataset: MNIST training set</li>
+                        <li>Batch size: 256</li>
+                        <li>Hidden dimension D: 128</li>
+                        <li>Optimizer: Adam (lr=1e-4)</li>
+                        <li>Epochs: 5</li>
+                        <li>Noise level: σ = 0.5</li>
+                    </ul>
+
+                    <h5>Training Loss Curve</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/loss_curve.png" alt="Training loss">
+                            <div class="image-caption">Training Loss over Iterations</div>
+                        </div>
+                    </div>
+
+                    <h5>Denoising Results</h5>
+                    <p>Sample results on test set with σ = 0.5:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/results_epoch1.png" alt="Epoch 1 results">
+                            <div class="image-caption">Results after Epoch 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/results_epoch5.png" alt="Epoch 5 results">
+                            <div class="image-caption">Results after Epoch 5</div>
+                        </div>
+                    </div>
+
+                    <h4>1.2.2 Out-of-Distribution Testing</h4>
+                    <p>Testing the denoiser on different noise levels it wasn't trained on:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/ood_results.png" alt="OOD results">
+                            <div class="image-caption">Results with varying σ = [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]</div>
+                        </div>
+                    </div>
+
+                    <p>[Discuss how the denoiser performs on noise levels it wasn't trained on]</p>
+
+                    <h4>1.2.3 Denoising Pure Noise</h4>
+                    <p>Training a denoiser on pure Gaussian noise (σ ~ N(0, I)):</p>
+
+                    <h5>Training Loss Curve</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/loss_curve_pure_noise.png" alt="Pure noise training loss">
+                            <div class="image-caption">Training Loss for Pure Noise Denoising</div>
+                        </div>
+                    </div>
+
+                    <h5>Results</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/pure_noise_epoch1.png" alt="Pure noise epoch 1">
+                            <div class="image-caption">Results after Epoch 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/pure_noise_epoch5.png" alt="Pure noise epoch 5">
+                            <div class="image-caption">Results after Epoch 5</div>
+                        </div>
+                    </div>
+
+                    <p>[Discuss the patterns observed: The model learns to predict the mean/centroid of all training digits, resulting in blurry averaged digits since MSE loss encourages predicting the point that minimizes squared distances to all training examples.]</p>
+                </div>
+            </div>
+
+            <!-- Part 2: Flow Matching Model -->
+            <div class="project-content">
+                <h2>Part 2: Training a Flow Matching Model</h2>
+                <div class="project-content-body">
+                    
+                    <h3>2.1 Adding Time Conditioning to UNet</h3>
+                    <p>[Explain how time conditioning is added using FCBlocks to modulate the UNet at different layers]</p>
+
+                    <h3>2.2 Training the Time-Conditioned UNet</h3>
+                    <p><strong>Training Details:</strong></p>
+                    <ul>
+                        <li>Dataset: MNIST training set</li>
+                        <li>Batch size: 64</li>
+                        <li>Hidden dimension D: 64</li>
+                        <li>Optimizer: Adam (initial lr=1e-2)</li>
+                        <li>Learning rate scheduler: Exponential decay (γ=0.1^(1/num_epochs))</li>
+                        <li>Epochs: [YOUR NUMBER]</li>
+                    </ul>
+
+                    <h4>Training Loss Curve</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.2/time_cond_loss.png" alt="Time-conditioned training loss">
+                            <div class="image-caption">Training Loss for Time-Conditioned UNet</div>
+                        </div>
+                    </div>
+
+                    <h3>2.3 Sampling from the Time-Conditioned UNet</h3>
+                    <p>Iterative denoising results using Algorithm B.2:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.3/samples_epoch1.png" alt="Samples epoch 1">
+                            <div class="image-caption">Samples after Epoch 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/samples_epoch5.png" alt="Samples epoch 5">
+                            <div class="image-caption">Samples after Epoch 5</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/samples_epoch10.png" alt="Samples epoch 10">
+                            <div class="image-caption">Samples after Epoch 10</div>
+                        </div>
+                    </div>
+
+                    <p>[Discuss the quality of generated digits - they should be legible but not perfect]</p>
+
+                    <h3>2.4 Adding Class-Conditioning to UNet</h3>
+                    <p>[Explain class-conditioning implementation using one-hot vectors and 10% dropout for classifier-free guidance]</p>
+
+                    <h3>2.5 Training the Class-Conditioned UNet</h3>
+                    <p><strong>Training Details:</strong> Same as 2.2 but with class conditioning and dropout (p_uncond = 0.1)</p>
+
+                    <h4>Training Loss Curve</h4>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.5/class_cond_loss.png" alt="Class-conditioned training loss">
+                            <div class="image-caption">Training Loss for Class-Conditioned UNet</div>
+                        </div>
+                    </div>
+
+                    <h3>2.6 Sampling from the Class-Conditioned UNet</h3>
+                    <p>Using classifier-free guidance with γ = 5.0 to generate digits:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/class_samples_epoch1.png" alt="Class samples epoch 1">
+                            <div class="image-caption">Samples after Epoch 1 (4 instances of each digit 0-9)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/class_samples_epoch5.png" alt="Class samples epoch 5">
+                            <div class="image-caption">Samples after Epoch 5</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/class_samples_epoch10.png" alt="Class samples epoch 10">
+                            <div class="image-caption">Samples after Epoch 10</div>
+                        </div>
+                    </div>
+
+                    <h4>Removing the Learning Rate Scheduler</h4>
+                    <p>[Describe what you did to compensate for removing the exponential learning rate scheduler]</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/no_scheduler_results.png" alt="Results without scheduler">
+                            <div class="image-caption">Results without Learning Rate Scheduler</div>
+                        </div>
+                    </div>
+
+                    <p>[Explain your approach and whether performance was maintained]</p>
+                </div>
+            </div>
+
+            <!-- Part 3: Bells & Whistles (Optional) -->
+            <div class="project-content">
+                <h2>Part 3: Bells & Whistles (Optional)</h2>
+                <div class="project-content-body">
+                    <p>[Include any additional explorations:</p>
+                    <ul>
+                        <li>Better time-conditioned only UNet (CS280A required)</li>
+                        <li>Training on SVHN, Fashion-MNIST, or CIFAR10</li>
+                        <li>Your own creative ideas</li>
+                    </ul>
+                    <p>]</p>
+                </div>
+            </div>
+
+            <!-- Reflections for Entire Project 5 -->
+            <div class="project-content">
+                <h2>Project 5 Reflections and Learnings</h2>
+                <div class="project-content-body">
+                    <p>[Write about what you learned across both parts A and B:</p>
+                    <ul>
+                        <li>Understanding of diffusion models and flow matching</li>
+                        <li>Differences between one-step and iterative denoising</li>
+                        <li>The importance of conditioning (time and class)</li>
+                        <li>Implementation challenges and solutions</li>
+                        <li>Most interesting results from both parts</li>
+                        <li>Ideas for future exploration</li>
+                    </ul>
+                    <p>]</p>
+                </div>
+            </div>
+
         </main>
 
         <footer>
