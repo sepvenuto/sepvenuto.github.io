@@ -1232,16 +1232,110 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <p>[Add similar visualization for Epoch 5 results if you have them, or note that the model has converged and produces clean, sharp digits]</p>
 
                     <h4>1.2.2 Out-of-Distribution Testing</h4>
-                    <p>Testing the denoiser on different noise levels it wasn't trained on:</p>
+                    <p>Testing the denoiser (trained on σ = 0.5) on different noise levels it wasn't trained on. We use the same clean test image and vary the noise level σ = [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]:</p>
                     
+                    <h5>Clean Image (Reference)</h5>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/1.2.2/ood_results.png" alt="OOD results">
-                            <div class="image-caption">Results with varying σ = [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]</div>
+                            <img src="./partb/1.2.2/clean.png" alt="Clean reference">
+                            <div class="image-caption">Original Clean Image</div>
                         </div>
                     </div>
 
-                    <p>[Discuss how the denoiser performs on noise levels it wasn't trained on]</p>
+                    <h5>σ = 0.0 (No Noise)</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/noisy_sigma_0.0.png" alt="Noisy sigma 0.0">
+                            <div class="image-caption">Noisy Image (σ=0.0)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/denoised_sigma_0.0.png" alt="Denoised sigma 0.0">
+                            <div class="image-caption">Denoised Result</div>
+                        </div>
+                    </div>
+
+                    <h5>σ = 0.2</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/noisy_sigma_0.2.png" alt="Noisy sigma 0.2">
+                            <div class="image-caption">Noisy Image (σ=0.2)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/denoised_sigma_0.2.png" alt="Denoised sigma 0.2">
+                            <div class="image-caption">Denoised Result</div>
+                        </div>
+                    </div>
+
+                    <h5>σ = 0.4</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/noisy_sigma_0.4.png" alt="Noisy sigma 0.4">
+                            <div class="image-caption">Noisy Image (σ=0.4)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/denoised_sigma_0.4.png" alt="Denoised sigma 0.4">
+                            <div class="image-caption">Denoised Result</div>
+                        </div>
+                    </div>
+
+                    <h5>σ = 0.5 (Training Noise Level)</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/noisy_sigma_0.5.png" alt="Noisy sigma 0.5">
+                            <div class="image-caption">Noisy Image (σ=0.5)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/denoised_sigma_0.5.png" alt="Denoised sigma 0.5">
+                            <div class="image-caption">Denoised Result (Best Performance)</div>
+                        </div>
+                    </div>
+
+                    <h5>σ = 0.6</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/noisy_sigma_0.6.png" alt="Noisy sigma 0.6">
+                            <div class="image-caption">Noisy Image (σ=0.6)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/denoised_sigma_0.6.png" alt="Denoised sigma 0.6">
+                            <div class="image-caption">Denoised Result</div>
+                        </div>
+                    </div>
+
+                    <h5>σ = 0.8</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/noisy_sigma_0.8.png" alt="Noisy sigma 0.8">
+                            <div class="image-caption">Noisy Image (σ=0.8)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/denoised_sigma_0.8.png" alt="Denoised sigma 0.8">
+                            <div class="image-caption">Denoised Result</div>
+                        </div>
+                    </div>
+
+                    <h5>σ = 1.0</h5>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/noisy_sigma_1.0.png" alt="Noisy sigma 1.0">
+                            <div class="image-caption">Noisy Image (σ=1.0)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.2/denoised_sigma_1.0.png" alt="Denoised sigma 1.0">
+                            <div class="image-caption">Denoised Result</div>
+                        </div>
+                    </div>
+
+                    <h5>Observations</h5>
+                    <p>[Discuss how the denoiser performs on noise levels it wasn't trained on. Key points to consider:</p>
+                    <ul>
+                        <li>Performance at σ = 0.5 (the training noise level) should be best</li>
+                        <li>For lower noise levels (σ < 0.5), the denoiser might over-smooth the image</li>
+                        <li>For higher noise levels (σ > 0.5), the denoiser struggles to remove all the noise</li>
+                        <li>The denoiser generalizes reasonably well to nearby noise levels (e.g., σ = 0.4 or 0.6)</li>
+                        <li>At extreme noise levels (σ = 1.0), significant noise may remain or the digit may be unrecognizable</li>
+                    </ul>
+                    <p>]</p>
 
                     <h4>1.2.3 Denoising Pure Noise</h4>
                     <p>Training a denoiser on pure Gaussian noise (σ ~ N(0, I)):</p>
