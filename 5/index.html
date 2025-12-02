@@ -1444,7 +1444,7 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     </div>
 
                     <h4>Removing the Learning Rate Scheduler</h4>
-                    <p>[Describe what you did to compensate for removing the exponential learning rate scheduler]</p>
+                    <p>The scheduler serves to decrease the learning rate as we go further in more epochs. This helps the model converge. Without a scheduler, we need to find another way to decrease the effective learning rate, or we could just start with a lower learning rate altogether, although this will increase the number of epochs we must run it for, because each time step we will make less of a change to our model. To solve this, I first started with a decreased learning rate, because the lower learning rate is closer to the end of the scheduler. I also added weight decay, which we are learning about in CS189. As we increase weight decay, we punish large parameters, meaning that as time goes on and the parameters increase in size, the effective learning rate is proportionally decreased, creating a sort of artificial scheduler that causes a decrease in the effective learning rate.  </p>
                     
                     <div class="image-gallery">
                         <div class="image-container">
@@ -1455,39 +1455,6 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
 
                     <p>[Explain your approach and whether performance was maintained]</p>
                 </div>
-            </div>
-
-            <!-- Part 3: Bells & Whistles (Optional) -->
-            <div class="project-content">
-                <h2>Part 3: Bells & Whistles (Optional)</h2>
-                <div class="project-content-body">
-                    <p>[Include any additional explorations:</p>
-                    <ul>
-                        <li>Better time-conditioned only UNet (CS280A required)</li>
-                        <li>Training on SVHN, Fashion-MNIST, or CIFAR10</li>
-                        <li>Your own creative ideas</li>
-                    </ul>
-                    <p>]</p>
-                </div>
-            </div>
-
-            <!-- Reflections for Entire Project 5 -->
-            <div class="project-content">
-                <h2>Project 5 Reflections and Learnings</h2>
-                <div class="project-content-body">
-                    <p>[Write about what you learned across both parts A and B:</p>
-                    <ul>
-                        <li>Understanding of diffusion models and flow matching</li>
-                        <li>Differences between one-step and iterative denoising</li>
-                        <li>The importance of conditioning (time and class)</li>
-                        <li>Implementation challenges and solutions</li>
-                        <li>Most interesting results from both parts</li>
-                        <li>Ideas for future exploration</li>
-                    </ul>
-                    <p>]</p>
-                </div>
-            </div>
-
         </main>
 
         <footer>
