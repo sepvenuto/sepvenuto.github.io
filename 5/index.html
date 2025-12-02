@@ -1136,24 +1136,100 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h5>Training Loss Curve</h5>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/1.2.1/loss_curve.png" alt="Training loss">
+                            <img src="./partb/1.2.1/model_training_loss_curve.png" alt="Training loss">
                             <div class="image-caption">Training Loss over Iterations</div>
                         </div>
                     </div>
 
-                    <h5>Denoising Results</h5>
-                    <p>Sample results on test set with σ = 0.5:</p>
+                    <h5>Denoising Results after Epoch 1</h5>
+                    <p>Sample results on test set with σ = 0.5 after 1 epoch of training. For each sample, we show: Clean digit → Noisy (σ=0.5) → Denoised:</p>
                     
+                    <h6>Sample 0</h6>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/1.2.1/results_epoch1.png" alt="Epoch 1 results">
-                            <div class="image-caption">Results after Epoch 1</div>
+                            <img src="./partb/1.2.1/clean_idx_0.png" alt="Clean 0">
+                            <div class="image-caption">Clean Image</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/1.2.1/results_epoch5.png" alt="Epoch 5 results">
-                            <div class="image-caption">Results after Epoch 5</div>
+                            <img src="./partb/1.2.1/noisy_idx_0_sigma_0.5).png" alt="Noisy 0">
+                            <div class="image-caption">Noisy (σ=0.5)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/denoised_idx_0.png" alt="Denoised 0">
+                            <div class="image-caption">Denoised (Epoch 1)</div>
                         </div>
                     </div>
+
+                    <h6>Sample 1</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/clean_idx_1.png" alt="Clean 1">
+                            <div class="image-caption">Clean Image</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/noisy_idx_1_sigma_0.5).png" alt="Noisy 1">
+                            <div class="image-caption">Noisy (σ=0.5)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/denoised_idx_1.png" alt="Denoised 1">
+                            <div class="image-caption">Denoised (Epoch 1)</div>
+                        </div>
+                    </div>
+
+                    <h6>Sample 2</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/clean_idx_2.png" alt="Clean 2">
+                            <div class="image-caption">Clean Image</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/noisy_idx_2_sigma_0.5).png" alt="Noisy 2">
+                            <div class="image-caption">Noisy (σ=0.5)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/denoised_idx_2.png" alt="Denoised 2">
+                            <div class="image-caption">Denoised (Epoch 1)</div>
+                        </div>
+                    </div>
+
+                    <h6>Sample 3</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/clean_idx_3.png" alt="Clean 3">
+                            <div class="image-caption">Clean Image</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/noisy_idx_3_sigma_0.5).png" alt="Noisy 3">
+                            <div class="image-caption">Noisy (σ=0.5)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/denoised_idx_3.png" alt="Denoised 3">
+                            <div class="image-caption">Denoised (Epoch 1)</div>
+                        </div>
+                    </div>
+
+                    <h6>Sample 4</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/clean_idx_4.png" alt="Clean 4">
+                            <div class="image-caption">Clean Image</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/noisy_idx_4_sigma_0.5).png" alt="Noisy 4">
+                            <div class="image-caption">Noisy (σ=0.5)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.1/denoised_idx_4.png" alt="Denoised 4">
+                            <div class="image-caption">Denoised (Epoch 1)</div>
+                        </div>
+                    </div>
+
+                    <p>[Discuss the quality of denoising after 1 epoch - likely still blurry but starting to remove noise]</p>
+
+                    <h5>Denoising Results after Epoch 5</h5>
+                    <p>After 5 epochs of training, the denoising quality should be significantly improved:</p>
+                    
+                    <p>[Add similar visualization for Epoch 5 results if you have them, or note that the model has converged and produces clean, sharp digits]</p>
 
                     <h4>1.2.2 Out-of-Distribution Testing</h4>
                     <p>Testing the denoiser on different noise levels it wasn't trained on:</p>
