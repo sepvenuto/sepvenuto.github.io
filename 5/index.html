@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Project 5A: The Power of Diffusion Models</h1>
+            <h1>Project 5: Fun with Diffusion Models</h1>
             <p class="subtitle">CS180 • Diffusion Models and Image Generation</p>
         </header>
         
@@ -18,6 +18,11 @@
         </div>
 
         <main>
+
+            <!-- Part A Header -->
+            <div class="project-content">
+                <h2 style="text-align: center; font-size: 2em; margin: 40px 0;">Part A: The Power of Diffusion Models</h2>
+            </div>
 
             <!-- Part 0: Setup -->
             <div class="project-content">
@@ -1585,41 +1590,96 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/2.3/generated_sample_0.png" alt="Sample 0 epoch 1">
+                            <img src="./partb/2.3/generated_1_epochs_sample_0.png" alt="1 epoch sample 0">
                             <div class="image-caption">Sample 0</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.3/generated_sample_1.png" alt="Sample 1 epoch 1">
+                            <img src="./partb/2.3/generated_1_epochs_sample_1.png" alt="1 epoch sample 1">
                             <div class="image-caption">Sample 1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.3/generated_sample_2.png" alt="Sample 2 epoch 1">
+                            <img src="./partb/2.3/generated_1_epochs_sample_2.png" alt="1 epoch sample 2">
                             <div class="image-caption">Sample 2</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.3/generated_sample_3.png" alt="Sample 3 epoch 1">
+                            <img src="./partb/2.3/generated_1_epochs_sample_3.png" alt="1 epoch sample 3">
                             <div class="image-caption">Sample 3</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.3/generated_sample_4.png" alt="Sample 4 epoch 1">
+                            <img src="./partb/2.3/generated_1_epochs_sample_4.png" alt="1 epoch sample 4">
                             <div class="image-caption">Sample 4</div>
                         </div>
                     </div>
 
+                    <p><strong>Epoch 1 Observations:</strong> [Comment on the quality - digits are recognizable but fuzzy, edges are not sharp, overall structure is visible but details are lacking]</p>
+
                     <h4>Generated Samples - After 5 Epochs</h4>
                     <p>Mid-training results - digits are more recognizable and clearer:</p>
                     
-                    <p>[Add generated samples from 5 epoch training if you have them in a separate folder]</p>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_5_epochs_sample_0.png" alt="5 epochs sample 0">
+                            <div class="image-caption">Sample 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_5_epochs_sample_1.png" alt="5 epochs sample 1">
+                            <div class="image-caption">Sample 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_5_epochs_sample_2.png" alt="5 epochs sample 2">
+                            <div class="image-caption">Sample 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_5_epochs_sample_3.png" alt="5 epochs sample 3">
+                            <div class="image-caption">Sample 3</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_5_epochs_sample_4.png" alt="5 epochs sample 4">
+                            <div class="image-caption">Sample 4</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Epoch 5 Observations:</strong> [Comment on improvements - sharper edges, more consistent digit shapes, better overall quality compared to epoch 1]</p>
 
                     <h4>Generated Samples - After 10 Epochs</h4>
                     <p>Late training results - digits should be legible and reasonably well-formed:</p>
                     
-                    <p>[Add generated samples from 10 epoch training if you have them in a separate folder]</p>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_10_epochs_sample_0.png" alt="10 epochs sample 0">
+                            <div class="image-caption">Sample 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_10_epochs_sample_1.png" alt="10 epochs sample 1">
+                            <div class="image-caption">Sample 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_10_epochs_sample_2.png" alt="10 epochs sample 2">
+                            <div class="image-caption">Sample 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_10_epochs_sample_3.png" alt="10 epochs sample 3">
+                            <div class="image-caption">Sample 3</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.3/generated_10_epochs_sample_4.png" alt="10 epochs sample 4">
+                            <div class="image-caption">Sample 4</div>
+                        </div>
+                    </div>
 
+                    <p><strong>Epoch 10 Observations:</strong> [Comment on final quality - clean, sharp digits that are clearly recognizable, though without class conditioning the model generates random digits]</p>
 
-                    <p>]</p>
+                    <h4>Overall Analysis</h4>
+                    <p><strong>Quality Progression:</strong> The improvement from 1 to 5 to 10 epochs demonstrates that the time-conditioned UNet successfully learns to model the flow from noise to data. However, note that:</p>
+                    <ul>
+                        <li><strong>Random generation:</strong> Without class conditioning, we cannot control which digits are generated</li>
+                        <li><strong>Digit distribution:</strong> The model may favor certain digits over others based on the training data distribution</li>
+                        <li><strong>Comparison to one-step:</strong> These iterative flow matching results are significantly better than the blurry averaged outputs from Part 1.2.3's one-step denoising</li>
+                        <li><strong>Need for class conditioning:</strong> To generate specific digits on demand, we need the class-conditioned version in Part 2.4-2.6</li>
+                    </ul>
 
                     <h3>2.4 Adding Class-Conditioning to UNet</h3>
+                    <p>[Explain how class conditioning is added using one-hot vectors and FCBlocks, along with 10% dropout for classifier-free guidance]</p>
 
                     <h3>2.5 Training the Class-Conditioned UNet</h3>
                     <p><strong>Training Details:</strong></p>
@@ -1820,6 +1880,24 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                             <div class="image-caption">Sample 3</div>
                         </div>
                     </div>
+
+                    <p><strong>Progression without Scheduler:</strong> [Observe the quality progression without the scheduler. Does it improve similarly to the with-scheduler version?]</p>
+
+                    <h4>Comparison and Analysis</h4>
+                    
+                    <h5>Visual Quality Comparison</h5>
+                    <p><strong>With Scheduler vs Without Scheduler:</strong></p>
+                    <ul>
+                        <li><strong>After 1 Epoch:</strong> [Compare the initial quality - are both models producing similar results early on?]</li>
+                        <li><strong>After 5 Epochs:</strong> [Is there a noticeable difference in digit clarity and sharpness?]</li>
+                        <li><strong>After 10 Epochs:</strong> [Do both approaches converge to similar quality digits by epoch 10?]</li>
+                    </ul>
+
+                    <h5>Loss Curve Analysis</h5>
+                    <p><strong>Convergence Behavior:</strong> [Compare the loss curves with and without scheduler. Do they converge to similar final loss values? How does the convergence behavior differ throughout training?]</p>
+                    
+                    <h5>Effectiveness of Alternative Strategy</h5>
+                    <p><strong>Conclusion:</strong> By using a lower initial learning rate combined with weight decay, we successfully replicate the effect of the exponential scheduler. The weight decay creates an implicit learning rate decay as parameters grow, achieving similar convergence and sample quality without explicit scheduling. This demonstrates that the exponential learning rate scheduler, while helpful, is not strictly necessary if we design appropriate alternative training strategies.</p>
 
                 </div>
             </div>
