@@ -1543,8 +1543,9 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     </div>
 
                     <h5>Key Observations</h5>
-                    <p><strong>The Averaging Effect:</strong> The patterns in the observed generated data are almost a combination of the training data set, with all of the shapes of the numbers layered on top of each other. It is as though it is predicting the mean of all of the training examples from the training set. This makes sense because the way we train the model is we want the model to create the output that minimizes the MSE to all training examples. Just like we talked about in lecture, how with colored images things go more grey because it's in the middle of all of the colors, the output that minimizes the MSE of all of the training data would just be the mean of all of the training data, meaning that the same output is generated each time.</p>
+                    <p><strong>The Averaging/Centroid Effect:</strong> The patterns in the observed generated data are almost a combination of the training data set, with all of the shapes of the numbers layered on top of each other. It is as though it is predicting the mean of all of the training examples from the training set. This makes sense because the way we train the model is we want the model to create the output that minimizes the MSE to all training examples. Just like we talked about in lecture, how with colored images things go more grey because it's in the middle of all of the colors, the output that minimizes the MSE of all of the training data would just be the mean of all of the training data, meaning that the same output is generated each time.</p>
                     
+                    <p><strong>Progression from Epoch 1 to Epoch 5:</strong> [Compare the denoised outputs from epoch 1 to epoch 5. Does the averaging effect become more pronounced and stable? Are the blurry averaged digits more consistent by epoch 5?]</p>
                     
                     <p><strong>Why This Fails for Generation:</strong> This demonstrates the fundamental limitation of one-step denoising from pure noise with MSE loss - the model learns to output the dataset mean rather than generating diverse, realistic samples. This motivates the need for the iterative flow matching approach in Part 2.</p>
                  </div>
@@ -1556,6 +1557,8 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                 <h2>Part 2: Training a Flow Matching Model</h2>
                 <div class="project-content-body">
                     
+                    <h3>2.1 Adding Time Conditioning to UNet</h3>
+
                     <h3>2.2 Training the Time-Conditioned UNet</h3>
                     <p><strong>Training Details:</strong></p>
                     <ul>
@@ -2351,39 +2354,191 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_{0..4}_no_scheduler.png" alt="5 epochs digit {0..4} s0 no scheduler">
-                            <div class="image-caption">Digit {0..4} - Instance 0</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_0_no_scheduler.png" alt="5 epochs digit 0 s0 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 0</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_{0..4}_no_scheduler.png" alt="5 epochs digit {0..4} s1 no scheduler">
-                            <div class="image-caption">Digit {0..4} - Instance 1</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_0_no_scheduler.png" alt="5 epochs digit 0 s1 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_{0..4}_no_scheduler.png" alt="5 epochs digit {0..4} s2 no scheduler">
-                            <div class="image-caption">Digit {0..4} - Instance 2</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_0_no_scheduler.png" alt="5 epochs digit 0 s2 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 2</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_{0..4}_no_scheduler.png" alt="5 epochs digit {0..4} s3 no scheduler">
-                            <div class="image-caption">Digit {0..4} - Instance 3</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_0_no_scheduler.png" alt="5 epochs digit 0 s3 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 3</div>
                         </div>
                     </div>
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_{5..9}_no_scheduler.png" alt="5 epochs digit {5..9} s0 no scheduler">
-                            <div class="image-caption">Digit {5..9} - Instance 0</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_1_no_scheduler.png" alt="5 epochs digit 1 s0 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 0</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_{5..9}_no_scheduler.png" alt="5 epochs digit {5..9} s1 no scheduler">
-                            <div class="image-caption">Digit {5..9} - Instance 1</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_1_no_scheduler.png" alt="5 epochs digit 1 s1 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_{5..9}_no_scheduler.png" alt="5 epochs digit {5..9} s2 no scheduler">
-                            <div class="image-caption">Digit {5..9} - Instance 2</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_1_no_scheduler.png" alt="5 epochs digit 1 s2 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 2</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_{5..9}_no_scheduler.png" alt="5 epochs digit {5..9} s3 no scheduler">
-                            <div class="image-caption">Digit {5..9} - Instance 3</div>
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_1_no_scheduler.png" alt="5 epochs digit 1 s3 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_2_no_scheduler.png" alt="5 epochs digit 2 s0 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_2_no_scheduler.png" alt="5 epochs digit 2 s1 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_2_no_scheduler.png" alt="5 epochs digit 2 s2 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_2_no_scheduler.png" alt="5 epochs digit 2 s3 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_3_no_scheduler.png" alt="5 epochs digit 3 s0 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_3_no_scheduler.png" alt="5 epochs digit 3 s1 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_3_no_scheduler.png" alt="5 epochs digit 3 s2 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_3_no_scheduler.png" alt="5 epochs digit 3 s3 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_4_no_scheduler.png" alt="5 epochs digit 4 s0 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_4_no_scheduler.png" alt="5 epochs digit 4 s1 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_4_no_scheduler.png" alt="5 epochs digit 4 s2 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_4_no_scheduler.png" alt="5 epochs digit 4 s3 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_5_no_scheduler.png" alt="5 epochs digit 5 s0 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_5_no_scheduler.png" alt="5 epochs digit 5 s1 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_5_no_scheduler.png" alt="5 epochs digit 5 s2 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_5_no_scheduler.png" alt="5 epochs digit 5 s3 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_6_no_scheduler.png" alt="5 epochs digit 6 s0 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_6_no_scheduler.png" alt="5 epochs digit 6 s1 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_6_no_scheduler.png" alt="5 epochs digit 6 s2 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_6_no_scheduler.png" alt="5 epochs digit 6 s3 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_7_no_scheduler.png" alt="5 epochs digit 7 s0 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_7_no_scheduler.png" alt="5 epochs digit 7 s1 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_7_no_scheduler.png" alt="5 epochs digit 7 s2 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_7_no_scheduler.png" alt="5 epochs digit 7 s3 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_8_no_scheduler.png" alt="5 epochs digit 8 s0 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_8_no_scheduler.png" alt="5 epochs digit 8 s1 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_8_no_scheduler.png" alt="5 epochs digit 8 s2 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_8_no_scheduler.png" alt="5 epochs digit 8 s3 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_9_no_scheduler.png" alt="5 epochs digit 9 s0 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_9_no_scheduler.png" alt="5 epochs digit 9 s1 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_2_digit_class_9_no_scheduler.png" alt="5 epochs digit 9 s2 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_3_digit_class_9_no_scheduler.png" alt="5 epochs digit 9 s3 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 3</div>
                         </div>
                     </div>
 
@@ -2392,23 +2547,193 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_{0..9}_no_scheduler.png" alt="10 epochs digit {0..9} s0 no scheduler">
-                            <div class="image-caption">Digit {0..9} - Instance 0</div>
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_0_no_scheduler.png" alt="10 epochs digit 0 s0 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 0</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_{0..9}_no_scheduler.png" alt="10 epochs digit {0..9} s1 no scheduler">
-                            <div class="image-caption">Digit {0..9} - Instance 1</div>
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_0_no_scheduler.png" alt="10 epochs digit 0 s1 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 1</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_{0..9}_no_scheduler.png" alt="10 epochs digit {0..9} s2 no scheduler">
-                            <div class="image-caption">Digit {0..9} - Instance 2</div>
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_0_no_scheduler.png" alt="10 epochs digit 0 s2 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 2</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_{0..9}_no_scheduler.png" alt="10 epochs digit {0..9} s3 no scheduler">
-                            <div class="image-caption">Digit {0..9} - Instance 3</div>
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_0_no_scheduler.png" alt="10 epochs digit 0 s3 no scheduler">
+                            <div class="image-caption">Digit 0 - Instance 3</div>
                         </div>
                     </div>
-
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_1_no_scheduler.png" alt="10 epochs digit 1 s0 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_1_no_scheduler.png" alt="10 epochs digit 1 s1 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_1_no_scheduler.png" alt="10 epochs digit 1 s2 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_1_no_scheduler.png" alt="10 epochs digit 1 s3 no scheduler">
+                            <div class="image-caption">Digit 1 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_2_no_scheduler.png" alt="10 epochs digit 2 s0 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_2_no_scheduler.png" alt="10 epochs digit 2 s1 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_2_no_scheduler.png" alt="10 epochs digit 2 s2 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_2_no_scheduler.png" alt="10 epochs digit 2 s3 no scheduler">
+                            <div class="image-caption">Digit 2 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_3_no_scheduler.png" alt="10 epochs digit 3 s0 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_3_no_scheduler.png" alt="10 epochs digit 3 s1 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_3_no_scheduler.png" alt="10 epochs digit 3 s2 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_3_no_scheduler.png" alt="10 epochs digit 3 s3 no scheduler">
+                            <div class="image-caption">Digit 3 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_4_no_scheduler.png" alt="10 epochs digit 4 s0 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_4_no_scheduler.png" alt="10 epochs digit 4 s1 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_4_no_scheduler.png" alt="10 epochs digit 4 s2 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_4_no_scheduler.png" alt="10 epochs digit 4 s3 no scheduler">
+                            <div class="image-caption">Digit 4 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_5_no_scheduler.png" alt="10 epochs digit 5 s0 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_5_no_scheduler.png" alt="10 epochs digit 5 s1 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_5_no_scheduler.png" alt="10 epochs digit 5 s2 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_5_no_scheduler.png" alt="10 epochs digit 5 s3 no scheduler">
+                            <div class="image-caption">Digit 5 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_6_no_scheduler.png" alt="10 epochs digit 6 s0 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_6_no_scheduler.png" alt="10 epochs digit 6 s1 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_6_no_scheduler.png" alt="10 epochs digit 6 s2 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_6_no_scheduler.png" alt="10 epochs digit 6 s3 no scheduler">
+                            <div class="image-caption">Digit 6 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_7_no_scheduler.png" alt="10 epochs digit 7 s0 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_7_no_scheduler.png" alt="10 epochs digit 7 s1 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_7_no_scheduler.png" alt="10 epochs digit 7 s2 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_7_no_scheduler.png" alt="10 epochs digit 7 s3 no scheduler">
+                            <div class="image-caption">Digit 7 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_8_no_scheduler.png" alt="10 epochs digit 8 s0 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_8_no_scheduler.png" alt="10 epochs digit 8 s1 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_8_no_scheduler.png" alt="10 epochs digit 8 s2 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_8_no_scheduler.png" alt="10 epochs digit 8 s3 no scheduler">
+                            <div class="image-caption">Digit 8 - Instance 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_0_digit_class_9_no_scheduler.png" alt="10 epochs digit 9 s0 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_1_digit_class_9_no_scheduler.png" alt="10 epochs digit 9 s1 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_2_digit_class_9_no_scheduler.png" alt="10 epochs digit 9 s2 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_10_epochs_sample_3_digit_class_9_no_scheduler.png" alt="10 epochs digit 9 s3 no scheduler">
+                            <div class="image-caption">Digit 9 - Instance 3</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
