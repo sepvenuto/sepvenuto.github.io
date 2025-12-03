@@ -1456,16 +1456,8 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     </div>
 
                     <h5>Key Observations</h5>
-                    <p><strong>The Averaging/Centroid Effect:</strong> When training a denoiser on pure noise with MSE loss, the model learns to predict the mean (centroid) of all training examples. This is because MSE loss encourages the model to predict the point that minimizes squared distances to all training examples. As a result:</p>
-                    <ul>
-                        <li><strong>Blurry outputs:</strong> The denoised images appear as blurry averages of multiple digit classes</li>
-                        <li><strong>Loss of detail:</strong> Sharp edges and distinctive features are smoothed out</li>
-                        <li><strong>Ambiguous digits:</strong> The outputs don't clearly represent any single digit, but rather a blend</li>
-                        <li><strong>Mathematical explanation:</strong> With noise ε ~ N(0, I), the optimal MSE predictor is E[x|ε] ≈ E[x], which is the mean of all training images</li>
-                    </ul>
-                    
-                    <p><strong>Why this approach fails for generation:</strong> This demonstrates why simple one-step denoising from pure noise cannot work for generative tasks. We need iterative denoising with proper flow matching (Part 2) or conditioning on timesteps to generate realistic samples.</p>
-                </div>
+                    <p>The patterns in the observed generated data are almost a combination of the training data set, with all of the shapes of the numbers layered on top of each other. It is as though it is predicting the mean of all of the training examples from the training set. This makes sense because the way we train the model is we want the model to create the output that minimizes the MSE to all training examples. Just like we talked about in lecture, how with colored images things go more grey because it’s in the middle of all of the colors, the output that minimizes the MSE of all of the training data would just be the mean of all of the training data, meaning that the same output is generated each time.</p>
+                 </div>
             </div>
 
             <!-- Part 2: Flow Matching Model -->
@@ -1474,7 +1466,6 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                 <div class="project-content-body">
                     
                     <h3>2.1 Adding Time Conditioning to UNet</h3>
-                    <p>[Explain how time conditioning is added using FCBlocks to modulate the UNet at different layers]</p>
 
                     <h3>2.2 Training the Time-Conditioned UNet</h3>
                     <p><strong>Training Details:</strong></p>
@@ -1513,8 +1504,6 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                             <div class="image-caption">Training Loss - 10 Epochs</div>
                         </div>
                     </div>
-
-                    <p>[Discuss the training progression: how the loss decreases over epochs, convergence behavior, and the effect of the exponential learning rate scheduler]</p>
 
                     <h3>2.3 Sampling from the Time-Conditioned UNet</h3>
                     <p>Iterative denoising results using Algorithm B.2. We start from pure Gaussian noise and iteratively denoise to generate MNIST digits. These samples show the progression of generation quality as training continues:</p>
@@ -1555,19 +1544,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     
                     <p>[Add generated samples from 10 epoch training if you have them in a separate folder]</p>
 
-                    <h4>Observations</h4>
-                    <p>[Discuss the quality of generated digits across different training stages:</p>
-                    <ul>
-                        <li>How recognizable are the digits at each epoch?</li>
-                        <li>What improvements do you see from 1 to 5 to 10 epochs?</li>
-                        <li>Are all digit classes (0-9) generated, or does the model favor certain digits?</li>
-                        <li>Compare to the one-step denoising results from Part 1.2.3 - how does iterative denoising improve generation quality?</li>
-                        <li>Note that without class conditioning, the model generates random digits from the learned distribution</li>
-                    </ul>
+
                     <p>]</p>
 
                     <h3>2.4 Adding Class-Conditioning to UNet</h3>
-                    <p>[Explain class-conditioning implementation using one-hot vectors and 10% dropout for classifier-free guidance]</p>
 
                     <h3>2.5 Training the Class-Conditioned UNet</h3>
                     <p><strong>Training Details:</strong></p>
@@ -1606,14 +1586,6 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                         </div>
                     </div>
 
-                    <h4>Observations</h4>
-                    <p>[Compare class-conditioned training to time-only training from Part 2.2:</p>
-                    <ul>
-                        <li>Does class conditioning lead to faster convergence?</li>
-                        <li>How do the loss curves compare between time-only and class-conditioned models?</li>
-                        <li>Does the model converge to a lower final loss with class information?</li>
-                        <li>The ability to condition on specific digit classes should make the task easier, as the model doesn't need to learn the full unconditional distribution</li>
-                    </ul>
                     <p>]</p>
 
                     <h3>2.6 Sampling from the Class-Conditioned UNet</h3>
@@ -1696,46 +1668,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                         </div>
                     </div>
 
-                    <h4>Comparison and Analysis</h4>
-                    <p><strong>Loss Curve Comparison:</strong> [Compare the loss curves with and without scheduler. Do they converge to similar final loss values? How does the convergence behavior differ?]</p>
-                    
-                    <p><strong>Sample Quality Comparison:</strong> [Compare the visual quality of generated digits with and without scheduler. Are they equally recognizable? Is there any difference in sharpness or clarity?]</p>
-                    
-                    <p><strong>Effectiveness of Alternative Strategy:</strong> By using a lower initial learning rate combined with weight decay, we successfully replicate the effect of the exponential scheduler. The weight decay creates an implicit learning rate decay as parameters grow, achieving similar convergence without explicit scheduling.</p>
                 </div>
             </div>
 
-            <!-- Part 3: Bells & Whistles (Optional) -->
-            <div class="project-content">
-                <h2>Part 3: Bells & Whistles (Optional)</h2>
-                <div class="project-content-body">
-                    <p>[Include any additional explorations:</p>
-                    <ul>
-                        <li>Better time-conditioned only UNet (CS280A required)</li>
-                        <li>Training on SVHN, Fashion-MNIST, or CIFAR10</li>
-                        <li>Your own creative ideas</li>
-                    </ul>
-                    <p>]</p>
-                </div>
-            </div>
-
-            <!-- Reflections for Entire Project 5 -->
-            <div class="project-content">
-                <h2>Project 5 Reflections and Learnings</h2>
-                <div class="project-content-body">
-                    <p>[Write about what you learned across both parts A and B:</p>
-                    <ul>
-                        <li>Understanding of diffusion models and flow matching</li>
-                        <li>Differences between one-step and iterative denoising</li>
-                        <li>The importance of conditioning (time and class)</li>
-                        <li>Implementation challenges and solutions</li>
-                        <li>Most interesting results from both parts</li>
-                        <li>Ideas for future exploration</li>
-                    </ul>
-                    <p>]</p>
-                </div>
-            </div>
-
+           
         </main>
 
         <footer>
