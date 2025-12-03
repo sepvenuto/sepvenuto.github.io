@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 5A: The Power of Diffusion Models</title>
+    <title>Project 5: Fun with Diffusion Models</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -1250,6 +1250,8 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                         </div>
                     </div>
 
+                    <p>[Discuss the quality of denoising after 1 epoch - likely still blurry but starting to remove noise]</p>
+
                     <h5>Denoising Results after Epoch 5</h5>
                     <p>After 5 epochs of training, the denoising quality should be significantly improved:</p>
                     
@@ -1349,32 +1351,120 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                             <div class="image-caption">Denoised Result</div>
                         </div>
                     </div>
+
+                    <h5>Observations</h5>
+                    <p>[Discuss how the denoiser performs on noise levels it wasn't trained on. Key points to consider:</p>
+                    <ul>
+                        <li>Performance at σ = 0.5 (the training noise level) should be best</li>
+                        <li>For lower noise levels (σ < 0.5), the denoiser might over-smooth the image</li>
+                        <li>For higher noise levels (σ > 0.5), the denoiser struggles to remove all the noise</li>
+                        <li>The denoiser generalizes reasonably well to nearby noise levels (e.g., σ = 0.4 or 0.6)</li>
+                        <li>At extreme noise levels (σ = 1.0), significant noise may remain or the digit may be unrecognizable</li>
+                    </ul>
                     <p>]</p>
 
                     <h4>1.2.3 Denoising Pure Noise</h4>
-                    <p>Training a denoiser on pure Gaussian noise (σ ~ N(0, I)):</p>
+                    <p>Training a denoiser on pure Gaussian noise (ε ~ N(0, I)) where we try to predict the clean image directly from random noise. This is a much harder task than denoising partially noisy images.</p>
 
                     <h5>Training Loss Curve</h5>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/1.2.3/loss_curve_pure_noise.png" alt="Pure noise training loss">
+                            <img src="./partb/1.2.3/ood_training_loss_curve.png" alt="OOD training loss">
                             <div class="image-caption">Training Loss for Pure Noise Denoising</div>
                         </div>
                     </div>
 
-                    <h5>Results</h5>
+                    <h5>Out-of-Distribution Testing Results</h5>
+                    <p>Testing the pure noise denoiser across different noise levels (σ). Since it was trained on pure noise, all noise levels are technically "out-of-distribution" compared to the structured noise + signal it would encounter in normal denoising:</p>
+                    
+                    <h6>Noisy Images at Different σ Levels</h6>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/1.2.3/pure_noise_epoch1.png" alt="Pure noise epoch 1">
-                            <div class="image-caption">Results after Epoch 1</div>
+                            <img src="./partb/1.2.3/noisy_sigma_0.0.png" alt="Noisy sigma 0.0">
+                            <div class="image-caption">σ = 0.0 (Clean)</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/1.2.3/pure_noise_epoch5.png" alt="Pure noise epoch 5">
-                            <div class="image-caption">Results after Epoch 5</div>
+                            <img src="./partb/1.2.3/noisy_sigma_0.2.png" alt="Noisy sigma 0.2">
+                            <div class="image-caption">σ = 0.2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/noisy_sigma_0.4.png" alt="Noisy sigma 0.4">
+                            <div class="image-caption">σ = 0.4</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/noisy_sigma_0.5.png" alt="Noisy sigma 0.5">
+                            <div class="image-caption">σ = 0.5</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/noisy_sigma_0.6.png" alt="Noisy sigma 0.6">
+                            <div class="image-caption">σ = 0.6</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/noisy_sigma_0.8.png" alt="Noisy sigma 0.8">
+                            <div class="image-caption">σ = 0.8</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/noisy_sigma_1.0.png" alt="Noisy sigma 1.0">
+                            <div class="image-caption">σ = 1.0</div>
                         </div>
                     </div>
 
-                    <p>[Discuss the patterns observed: The model learns to predict the mean/centroid of all training digits, resulting in blurry averaged digits since MSE loss encourages predicting the point that minimizes squared distances to all training examples.]</p>
+                    <h6>Denoised Results at Different σ Levels</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_sigma_0.0.png" alt="Denoised sigma 0.0">
+                            <div class="image-caption">Denoised: σ = 0.0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_sigma_0.2.png" alt="Denoised sigma 0.2">
+                            <div class="image-caption">Denoised: σ = 0.2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_sigma_0.4.png" alt="Denoised sigma 0.4">
+                            <div class="image-caption">Denoised: σ = 0.4</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_sigma_0.5.png" alt="Denoised sigma 0.5">
+                            <div class="image-caption">Denoised: σ = 0.5</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_sigma_0.6.png" alt="Denoised sigma 0.6">
+                            <div class="image-caption">Denoised: σ = 0.6</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_sigma_0.8.png" alt="Denoised sigma 0.8">
+                            <div class="image-caption">Denoised: σ = 0.8</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_sigma_1.0.png" alt="Denoised sigma 1.0">
+                            <div class="image-caption">Denoised: σ = 1.0</div>
+                        </div>
+                    </div>
+
+                    <h5>Denoising Results After Epoch 4</h5>
+                    <p>Results showing both noisy inputs and denoised outputs after 4 epochs of training:</p>
+                    
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/noisy_epoch_4.png" alt="Noisy epoch 4">
+                            <div class="image-caption">Noisy Input (Epoch 4)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_epoch_4.png" alt="Denoised epoch 4">
+                            <div class="image-caption">Denoised Output (Epoch 4)</div>
+                        </div>
+                    </div>
+
+                    <h5>Key Observations</h5>
+                    <p><strong>The Averaging/Centroid Effect:</strong> When training a denoiser on pure noise with MSE loss, the model learns to predict the mean (centroid) of all training examples. This is because MSE loss encourages the model to predict the point that minimizes squared distances to all training examples. As a result:</p>
+                    <ul>
+                        <li><strong>Blurry outputs:</strong> The denoised images appear as blurry averages of multiple digit classes</li>
+                        <li><strong>Loss of detail:</strong> Sharp edges and distinctive features are smoothed out</li>
+                        <li><strong>Ambiguous digits:</strong> The outputs don't clearly represent any single digit, but rather a blend</li>
+                        <li><strong>Mathematical explanation:</strong> With noise ε ~ N(0, I), the optimal MSE predictor is E[x|ε] ≈ E[x], which is the mean of all training images</li>
+                    </ul>
+                    
+                    <p><strong>Why this approach fails for generation:</strong> This demonstrates why simple one-step denoising from pure noise cannot work for generative tasks. We need iterative denoising with proper flow matching (Part 2) or conditioning on timesteps to generate realistic samples.</p>
                 </div>
             </div>
 
@@ -1383,6 +1473,9 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                 <h2>Part 2: Training a Flow Matching Model</h2>
                 <div class="project-content-body">
                     
+                    <h3>2.1 Adding Time Conditioning to UNet</h3>
+                    <p>[Explain how time conditioning is added using FCBlocks to modulate the UNet at different layers]</p>
+
                     <h3>2.2 Training the Time-Conditioned UNet</h3>
                     <p><strong>Training Details:</strong></p>
                     <ul>
@@ -1420,6 +1513,8 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                             <div class="image-caption">Training Loss - 10 Epochs</div>
                         </div>
                     </div>
+
+                    <p>[Discuss the training progression: how the loss decreases over epochs, convergence behavior, and the effect of the exponential learning rate scheduler]</p>
 
                     <h3>2.3 Sampling from the Time-Conditioned UNet</h3>
                     <p>Iterative denoising results using Algorithm B.2. We start from pure Gaussian noise and iteratively denoise to generate MNIST digits. These samples show the progression of generation quality as training continues:</p>
@@ -1460,10 +1555,20 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     
                     <p>[Add generated samples from 10 epoch training if you have them in a separate folder]</p>
 
-                    
+                    <h4>Observations</h4>
+                    <p>[Discuss the quality of generated digits across different training stages:</p>
+                    <ul>
+                        <li>How recognizable are the digits at each epoch?</li>
+                        <li>What improvements do you see from 1 to 5 to 10 epochs?</li>
+                        <li>Are all digit classes (0-9) generated, or does the model favor certain digits?</li>
+                        <li>Compare to the one-step denoising results from Part 1.2.3 - how does iterative denoising improve generation quality?</li>
+                        <li>Note that without class conditioning, the model generates random digits from the learned distribution</li>
+                    </ul>
                     <p>]</p>
 
-                
+                    <h3>2.4 Adding Class-Conditioning to UNet</h3>
+                    <p>[Explain class-conditioning implementation using one-hot vectors and 10% dropout for classifier-free guidance]</p>
+
                     <h3>2.5 Training the Class-Conditioned UNet</h3>
                     <p><strong>Training Details:</strong></p>
                     <ul>
@@ -1501,7 +1606,14 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                         </div>
                     </div>
 
-                    
+                    <h4>Observations</h4>
+                    <p>[Compare class-conditioned training to time-only training from Part 2.2:</p>
+                    <ul>
+                        <li>Does class conditioning lead to faster convergence?</li>
+                        <li>How do the loss curves compare between time-only and class-conditioned models?</li>
+                        <li>Does the model converge to a lower final loss with class information?</li>
+                        <li>The ability to condition on specific digit classes should make the task easier, as the model doesn't need to learn the full unconditional distribution</li>
+                    </ul>
                     <p>]</p>
 
                     <h3>2.6 Sampling from the Class-Conditioned UNet</h3>
@@ -1584,9 +1696,45 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                         </div>
                     </div>
 
-               </div>
+                    <h4>Comparison and Analysis</h4>
+                    <p><strong>Loss Curve Comparison:</strong> [Compare the loss curves with and without scheduler. Do they converge to similar final loss values? How does the convergence behavior differ?]</p>
+                    
+                    <p><strong>Sample Quality Comparison:</strong> [Compare the visual quality of generated digits with and without scheduler. Are they equally recognizable? Is there any difference in sharpness or clarity?]</p>
+                    
+                    <p><strong>Effectiveness of Alternative Strategy:</strong> By using a lower initial learning rate combined with weight decay, we successfully replicate the effect of the exponential scheduler. The weight decay creates an implicit learning rate decay as parameters grow, achieving similar convergence without explicit scheduling.</p>
+                </div>
             </div>
 
+            <!-- Part 3: Bells & Whistles (Optional) -->
+            <div class="project-content">
+                <h2>Part 3: Bells & Whistles (Optional)</h2>
+                <div class="project-content-body">
+                    <p>[Include any additional explorations:</p>
+                    <ul>
+                        <li>Better time-conditioned only UNet (CS280A required)</li>
+                        <li>Training on SVHN, Fashion-MNIST, or CIFAR10</li>
+                        <li>Your own creative ideas</li>
+                    </ul>
+                    <p>]</p>
+                </div>
+            </div>
+
+            <!-- Reflections for Entire Project 5 -->
+            <div class="project-content">
+                <h2>Project 5 Reflections and Learnings</h2>
+                <div class="project-content-body">
+                    <p>[Write about what you learned across both parts A and B:</p>
+                    <ul>
+                        <li>Understanding of diffusion models and flow matching</li>
+                        <li>Differences between one-step and iterative denoising</li>
+                        <li>The importance of conditioning (time and class)</li>
+                        <li>Implementation challenges and solutions</li>
+                        <li>Most interesting results from both parts</li>
+                        <li>Ideas for future exploration</li>
+                    </ul>
+                    <p>]</p>
+                </div>
+            </div>
 
         </main>
 
