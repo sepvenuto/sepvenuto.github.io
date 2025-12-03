@@ -1721,7 +1721,7 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <p>Using classifier-free guidance with γ = 5.0 to generate specific digit classes. The class-conditioned model allows us to control which digits are generated, unlike the time-only model which produces random digits.</p>
                     
                     <h4>Generated Samples with Learning Rate Scheduler</h4>
-                    <p>Results using the exponential learning rate scheduler (γ = 0.1^(1/num_epochs)). These show general random samples without specific class conditioning for comparison:</p>
+                    <p>Results using the exponential learning rate scheduler. These show general random samples without specific class conditioning for comparison:</p>
 
                     <h5>Random Samples - 5 Epochs (With Scheduler)</h5>
                     <div class="image-gallery">
@@ -1743,11 +1743,219 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                         </div>
                     </div>
 
+                    
+                    <h5>Class-Conditioned Samples - 1 Epoch (With Scheduler)</h5>
+                    <p>Generating 4 instances of each digit (0-9) to demonstrate controlled generation:</p>
+                    
+                    <h6>Digit 0</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_0.png" alt="Digit 0 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_0.png" alt="Digit 0 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_0.png" alt="Digit 0 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_0.png" alt="Digit 0 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 1</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_1.png" alt="Digit 1 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_1.png" alt="Digit 1 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_1.png" alt="Digit 1 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_1.png" alt="Digit 1 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 2</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_2.png" alt="Digit 2 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_2.png" alt="Digit 2 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_2.png" alt="Digit 2 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_2.png" alt="Digit 2 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 3</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_3.png" alt="Digit 3 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_3.png" alt="Digit 3 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_3.png" alt="Digit 3 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_3.png" alt="Digit 3 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 4</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_4.png" alt="Digit 4 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_4.png" alt="Digit 4 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_4.png" alt="Digit 4 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_4.png" alt="Digit 4 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 5</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_5.png" alt="Digit 5 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_5.png" alt="Digit 5 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_5.png" alt="Digit 5 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_5.png" alt="Digit 5 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 6</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_6.png" alt="Digit 6 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_6.png" alt="Digit 6 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_6.png" alt="Digit 6 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_6.png" alt="Digit 6 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 7</h6>
+                    <div class="image-gallery">
+                         <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_7.png" alt="Digit 7 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_7.png" alt="Digit 7 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_7.png" alt="Digit 7 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_7.png" alt="Digit 7 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 8</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_8.png" alt="Digit 8 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_8.png" alt="Digit 8 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_8.png" alt="Digit 8 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_8.png" alt="Digit 8 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
+                    <h6>Digit 9</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_0_digit_class_9.png" alt="Digit 9 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_1_digit_class_9.png" alt="Digit 9 sample 1">
+                            <div class="image-caption">Instance 1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_2_digit_class_9.png" alt="Digit 9 sample 2">
+                            <div class="image-caption">Instance 2</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_1_epochs_sample_3_digit_class_9.png" alt="Digit 9 sample 3">
+                            <div class="image-caption">Instance 3</div>
+                        </div>
+                    </div>
+
                     <h5>Class-Conditioned Samples - 5 Epochs (With Scheduler)</h5>
                     <p>Generating 4 instances of each digit (0-9) to demonstrate controlled generation:</p>
                     
                     <h6>Digit 0</h6>
                     <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_0.png" alt="Digit 0 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
                         <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_0.png" alt="Digit 0 sample 1">
                             <div class="image-caption">Instance 1</div>
@@ -1765,6 +1973,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h6>Digit 1</h6>
                     <div class="image-gallery">
                         <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_1.png" alt="Digit 1 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_1.png" alt="Digit 1 sample 1">
                             <div class="image-caption">Instance 1</div>
                         </div>
@@ -1780,6 +1992,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
 
                     <h6>Digit 2</h6>
                     <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_2.png" alt="Digit 2 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
                         <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_2.png" alt="Digit 2 sample 1">
                             <div class="image-caption">Instance 1</div>
@@ -1797,6 +2013,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h6>Digit 3</h6>
                     <div class="image-gallery">
                         <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_3.png" alt="Digit 3 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_3.png" alt="Digit 3 sample 1">
                             <div class="image-caption">Instance 1</div>
                         </div>
@@ -1812,6 +2032,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
 
                     <h6>Digit 4</h6>
                     <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_4.png" alt="Digit 4 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
                         <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_4.png" alt="Digit 4 sample 1">
                             <div class="image-caption">Instance 1</div>
@@ -1829,6 +2053,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h6>Digit 5</h6>
                     <div class="image-gallery">
                         <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_5.png" alt="Digit 5 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_5.png" alt="Digit 5 sample 1">
                             <div class="image-caption">Instance 1</div>
                         </div>
@@ -1845,6 +2073,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h6>Digit 6</h6>
                     <div class="image-gallery">
                         <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_6.png" alt="Digit 6 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_6.png" alt="Digit 6 sample 1">
                             <div class="image-caption">Instance 1</div>
                         </div>
@@ -1860,6 +2092,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
 
                     <h6>Digit 7</h6>
                     <div class="image-gallery">
+                         <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_7.png" alt="Digit 7 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
                         <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_7.png" alt="Digit 7 sample 1">
                             <div class="image-caption">Instance 1</div>
@@ -1877,6 +2113,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h6>Digit 8</h6>
                     <div class="image-gallery">
                         <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_8.png" alt="Digit 8 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_8.png" alt="Digit 8 sample 1">
                             <div class="image-caption">Instance 1</div>
                         </div>
@@ -1893,6 +2133,10 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                     <h6>Digit 9</h6>
                     <div class="image-gallery">
                         <div class="image-container">
+                            <img src="./partb/2.6/generated_5_epochs_sample_0_digit_class_9.png" alt="Digit 9 sample 0">
+                            <div class="image-caption">Instance 0</div>
+                        </div>
+                        <div class="image-container">
                             <img src="./partb/2.6/generated_5_epochs_sample_1_digit_class_9.png" alt="Digit 9 sample 1">
                             <div class="image-caption">Instance 1</div>
                         </div>
@@ -1905,7 +2149,7 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                             <div class="image-caption">Instance 3</div>
                         </div>
                     </div>
-
+                    
                     <h5>Class-Conditioned Samples - 10 Epochs (With Scheduler)</h5>
                     <p>After more training, we expect even better quality and diversity:</p>
                     
