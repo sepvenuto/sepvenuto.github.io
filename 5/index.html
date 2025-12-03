@@ -1515,23 +1515,41 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                         </div>
                     </div>
 
-                    <h5>Denoising Results After Epoch 4</h5>
-                    <p>Results showing both noisy inputs and denoised outputs after 4 epochs of training:</p>
+                    <h5>Denoising Results Comparison - Epochs 1 and 5</h5>
+                    <p>Comparing results after 1 epoch vs 5 epochs of training to observe the progression of the averaging/centroid effect:</p>
                     
+                    <h6>After Epoch 1</h6>
                     <div class="image-gallery">
                         <div class="image-container">
-                            <img src="./partb/1.2.3/noisy_epoch_4.png" alt="Noisy epoch 4">
-                            <div class="image-caption">Noisy Input (Epoch 4)</div>
+                            <img src="./partb/1.2.3/noisy_epoch_1.png" alt="Noisy epoch 1">
+                            <div class="image-caption">Noisy Input (Epoch 1)</div>
                         </div>
                         <div class="image-container">
-                            <img src="./partb/1.2.3/denoised_epoch_4.png" alt="Denoised epoch 4">
-                            <div class="image-caption">Denoised Output (Epoch 4)</div>
+                            <img src="./partb/1.2.3/denoised_epoch_1.png" alt="Denoised epoch 1">
+                            <div class="image-caption">Denoised Output (Epoch 1)</div>
+                        </div>
+                    </div>
+
+                    <h6>After Epoch 5</h6>
+                    <div class="image-gallery">
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/noisy_epoch_5.png" alt="Noisy epoch 5">
+                            <div class="image-caption">Noisy Input (Epoch 5)</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="./partb/1.2.3/denoised_epoch_5.png" alt="Denoised epoch 5">
+                            <div class="image-caption">Denoised Output (Epoch 5)</div>
                         </div>
                     </div>
 
                     <h5>Key Observations</h5>
-                    <p>The patterns in the observed generated data are almost a combination of the training data set, with all of the shapes of the numbers layered on top of each other. It is as though it is predicting the mean of all of the training examples from the training set. This makes sense because the way we train the model is we want the model to create the output that minimizes the MSE to all training examples. Just like we talked about in lecture, how with colored images things go more grey because it’s in the middle of all of the colors, the output that minimizes the MSE of all of the training data would just be the mean of all of the training data, meaning that the same output is generated each time.</p>
+                    <p><strong>The Averaging/Centroid Effect:</strong> The patterns in the observed generated data are almost a combination of the training data set, with all of the shapes of the numbers layered on top of each other. It is as though it is predicting the mean of all of the training examples from the training set. This makes sense because the way we train the model is we want the model to create the output that minimizes the MSE to all training examples. Just like we talked about in lecture, how with colored images things go more grey because it's in the middle of all of the colors, the output that minimizes the MSE of all of the training data would just be the mean of all of the training data, meaning that the same output is generated each time.</p>
+                    
+                    <p><strong>Progression from Epoch 1 to Epoch 5:</strong> [Compare the denoised outputs from epoch 1 to epoch 5. Does the averaging effect become more pronounced and stable? Are the blurry averaged digits more consistent by epoch 5?]</p>
+                    
+                    <p><strong>Why This Fails for Generation:</strong> This demonstrates the fundamental limitation of one-step denoising from pure noise with MSE loss - the model learns to output the dataset mean rather than generating diverse, realistic samples. This motivates the need for the iterative flow matching approach in Part 2.</p>
                  </div>
+            </div>
             </div>
 
             <!-- Part 2: Flow Matching Model -->
