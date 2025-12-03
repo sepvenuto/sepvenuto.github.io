@@ -1351,16 +1351,6 @@ stage_1.scheduler.set_timesteps(timesteps=strided_timesteps)
                             <div class="image-caption">Denoised Result</div>
                         </div>
                     </div>
-
-                    <h5>Observations</h5>
-                    <p>[Discuss how the denoiser performs on noise levels it wasn't trained on. Key points to consider:</p>
-                    <ul>
-                        <li>Performance at σ = 0.5 (the training noise level) should be best</li>
-                        <li>For lower noise levels (σ < 0.5), the denoiser might over-smooth the image</li>
-                        <li>For higher noise levels (σ > 0.5), the denoiser struggles to remove all the noise</li>
-                        <li>The denoiser generalizes reasonably well to nearby noise levels (e.g., σ = 0.4 or 0.6)</li>
-                        <li>At extreme noise levels (σ = 1.0), significant noise may remain or the digit may be unrecognizable</li>
-                    </ul>
                     <p>]</p>
 
                     <h4>1.2.3 Denoising Pure Noise</h4>
