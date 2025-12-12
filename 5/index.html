@@ -395,11 +395,11 @@
                     <p><strong>Classifier-Free Guidance Concept:</strong> CFG improves generation quality by combining conditional and unconditional noise predictions:</p>
                     <p><strong>Formula:</strong> ε = ε<sub>u</sub> + γ(ε<sub>c</sub> - ε<sub>u</sub>)</p>
                     <ul>
-                        <li>ε<sub>c</sub>: conditional noise estimate (with text prompt)</li>
-                        <li>ε<sub>u</sub>: unconditional noise estimate (empty prompt)</li>
+                        <li>ε<sub>c</sub>: conditional (text prompt) noise estimate  </li>
+                        <li>ε<sub>u</sub>: unconditional (empty prompt) noise estimate </li>
                         <li>γ: guidance scale controlling the strength</li>
                     </ul>
-                    <p>This steers the generation more strongly toward the text prompt, producing higher-quality but less diverse results. The implementation follows the same iterative denoising structure as 1.4, but computes two noise estimates per step (conditional and unconditional) and combines them according to the CFG formula.</p>
+                    <p>As increase the guidance scale increases, it pushes the generated image more strongly toward the text prompt, producing higher-quality/more close to what was prompted but less unique results. The implementation has the same denoising process as 1.4, but computes two noise estimates per step (conditional and unconditional) and combines them following CFG formula.</p>
 
                     <h4>Improved Samples with CFG</h4>
                     <p>These images are generated with CFG scale of 7, showing dramatically improved quality:</p>
@@ -570,7 +570,7 @@
                 <div class="project-content-body">
                     <p>Implementing inpainting using the RePaint algorithm. At each denoising step, we replace the unmasked regions with the original image (with appropriate noise added), while allowing the model to generate content in the masked regions.</p>
                     
-                    <p><strong>RePaint Algorithm:</strong> At each denoising step, we:</p>
+                    <p><strong>RePaint Algorithm:</strong> At each denoising step:</p>
                     <ol>
                         <li>Denoise the entire image using CFG as normal</li>
                         <li>Add the appropriate amount of noise to the original image for timestep t'</li>
@@ -717,14 +717,14 @@
                 <div class="project-content-body">
                     <p>Creating optical illusions where an image shows one thing right-side up and something completely different when flipped upside down!</p>
                     
-                    <p><strong>Visual Anagrams Algorithm:</strong> We create images that look different when flipped by:</p>
+                    <p><strong>Visual Anagrams Algorithm:</strong> The model creatse images that look different when flipped by:</p>
                     <ol>
-                        <li>Computing noise estimate ε₁ for prompt p₁ on the normal image using CFG</li>
-                        <li>Flipping the image, computing noise estimate ε₂ for prompt p₂ using CFG, then flipping back</li>
-                        <li>Averaging the noise estimates: ε = (ε₁ + ε₂) / 2</li>
-                        <li>Using this combined estimate for the denoising step</li>
+                        <li>Compute noise estimate ε₁ for prompt p₁ on the normal image using CFG</li>
+                        <li>Flip image upside down, computing noise estimate ε₂ for prompt p₂ using CFG, then flipping back upside</li>
+                        <li>Average the noise estimates: ε = (ε₁ + ε₂) / 2</li>
+                        <li>For denoising, use the ε of the combined</li>
                     </ol>
-                    <p><strong>Key insight:</strong> Both CFG estimates use the same guidance scale for consistency. By averaging noise predictions from two orientations, we encourage the model to satisfy both prompts simultaneously.</p>
+                    <p><strong>Key insight:</strong> By averaging noise predictions from two orientations, model tries to satisfy both prompts.</p>
                     
                     <h3>Visual Anagram 1: Eiffel tower and golden gate bridge</h3>
                     <p><strong>Prompt 1 (normal):</strong> "the Eiffel Tower"</p>
@@ -786,10 +786,10 @@
                         <li>Sigma: 2</li>
                     </ul>
                     
-                    <p><strong>Hybrid Images via Factorized Diffusion:</strong> Similar to Project 2, we combine frequency bands:</p>
+                    <p><strong>Hybrid Images via Factorized Diffusion:</strong> Similar to Project 2, the implementation combines frequency bands:</p>
                     <ol>
-                        <li>Compute CFG noise estimate ε₁ for the low-frequency prompt</li>
-                        <li>Compute CFG noise estimate ε₂ for the high-frequency prompt</li>
+                        <li>Compute CFG noise estimate ε₁ for the low-freq prompt</li>
+                        <li>Compute CFG noise estimate ε₂ for the high-freq prompt</li>
                         <li>Apply frequency filtering: ε = lowpass(ε₁) + highpass(ε₂)</li>
                         <li>Use this hybrid noise estimate for denoising</li>
                     </ol>
